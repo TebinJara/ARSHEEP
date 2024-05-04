@@ -77,52 +77,46 @@ export const RouterPrincipal = () => {
   return (
     <BrowserRouter>
       <div className="router-layout">
-
-      <div className="lat-menu">
-        <div className="logo-arsheep">
-          <img src="../img/logo-arsheep.png" alt="Descripción" />
+        <div className="lat-menu">
+          <div className="logo-arsheep">
+            <img src="../img/logo-arsheep.png" alt="Descripción" />
+          </div>
+          <InfoProfile />
+          <ul>
+            {subMenus.map(menu => (
+              <React.Fragment key={menu.id}>
+                <li className='li-menu-principal'>
+                  < NavLink to={menu.path} onClick={() => handleMenuClick(menu.id)}
+                    className={selectedMenuLat === menu.id ? 'active' : ''}>
+                    {menu.id === 1 ? "Clientes" :
+                      menu.id === 2 ? "Ordenes de trabajo" :
+                        menu.id === 3 ? "Tickets" :
+                          menu.id === 4 ? "Estadisticas" :
+                            menu.id === 5 ? "Configuración" :
+                              "Salir"}
+                  </NavLink>
+                </li>
+                {selectedMenuLat === menu.id && (
+                  <ul className='ul-submenu'>
+                    {menu.subMenu.map(item => (
+                      <li className='li-submenu' key={item.path}>
+                       <NavLink className='a-submenu' to={item.path}>{item.label}</NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </React.Fragment>
+            ))}
+          </ul>
         </div>
-        <InfoProfile />
-        <ul>
-          {subMenus.map(menu => (
-            <React.Fragment key={menu.id}>
-              <li className='li-menu-principal'>
-                < NavLink to={menu.path} onClick={() => handleMenuClick(menu.id)}
-                  className={selectedMenuLat === menu.id ? 'active' : ''}>
-                  {menu.id === 1 ? "Clientes" :
-                    menu.id === 2 ? "Ordenes de trabajo" :
-                      menu.id === 3 ? "Tickets" :
-                        menu.id === 4 ? "Estadisticas" :
-                          menu.id === 5 ? "Configuración" :
-                            "Salir"}
-                </NavLink>
-              </li>
-              {selectedMenuLat === menu.id && (
-                <ul className='ul-submenu'>
-                  {menu.subMenu.map(item => (
-                    <li className='li-submenu' key={item.path}>
-                      <a className='a-submenu' href={item.path}>{item.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </React.Fragment>
-          ))}
-        </ul>
-
-
+        <div className="content-browser">
+          <Routes>
+            <Route path="/" element={<PageCliente />} />
+            <Route path="/Clientes" element={<PageCliente />} />
+            <Route path="*" element={(<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>)} />
+          </Routes>
+        </div>
       </div>
-      <div className="content-browser">
-        <Routes>
-          <Route path="/" element={<PageCliente />} />
-          <Route path="/Clientes" element={<PageCliente />} />
-          <Route path="*" element={(<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>)} />
-        </Routes>
-
-      </div>
-
-      </div>
-
     </BrowserRouter>
   );
 };
