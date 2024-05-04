@@ -1,0 +1,253 @@
+/* Estilo general para el contenedor de la tabla, establece fuente, color y disposición */
+.clientes-container-1 {
+  padding: 10px;
+  width: 100%;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  background-color: #4a4b4e;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+}
+
+.info-cliente {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 2.5px;
+  padding: 10px;
+  background-color: #4a4b4e;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  .info-cliente-1 {
+    width: 40%;
+    height: 100%;
+    padding: 10px;
+    margin: 5px;
+
+    img {
+      width: 300px;
+      height: 300px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      border: 2px solid #c2d971;
+      transition: 300ms;
+    }
+  }
+
+  .info-cliente-2 {
+    width: 60%;
+    height: 100%;
+    padding: 10px;
+    margin: 5px;
+    box-sizing: border-box;
+  }
+}
+
+.clientes-container-1-1 {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-areas: "tabla info-cliente";
+  background-color: #4a4b4e;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+}
+
+.clientes-container-1-1-2 {
+  grid-area: info-cliente;
+  width: 60%;
+  height: auto;
+  margin: 5px;
+  padding: 10px;
+  background-color: #4a4b4e;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  strong {
+    color: #c2d971;
+  }
+}
+
+.clientes-container-1-1-1 {
+  grid-area: tabla;
+  width: 40%;
+  height: auto;
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 10px;
+  background-color: #4a4b4e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.clientes-container-1-1 {
+  width: 100%;
+  display: flex;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 2.5px;
+  padding: 0; /* Elimina el padding aquí para que no afecte los cálculos internos */
+  background-color: #4a4b4e;
+  color: white;
+  display: block; /* Cambia de flex a block para permitir el scroll en tbody */
+}
+
+.table thead {
+  display: block; /* Mantiene el thead fijo y no afectado por el scroll */
+  width: 100%; /* Asegura que el thead ocupe todo el ancho disponible */
+  background-color: #c2d971;
+  color: black;
+}
+
+.table tbody {
+  display: block; /* Permite desplazamiento independiente del thead */
+  max-height: 400px; /* Altura máxima antes de que el desplazamiento sea necesario */
+  overflow-y: auto; /* Añade desplazamiento vertical */
+  width: auto; /* Asegura que tbody use todo el ancho de la tabla */
+}
+
+.table th,
+.table td {
+  width: auto;
+  padding: 5px;
+  text-align: left;
+  min-width: 120px;
+  box-sizing: border-box;
+}
+
+.table tbody tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.137);
+}
+
+.table tbody tr:nth-child(odd):hover {
+  background-color: #c2d971;
+  cursor: pointer;
+  color: black;
+}
+
+.table-row:hover {
+  background-color: #c2d971;
+  cursor: pointer;
+  color: black;
+}
+
+.filter-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 2.5px;
+  padding: 10px;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+  color: white;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .filter-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    margin: 2px;
+    padding: 2px;
+    color: white;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .tittle-filter-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      box-sizing: border-box;
+    }
+
+    .input-filter-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      box-sizing: border-box;
+    }
+
+    .button-filter-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.filter-container select,
+.filter-container input {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid white;
+  background-color: #333;
+  font-size: 12px;
+  color: white;
+}
+
+.filter-container select:focus,
+.filter-container input:focus {
+  border-color: #c2d971;
+  outline: none;
+}
+
+.action-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 2.5px;
+  padding: 10px;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.data-cliente {
+  margin: 2.5px;
+  padding: 10px;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+  p {
+    background: rgba(0, 0, 0, 0.062);
+    width: 100%;
+    margin-top: 0.5px;
+    padding: 10px;
+    text-align: start;
+    box-sizing: border-box;
+  }
+}
+
+.buttons-data-cliente {
+  margin: 2.5px;
+  padding: 10px;
+  display: flex;
+  box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
+}

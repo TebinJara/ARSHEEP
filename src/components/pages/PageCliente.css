@@ -1,0 +1,10 @@
+.page-cliente{
+    display: flex;
+    box-sizing: border-box;
+}
+
+.content{
+
+    width: 100%;
+    
+}

@@ -1,0 +1,30 @@
+.layout-1{
+  display: grid;
+  /*grid-template-rows: 60px 100% 60px;*/
+  grid-template-areas: 
+  "header header header" 
+  "content content content" 
+  "footer footer footer";
+  
+}
+
+.header {
+  grid-area: header;
+  margin: 0;
+
+  box-sizing: border-box;
+}
+
+
+.content {
+  grid-area: content;
+  margin: 0;
+
+  box-sizing: border-box;
+}
+
+.footer{
+    grid-area: footer;
+    
+    box-sizing: border-box;
+}

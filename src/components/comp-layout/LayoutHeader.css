@@ -1,0 +1,29 @@
+.header {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  background: #4a4b4e;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    color: #215776;
+    -webkit-text-stroke-width: 0.3px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+  }
+
+  .logo-empresa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 100%;
+      max-height: 3rem;
+    }
+  }
+
+}
