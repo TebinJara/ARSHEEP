@@ -110,3 +110,12 @@
     max-height: 2rem;
   }
 }
+.arrow {
+  display: none;
+}
+
+.active .arrow {
+  display: inline-block; 
+  margin-left: 5px; 
+}
+

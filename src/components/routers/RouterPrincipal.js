@@ -47,7 +47,6 @@ export const RouterPrincipal = () => {
         { path: '/contact-B', label: 'Ordenes de Tarabajo' },
         { path: '/contact-C', label: 'Tickets' }
       ],
-
     },
     {
       id: 5,
@@ -55,7 +54,6 @@ export const RouterPrincipal = () => {
       subMenu: [
         { path: '/contact-A', label: 'Perfil' },
       ],
-
     },
     {
       id: 6,
@@ -63,7 +61,6 @@ export const RouterPrincipal = () => {
       subMenu: [
         { path: '/contact-A', label: 'Salir' },
       ],
-
     }
   ];
 
@@ -100,7 +97,9 @@ export const RouterPrincipal = () => {
                   <ul className='ul-submenu'>
                     {menu.subMenu.map(item => (
                       <li className='li-submenu' key={item.path}>
-                       <NavLink className='a-submenu' to={item.path}>{item.label}</NavLink>
+                       <NavLink className='a-submenu' to={item.path}>{item.label}
+                       {selectedMenuLat === menu.id && <span className="arrow">▶</span>}
+                       </NavLink>
                       </li>
                     ))}
                   </ul>
