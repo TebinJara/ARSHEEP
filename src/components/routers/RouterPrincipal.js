@@ -7,6 +7,7 @@ import "./RouterPrincipal.css";
 export const RouterPrincipal = () => {
   // Estado para controlar el menú lateral seleccionado
   const [selectedMenuLat, setSelectedMenuLat] = useState(null);
+  const [selectedSubMenu, setSelectedSubMenu] = useState(null);
 
   // Definición de menús y submenús
   const subMenus = [
@@ -67,9 +68,13 @@ export const RouterPrincipal = () => {
   const handleMenuClick = (id) => {
     if (selectedMenuLat === id) {
       setSelectedMenuLat(null); // Si ya está seleccionado, desactivarlo
+      setSelectedSubMenu(null);
     } else {
       setSelectedMenuLat(id); // Si no está seleccionado, activarlo
     }
+  };
+  const handleSubMenuClick = (id) => {
+    setSelectedSubMenu(id); // Seleccionar el submenú
   };
   return (
     <BrowserRouter>
@@ -96,10 +101,10 @@ export const RouterPrincipal = () => {
                 {selectedMenuLat === menu.id && (
                   <ul className='ul-submenu'>
                     {menu.subMenu.map(item => (
-                      <li className='li-submenu' key={item.path}>
-                       <NavLink className='a-submenu' to={item.path}>{item.label}
-                       {selectedMenuLat === menu.id && <span className="arrow">▶</span>}
-                       </NavLink>
+                      <li className={`li-submenu ${selectedSubMenu === item.path ? 'active' : ''}`} key={item.path}>
+                        <NavLink className='a-submenu' to={item.path} onClick={() => handleSubMenuClick(item.path)}>
+                          <span className="arrow">{selectedSubMenu === item.path ? '▶' : ''}</span> {item.label}
+                        </NavLink>
                       </li>
                     ))}
                   </ul>
