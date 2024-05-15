@@ -38,6 +38,7 @@ export const TablaClientes = () => {
                             <td>{cliente.run_cliente}</td>
                             <td>{cliente.dv_run}</td>
                             <td>{cliente.nombre_cliente}</td>
+                            
                         </tr>
                     ))}
                 </tbody>
@@ -49,6 +50,7 @@ export const TablaClientes = () => {
                     <p><strong>Nombre:</strong> {clienteSeleccionado.nombre_cliente}</p>
                     <p><strong>Dirección:</strong> {clienteSeleccionado.direccion_cliente}</p>                    
                     <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto}</p>
+                    <img src={clienteSeleccionado.url_imagen} alt={`Imagen de ${clienteSeleccionado.nombre_cliente}`} className="imagen-cliente" />
                 </div>
             )}
         </div>

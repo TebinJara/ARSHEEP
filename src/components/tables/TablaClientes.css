@@ -251,3 +251,9 @@
   display: flex;
   box-shadow: inset 1px 1px 1px #00000018, inset -1px -1px 1px #ffffff1a;
 }
+/*prueba de formato imagen*/
+.imagen-cliente {
+  width: 150px;
+  height: 100px; 
+}
+
