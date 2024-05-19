@@ -40,3 +40,16 @@ export const obtenerUsuario = async () => {
         return null;
     }
 };
+
+export const obtenerOrdenesDeTrabajo = async () => {
+    try {
+        let { data, error } = await supabase
+            .from('ordenes_de_trabajo') // Nombre de la tabla en tu base de datos
+            .select('*');
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error('Error al obtener órdenes de trabajo:', error);
+        return null;
+    }
+};
