@@ -1,0 +1,15 @@
+# Dependencias
+/node_modules/
+
+# Archivos de configuración de entorno
+.env
+
+# Carpetas de caché
+.cache/
+
+# Dist o build folders
+/dist/
+/build/
+
+# Logs
+*.log
