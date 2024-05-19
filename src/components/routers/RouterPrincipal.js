@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, NavLink, BrowserRouter } from "react-router-dom";
 import { PageCliente } from "../pages/PageCliente";
-import { InfoProfile } from "../comp-layout/InfoProfile";
+import { InfoProfile } from "../Layout/comp-layout/InfoProfile";
 import "./RouterPrincipal.css";
 
 export const RouterPrincipal = () => {
@@ -73,9 +73,11 @@ export const RouterPrincipal = () => {
       setSelectedMenuLat(id); // Si no está seleccionado, activarlo
     }
   };
+
   const handleSubMenuClick = (id) => {
     setSelectedSubMenu(id); // Seleccionar el submenú
   };
+
   return (
     <BrowserRouter>
       <div className="router-layout">
@@ -113,6 +115,7 @@ export const RouterPrincipal = () => {
             ))}
           </ul>
         </div>
+
         <div className="content-browser">
           <Routes>
             <Route path="/" element={<PageCliente />} />
@@ -120,6 +123,7 @@ export const RouterPrincipal = () => {
             <Route path="*" element={(<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>)} />
           </Routes>
         </div>
+
       </div>
     </BrowserRouter>
   );

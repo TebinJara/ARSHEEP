@@ -22,3 +22,21 @@ export const obtenerClientes = async () => {
         return null;
     }
 };
+
+// Función obtener datos usuario
+export const obtenerUsuario = async () => {
+    try {        
+        const { data, error } = await supabase
+            .from('USUARIO')
+            .select('*'); // Seleccionar todos los campos
+
+        if (error) {
+            throw error;
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error al obtener los datos de la tabla de clientes:', error.message);
+        return null;
+    }
+};

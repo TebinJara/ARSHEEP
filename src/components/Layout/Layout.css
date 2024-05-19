@@ -2,9 +2,9 @@
   display: grid;
   /*grid-template-rows: 60px 100% 60px;*/
   grid-template-areas: 
-  "header header header" 
-  "content content content" 
-  "footer footer footer";
+  "header header header header header header header header header header" 
+  "menuNav content content content content content content content content content" 
+  "footer footer footer footer footer footer footer footer footer footer";
   
 }
 
@@ -12,6 +12,12 @@
   grid-area: header;
   margin: 0;
 
+  box-sizing: border-box;
+}
+
+.menuNav {
+  grid-area: menuNav;
+  margin: 0;
   box-sizing: border-box;
 }
 
