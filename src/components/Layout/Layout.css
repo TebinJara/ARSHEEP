@@ -1,36 +1,53 @@
-.layout-1{
+.layout-1 {
   display: grid;
-  /*grid-template-rows: 60px 100% 60px;*/
-  grid-template-areas: 
-  "header header header header header header header header header header" 
-  "menuNav content content content content content content content content content" 
-  "footer footer footer footer footer footer footer footer footer footer";
-  
+  grid-template-columns: 240px 1fr; /* Tamaño fijo para el menú y el resto flexible */
+  grid-template-rows: 100px 1fr 100px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
+  grid-template-areas:
+    "header header"
+    "menuNav content"
+    "footer footer";
+  height: 100vh; /* Asegura que el layout ocupe toda la altura de la ventana */
+  margin: 0;
+  padding: 0; /* Eliminamos cualquier padding externo */
+  box-sizing: border-box; /* Incluye paddings y borders dentro de la altura y ancho del elemento */
+  overflow: hidden; /* Evita cualquier desbordamiento accidental */
 }
 
 .header {
   grid-area: header;
-  margin: 0;
-
-  box-sizing: border-box;
+  padding: 20px;
+  background: #4a4b4e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
 }
 
 .menuNav {
   grid-area: menuNav;
-  margin: 0;
-  box-sizing: border-box;
+  background: #4a4b4e; /* Gris oscuro como en tus menús anteriores */
+  display: flex;
+  flex-direction: column;
+  padding: 10px; /* Espaciado interno */
+  box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
+  overflow: auto; /* Permite desplazamiento si el contenido excede */
 }
-
 
 .content {
   grid-area: content;
-  margin: 0;
-
-  box-sizing: border-box;
+  overflow: auto; /* Permite desplazamiento si el contenido excede */
+  background: #4a4b4e;
+  padding: 10px; /* Espaciado para el contenido, importante para la legibilidad */
+  box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
+  box-shadow: inset 1px 1px 2px #2b2c2b, inset -1px -1px 2px #7c7c78;
 }
 
-.footer{
-    grid-area: footer;
-    
-    box-sizing: border-box;
+.footer {
+  grid-area: footer;
+  background: #ccc; /* Un gris claro */
+  padding: 10px; /* Añadir padding para mejorar la visibilidad */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
 }

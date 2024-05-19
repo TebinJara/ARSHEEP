@@ -29,7 +29,6 @@ export const PageCliente = () => {
     // El componente devuelve un bloque JSX que define la UI del componente.
     return (
         <div className='clientes-container-1'>
-            <h2>Listado de Clientes</h2>
             <table className="table">
                 <thead>
                     <tr>
@@ -52,12 +51,23 @@ export const PageCliente = () => {
             {/* Muestra información detallada del cliente seleccionado si hay alguno */}
             {clienteSeleccionado && (
                 <div className='info-cliente'>
-                    <h2>Información del Cliente</h2>
-                    <p><strong>RUT:</strong> {clienteSeleccionado.run_cliente}</p>
-                    <p><strong>Nombre:</strong> {clienteSeleccionado.nombre_cliente}</p>
-                    <p><strong>Dirección:</strong> {clienteSeleccionado.direccion_cliente}</p>
-                    <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto}</p>
-                    <img src={clienteSeleccionado.url_imagen} alt={`Imagen de ${clienteSeleccionado.nombre_cliente}`} className="imagen-cliente" />
+
+                    <div className='info-cliente-1'>
+                        <h2>Información del Cliente</h2>
+                    </div>
+                    <div className='info-cliente-2'>
+                        <div className='info-cliente-2-1'>
+                            <p><strong>RUT:</strong> {clienteSeleccionado.run_cliente}</p>
+                            <p><strong>Nombre:</strong> {clienteSeleccionado.nombre_cliente}</p>
+                            <p><strong>Dirección:</strong> {clienteSeleccionado.direccion_cliente}</p>
+                            <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto}</p>
+                        </div>
+                        <div className='info-cliente-2-2'>
+                            <img src={clienteSeleccionado.url_imagen} alt={`Imagen de ${clienteSeleccionado.nombre_cliente}`} className="imagen-cliente" />
+                        </div>
+                    </div>
+
+
                 </div>
             )}
         </div>

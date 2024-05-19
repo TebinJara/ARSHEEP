@@ -7,19 +7,14 @@ import { Layout } from '../Layout/Layout';
 export const ArsheepRouter = () => {
   return (
     <div className="content-browser">
-
-      <h1>HOLAAAAAA</h1>
       <BrowserRouter>
-
         <Routes>
-
           <Route path="/" element={<Login />} />
-          <Route path="/Clientes" element={<Layout />} />
-          <Route path="*" element={(<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>)} />
-          
-
+          <Route path="/Layout/*" element={<Layout />}>
+            <Route path="Clientes" element={<PageCliente />} />
+          </Route>
+          <Route path="*" element={<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>} />
         </Routes>
-
       </BrowserRouter>
     </div>
   )

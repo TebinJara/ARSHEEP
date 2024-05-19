@@ -6,6 +6,7 @@ import { RouterPrincipal } from "../routers/RouterPrincipal";
 import { ArsheepRouter } from "../routers/ArsheepRouter";
 import { MenuNav } from "../Layout/comp-layout/MenuNav";
 import { PageCliente } from "../pages/PageCliente";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 
 export const Layout = () => {
@@ -13,7 +14,7 @@ export const Layout = () => {
     <div className="layout-1">
       <div className="header"><LayoutHeader/></div>
       <div className="menuNav"><MenuNav/></div>
-      <div className="content"><PageCliente/></div>
+      <div className="content"><Outlet/></div>
       <div className="footer"><LayoutFooter/></div>
     </div>
   );
