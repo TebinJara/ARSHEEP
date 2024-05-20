@@ -29,15 +29,19 @@ export const PageOT = () => {
                         <th>Descripción</th>
                         <th>Status</th>
                         <th>Fecha Creación</th>
+                        <th>Fecha Vencimiento</th>
+                        <th>Prioridad</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((ot) => (
                         <tr key={ot.id_ot} onClick={() => seleccionarOT(ot)} className="table-row">
                             <td>{ot.id_ot}</td>
-                            <td>{ot.descripcion}</td>
+                            <td>{ot.descripción}</td>
                             <td>{ot.status}</td>
                             <td>{ot.fecha_creacion}</td>
+                            <td>{ot.fecha_vencimiento}</td>
+                            <td>{ot.prioridad}</td>
                         </tr>
                     ))}
                 </tbody>
