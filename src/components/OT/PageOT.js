@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import "../OT/PageOT.css";
-import { obtenerOrdenesDeTrabajo } from '../../services/supa';
+import { obtenerOrdenesDeTrabajo, obtenerEmpleadoPorId, obtenerStatusPorId } from '../../services/supa';
 
 export const PageOT = () => {
     const [data, setData] = useState([]);
     const [otSeleccionada, setOtSeleccionada] = useState(null);
+    const [nombreEmpleado, setNombreEmpleado] = useState(null);
+    const [nombreStatus, setNombreStatus] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const ordenes = await obtenerOrdenesDeTrabajo();
             if (ordenes) {
-                setData(ordenes);
+                const updatedOrdenes = await Promise.all(
+                    ordenes.map(async (ot) => {
+                        const empleado = await obtenerEmpleadoPorId(ot.id_empleado);
+                        const status = await obtenerStatusPorId(ot.status);
+                        return {
+                            ...ot,
+                            nombreEmpleado: empleado
+                                ? `${empleado.pnombre} ${empleado.snombre} ${empleado.apaterno} ${empleado.amaterno}`
+                                : 'Desconocido',
+                            nombreStatus: status ? status.nombre_status : 'Desconocido'
+                        };
+                    })
+                );
+                setData(updatedOrdenes);
             }
         };
         fetchData();
     }, []);
 
-    const seleccionarOT = ot => {
+    const seleccionarOT = async (ot) => {
         setOtSeleccionada(ot);
+        const empleado = await obtenerEmpleadoPorId(ot.id_empleado);
+        setNombreEmpleado(empleado);
+        const status = await obtenerStatusPorId(ot.status);
+        setNombreStatus(status);
     };
 
     return (
@@ -38,7 +57,7 @@ export const PageOT = () => {
                         <tr key={ot.id_ot} onClick={() => seleccionarOT(ot)} className="table-row">
                             <td>{ot.id_ot}</td>
                             <td>{ot.descripción}</td>
-                            <td>{ot.status}</td>
+                            <td>{ot.nombreStatus}</td>
                             <td>{ot.fecha_creacion}</td>
                             <td>{ot.fecha_vencimiento}</td>
                             <td>{ot.prioridad}</td>
@@ -51,12 +70,15 @@ export const PageOT = () => {
                     <h2>Información de la OT</h2>
                     <p><strong>ID OT:</strong> {otSeleccionada.id_ot}</p>
                     <p><strong>Descripción:</strong> {otSeleccionada.descripcion}</p>
-                    <p><strong>Status:</strong> {otSeleccionada.status}</p>
+                    <p><strong>Status:</strong> {nombreStatus ? nombreStatus.nombre_status : 'Cargando...'}</p>
                     <p><strong>Fecha de Creación:</strong> {otSeleccionada.fecha_creacion}</p>
                     <p><strong>Prioridad:</strong> {otSeleccionada.prioridad}</p>
                     <p><strong>Adicional:</strong> {otSeleccionada.adicional}</p>
                     <p><strong>RUN Cliente:</strong> {otSeleccionada.run_cliente}</p>
-                    <p><strong>ID Empleado:</strong> {otSeleccionada.id_empleado}</p>
+                    <p><strong>Empleado:</strong> {nombreEmpleado 
+                        ? `${nombreEmpleado.pnombre} ${nombreEmpleado.snombre} ${nombreEmpleado.apaterno} ${nombreEmpleado.amaterno}`
+                        : 'Cargando...'}
+                    </p>
                     <div>
                         <h3>Diagnóstico</h3>
                         <p>{otSeleccionada.diagnostico}</p>

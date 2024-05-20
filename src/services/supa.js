@@ -53,3 +53,34 @@ export const obtenerOrdenesDeTrabajo = async () => {
         return null;
     }
 };
+export const obtenerEmpleadoPorId = async (idEmpleado) => {
+    try {
+        const { data, error } = await supabase
+            .from('EMPLEADO')
+            .select('id_empleado, pnombre, snombre, apaterno, amaterno')
+            .eq('id_empleado', idEmpleado)
+            .single();
+
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error('Error al obtener el empleado por ID:', error);
+        return null;
+    }
+};
+
+export const obtenerStatusPorId = async (idStatus) => {
+    try {
+        const { data, error } = await supabase
+            .from('TIPO_STATUS')
+            .select('*')
+            .eq('status', idStatus)
+            .single();
+
+        if (error) throw error;
+        return data;
+    } catch (error) {
+        console.error('Error al obtener el status por ID:', error);
+        return null;
+    }
+};
