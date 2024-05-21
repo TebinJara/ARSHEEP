@@ -46,7 +46,7 @@ export const MenuNav = () => {
                             to="/Layout/OT"
                             onClick={() => handleNavLinkClick("/Layout/OT")}
                         >
-                            O.T.
+                            Ordenes de Trabajo
                         </NavLink>
                     <li>
                         <NavLink

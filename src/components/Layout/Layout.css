@@ -1,7 +1,7 @@
 .layout-1 {
   display: grid;
-  grid-template-columns: 240px 1fr; /* Tamaño fijo para el menú y el resto flexible */
-  grid-template-rows: 60px 1fr 80px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
+  grid-template-columns: 150px 1fr; /* Tamaño fijo para el menú y el resto flexible */
+  grid-template-rows: 60px 1fr 50px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
   grid-template-areas:
     "header header"
     "menuNav content"
@@ -50,4 +50,5 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
+  height: 10px; /* Establecer la altura del footer en 100px */
 }
