@@ -1,3 +1,4 @@
+
 .clientes-container-1 {
   box-sizing: border-box;
   width: 100%;
@@ -15,7 +16,7 @@
 
 .list-clientes {
   box-sizing: border-box;
-  width: 50%;
+  width: 30%;
   height: auto;
   background-color: #889758;
   padding: 10px;
@@ -31,7 +32,7 @@
 
 .dashboard-details {
   box-sizing: border-box;
-  width: 50%;
+  width: 70%;
   min-height: 100%;
   background-color: #889758;
   padding: 10px;
@@ -105,9 +106,9 @@
 
 .dashboard-details-containt-image {
   box-sizing: border-box;
-  width: 50%;
-  height: 200px;
-  padding: 2px;
+  width: 800px;
+  height: 400px;
+  padding: 12px;
   margin: 2px;
   display: flex;
   justify-content: center;
@@ -119,7 +120,7 @@
 
   img {
     width: 100%;
-    max-height: 200px;
+    max-height: 100%;
   }
 }
 
@@ -217,6 +218,7 @@
 
 .table {
   width: 100%;
+  height: auto;
   margin: 5px;
   border-collapse: collapse;
   background-color: #889758;
@@ -246,7 +248,7 @@
   display: block;
   width: 100%;
   overflow-y: auto; /* Permite desplazamiento vertical */
-  max-height: 200px; /* Altura máxima antes de que aparezca el desplazamiento */
+  max-height: 250px; /* Altura máxima antes de que aparezca el desplazamiento */
   background-color: #d5d5d1;
   text-align: left;
   font-size: 12px;

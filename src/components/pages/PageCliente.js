@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../pages/PageCliente.css";
 import { obtenerClientes } from '../../services/supa';
+import { Prueba } from './Prueba';
 
 export const PageCliente = () => {
     const [data, setData] = useState([]);
@@ -8,7 +9,6 @@ export const PageCliente = () => {
     const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     const [filtro, setFiltro] = useState('');
     const [criterio, setCriterio] = useState('nombre_cliente');
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);  // Estado para controlar la visibilidad del formulario
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,6 +17,10 @@ export const PageCliente = () => {
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        setFilteredData(data); // Actualiza filteredData cada vez que data cambia
+    }, [data]);
 
     const seleccionarCliente = cliente => {
         setClienteSeleccionado(cliente);
@@ -40,6 +44,8 @@ export const PageCliente = () => {
         setFiltro('');
     };
 
+    
+
 
     const abrirFormularioEnNuevaVentana = () => {
         const overlay = document.createElement("div");
@@ -52,11 +58,11 @@ export const PageCliente = () => {
         overlay.style.bottom = "0";
         overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
         overlay.style.zIndex = "1000";  // Asegúrate de que el zIndex sea suficientemente alto para cubrir todo.
-        
+
         document.body.appendChild(overlay);
-    
+
         const nuevaVentana = window.open('', '_blank', 'width=600,height=400,left=200,top=200');
-    
+
         nuevaVentana.document.write(
             `
             <!DOCTYPE html>
@@ -65,7 +71,13 @@ export const PageCliente = () => {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Agregar Cliente</title>
+                
             </head>
+            <style> 
+                body{
+                    input
+                }
+            </style>
             <body>
                 <h1>Agregar Nuevo Cliente</h1>
                 <form>
@@ -82,9 +94,9 @@ export const PageCliente = () => {
             </html>
             
         `);
-    
+
         nuevaVentana.document.close(); // Asegura que el contenido de la nueva ventana se ha cargado completamente
-    
+
         // Escuchar cuando la nueva ventana se cierra para eliminar el overlay
         const interval = setInterval(() => {
             if (nuevaVentana.closed) {
@@ -92,6 +104,8 @@ export const PageCliente = () => {
                 document.body.removeChild(overlay);
             }
         }, 100);
+
+
     }
 
     return (
