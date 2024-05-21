@@ -84,3 +84,13 @@ export const obtenerStatusPorId = async (idStatus) => {
         return null;
     }
 };
+export async function uploadImagen1(file) {
+    const filePath = `img1/${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage.from('imgOT').upload(filePath, file);
+
+    if (error) {
+        console.error('Error al subir el archivo:', error);
+    } else {
+        console.log('Archivo subido exitosamente:', data);
+    }
+}
