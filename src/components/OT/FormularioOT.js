@@ -68,7 +68,11 @@ const FormularioOT = () => {
                     <div key={index} className="form-group">
                         <input type="file" style={{ display: 'none' }} ref={(ref) => campoArchivoRefs.current[index] = ref} onChange={(e) => handleArchivoSeleccionado(index, e)} accept="image/*" />
                         <button type="button" className="btn btn-secondary" onClick={() => handleClickAdjuntarArchivo(index)}>Adjuntar imagen {index + 1}</button>
-                        {archivos[index] && <p>{archivos[index].name}</p>}
+                        {archivos[index] && (
+                            <div className="image-preview">
+                                <img src={URL.createObjectURL(archivos[index])} alt={`Vista previa ${index + 1}`} />
+                            </div>
+                        )}
                     </div>
                 ))}
                 <div className="form-group">

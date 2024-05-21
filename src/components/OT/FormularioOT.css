@@ -31,9 +31,13 @@ textarea {
     resize: vertical; /* Permite redimensionar verticalmente el textarea */
 }
 
+.button-container {
+    display: flex;
+    align-items: center;
+}
+
 button {
-    display: block;
-    width: 100%;
+    flex: 1; /* Ocupa todo el espacio disponible */
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -43,6 +47,30 @@ button {
     cursor: pointer;
 }
 
+button.small {
+    flex: none; /* No cambia de tamaño */
+    padding: 5px; /* Tamaño más pequeño */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
 button:hover {
     background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse sobre el botón */
 }
+
+/* Estilos para el botón 2 */
+.small {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+/* Estilos para la vista previa de imágenes */
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    max-width: 100px;
+    height: auto;
+    margin-top: 5px;
+}
+
