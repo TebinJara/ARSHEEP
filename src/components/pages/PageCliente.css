@@ -1,123 +1,322 @@
 .clientes-container-1 {
+  box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 10px;
-  color: white;
-  font-size: 12px;
   display: flex;
+  background-color: #889758;
   flex-direction: row;
   align-items: flex-start;
-  box-sizing: border-box;
-}
-
-.info-cliente {
-  width: 80%;
-  height: 100%;
-  margin: 2.5px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  box-sizing: border-box;
-  box-shadow: inset 0.5px 0.5px 0.5px #2b2c2b5d, inset -0.5px -0.5px 0.5px #7c7c785a;
-}
-.info-cliente-1 {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  box-shadow: inset 0.5px 0.5px 0.5px #7c7c785a, inset -0.5px -0.5px 0.5px #2b2c2b5d;
-}
-.info-cliente-2 {
-  width: 100%;
-  height: 70%;
-  display: flex;
-  flex-direction: row;
-  padding: 15px;
-  box-sizing: border-box;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+    border-radius: 5px;
 }
 
-.info-cliente-2-1 {
+.list-clientes {
+  box-sizing: border-box;
+  width: 50%;
+  height: auto;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+
+.dashboard-details {
+  box-sizing: border-box;
+  width: 50%;
+  min-height: 100%;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+
+.dashboard-details-header {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  font-size: 14px;
+  color: #e9f3c6;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-details-containt {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 2px;
+  display: flex;
+  flex-direction: c;
+  align-items: center;
+  justify-content: space-around;
+  color: black;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.dashboard-details-containt-data {
+  box-sizing: border-box;
   width: 50%;
   height: 100%;
   padding: 10px;
+  margin: 2px;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: flex-start;
-  box-sizing: border-box;
-}
+  border-radius: 5px;
 
-.info-cliente-2-1 p {
-  display: block;
-  width: 100%;
-  text-align: start;
-  margin: 3px;
-  padding: 10px;
-  box-sizing: border-box;
-  box-shadow: inset 0.5px 0.5px 0.5px #2b2c2b5d, inset -0.5px -0.5px 0.5px #7c7c785a;
-}
-
-.info-cliente-2-2 {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  background-color: black;
-  img {
+  p {
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 100%;
-    height: auto;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    font-size: 14px;
+    color: #e9f3c6;
+    border-radius: 5px;
   }
 }
 
-.table {
-  border-collapse: collapse;
-  width: 100%;
+.dashboard-details-containt-image {
   box-sizing: border-box;
-  margin: 2.5px;
-  padding: 0; /* Elimina el padding aquí para que no afecte los cálculos internos */
-  background-color: #4a4b4e;
-  color: white;
-  display: block; /* Cambia de flex a block para permitir el scroll en tbody */
+  width: 50%;
+  height: 200px;
+  padding: 2px;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  background-color: rgb(0, 0, 0);
+
+  img {
+    width: 100%;
+    max-height: 200px;
+  }
+}
+
+.table-containt {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+
+.table-containt-filter {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+.table-containt-filter-input-header {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 12px;
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  color: #e9f3c6;
+  margin: 0px;
+}
+.table-containt-filter-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.table-containt-filter-button {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.table-containt-button {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+
+.dashboard-details .table-containt-button {
+  box-sizing: border-box;
+  width: 40%;
+  height: 100%;
+  background-color: #889758;
+  padding: 10px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+}
+
+.table {
+  width: 100%;
+  margin: 5px;
+  border-collapse: collapse;
+  background-color: #889758;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  font-size: 12px;
+}
+
+.table thead,
+.table th,
+.table td {
+  box-sizing: border-box;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */
 }
 
 .table thead {
-  display: block; /* Mantiene el thead fijo y no afectado por el scroll */
-  width: 100%; /* Asegura que el thead ocupe todo el ancho disponible */
-  background-color: #c2d971;
-  color: black;
+  width: 100%;
+  display: table; /* Mantiene la estructura de tabla */
+  table-layout: fixed; /* Asegura que las columnas tengan anchos fijos */
 }
 
 .table tbody {
-  display: block; /* Permite desplazamiento independiente del thead */
-  max-height: 400px; /* Altura máxima antes de que el desplazamiento sea necesario */
-  overflow-y: auto; /* Añade desplazamiento vertical */
-  width: auto; /* Asegura que tbody use todo el ancho de la tabla */
+  display: block;
+  width: 100%;
+  overflow-y: auto; /* Permite desplazamiento vertical */
+  max-height: 200px; /* Altura máxima antes de que aparezca el desplazamiento */
+  background-color: #d5d5d1;
+  text-align: left;
+  font-size: 12px;
+  color: black;
+}
+
+.table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Asegura que las filas sigan el ancho de las columnas definido */
+  background-color: transparent; /* Previene que las filas tengan un fondo que no coincida con tbody */
+  transition: 0.3s;
 }
 
 .table th,
 .table td {
-  width: auto;
-  padding: 5px;
   text-align: left;
-  min-width: 120px;
-  box-sizing: border-box;
+  padding: 8px; /* Ajusta el padding según tus necesidades */
 }
 
-.table tbody tr:nth-child(odd) {
-  background: rgba(0, 0, 0, 0.137);
+.table thead th {
+  background-color: #889758;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  border: none;
 }
 
-.table tbody tr:nth-child(odd):hover {
-  background-color: #c2d971;
+.table tbody td {
+  background-color: transparent; /* Mantiene el fondo del tbody si es necesario */
+  box-shadow: none;
+  border: none;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #a1a1a157; /* Color de fondo para filas pares, más claro para contrastar */
+}
+
+.table tbody tr:hover {
+  background-color: #3033208b; /* Color de fondo al pasar el mouse por encima */
   cursor: pointer;
-  color: black;
+  background-color: #c2d971;
+  color: #5b5e64;
 }
 
-.table-row:hover {
-  background-color: #c2d971;
+.clientes-container-1 button {
+  padding: 8px 20px; /* Ajuste para que todos los botones tengan el mismo tamaño */
+  margin: 2px ;
+  border: none;
+  background-color: #5b5e64;
+  color: #c2d971;
   cursor: pointer;
-  color: black;
+  transition: all 0.3s; /* Transición para color de fondo y borde */
+  font-size: 12px;
+}
+
+.clientes-container-1 button:hover {
+  background-color: #c2d971;
+  color: #5b5e64;
+}
+.clientes-container-1 input,
+select {
+  width: 10px;
+  height: auto;
+  padding: 8px 20px; /* Ajuste para que todos los botones tengan el mismo tamaño */
+  margin: 2px ;
+  border: none;
+  background-color: #5b5e64;
+  color: #c2d971;
+  cursor: pointer;
+  transition: all 0.3s; /* Transición para color de fondo y borde */
+  font-size: 10px;
 }

@@ -1,7 +1,7 @@
 .layout-1 {
   display: grid;
   grid-template-columns: 240px 1fr; /* Tamaño fijo para el menú y el resto flexible */
-  grid-template-rows: 100px 1fr 100px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
+  grid-template-rows: 60px 1fr 80px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
   grid-template-areas:
     "header header"
     "menuNav content"
@@ -36,10 +36,10 @@
 .content {
   grid-area: content;
   overflow: auto; /* Permite desplazamiento si el contenido excede */
-  background: #4a4b4e;
   padding: 10px; /* Espaciado para el contenido, importante para la legibilidad */
   box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
   box-shadow: inset 1px 1px 2px #2b2c2b, inset -1px -1px 2px #7c7c78;
+ 
 }
 
 .footer {
