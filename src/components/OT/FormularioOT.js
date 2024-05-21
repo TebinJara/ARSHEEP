@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './FormularioOT.css';
+import { uploadImagen1 } from '../../services/supa'
 
 const FormularioOT = () => {
     // Estado local para los valores del formulario
@@ -9,25 +10,34 @@ const FormularioOT = () => {
     const [fechaVencimiento, setFechaVencimiento] = useState('');
     const [prioridad, setPrioridad] = useState('');
     const [adicional, setAdicional] = useState('');
-    const [archivos, setArchivos] = useState([null, null, null, null]);
-    const campoArchivoRefs = useRef([null, null, null, null]);
+    const [img, setImg] = useState([null, null, null, null]);
+    const campoImgRefs = useRef([null, null, null, null]);
 
     // Función para manejar el envío del formulario
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Aquí puedes enviar los datos del formulario a tu backend para insertar la OT en la base de datos
-        console.log('Formulario enviado:', { descripcion, status, fechaCreacion, prioridad, adicional, archivos });
-    };
-    const handleArchivoSeleccionado = (index, event) => {
-        const archivoSeleccionado = event.target.files[0];
-        const newArchivos = [...archivos];
-        newArchivos[index] = archivoSeleccionado;
-        setArchivos(newArchivos);
-    };
-    const handleClickAdjuntarArchivo = (index) => {
-        campoArchivoRefs.current[index].click();
+        try {            
+            for (const imagen of img) {
+                if (imagen) {
+                    await uploadImagen1(imagen);
+                }
+            }           
+            console.log('Formulario enviado:', { descripcion, status, fechaCreacion, fechaVencimiento, prioridad, adicional, img });
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error);
+        }
     };
 
+    const handleImgSeleccionado = (index, event) => {
+        const imgSeleccionado = event.target.files[0];
+        const newImg = [...img];
+        newImg[index] = imgSeleccionado;
+        setImg(newImg);
+    };
+
+    const handleClickAdjuntarImg = (index) => {
+        campoImgRefs.current[index].click();
+    };
     return (
         <div className="container">
             <h1>Formulario de Inserción de OT</h1>
@@ -66,11 +76,26 @@ const FormularioOT = () => {
                
                 {[0, 1, 2, 3].map((index) => (
                     <div key={index} className="form-group">
-                        <input type="file" style={{ display: 'none' }} ref={(ref) => campoArchivoRefs.current[index] = ref} onChange={(e) => handleArchivoSeleccionado(index, e)} accept="image/*" />
-                        <button type="button" className="btn btn-secondary" onClick={() => handleClickAdjuntarArchivo(index)}>Adjuntar imagen {index + 1}</button>
-                        {archivos[index] && (
+                        <input
+                            type="file"
+                            style={{ display: 'none' }}
+                            ref={(ref) => (campoImgRefs.current[index] = ref)}
+                            onChange={(e) => handleImgSeleccionado(index, e)}
+                            accept="image/*"
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => handleClickAdjuntarImg(index)}
+                        >
+                            Adjuntar imagen {index + 1}
+                        </button>
+                        {img[index] && (
                             <div className="image-preview">
-                                <img src={URL.createObjectURL(archivos[index])} alt={`Vista previa ${index + 1}`} />
+                                <img
+                                    src={URL.createObjectURL(img[index])}
+                                    alt={`Vista previa ${index + 1}`}
+                                />
                             </div>
                         )}
                     </div>
