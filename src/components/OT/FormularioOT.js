@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './FormularioOT.css';
 
 const FormularioOT = () => {
@@ -9,13 +9,23 @@ const FormularioOT = () => {
     const [fechaVencimiento, setFechaVencimiento] = useState('');
     const [prioridad, setPrioridad] = useState('');
     const [adicional, setAdicional] = useState('');
-    const [archivo, setArchivo] = useState(null);
+    const [archivos, setArchivos] = useState([null, null, null, null]);
+    const campoArchivoRefs = useRef([null, null, null, null]);
 
     // Función para manejar el envío del formulario
     const handleSubmit = (event) => {
         event.preventDefault();
         // Aquí puedes enviar los datos del formulario a tu backend para insertar la OT en la base de datos
-        console.log('Formulario enviado:', { descripcion, status, fechaCreacion, prioridad, adicional, archivo });
+        console.log('Formulario enviado:', { descripcion, status, fechaCreacion, prioridad, adicional, archivos });
+    };
+    const handleArchivoSeleccionado = (index, event) => {
+        const archivoSeleccionado = event.target.files[0];
+        const newArchivos = [...archivos];
+        newArchivos[index] = archivoSeleccionado;
+        setArchivos(newArchivos);
+    };
+    const handleClickAdjuntarArchivo = (index) => {
+        campoArchivoRefs.current[index].click();
     };
 
     return (
@@ -53,10 +63,14 @@ const FormularioOT = () => {
                         <option value="Alta">Alta</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="archivo">Adjuntar archivo:</label>
-                    <input type="file" className="form-control-file" id="archivo" onChange={(e) => setArchivo(e.target.files[0])} />
-                </div>
+               
+                {[0, 1, 2, 3].map((index) => (
+                    <div key={index} className="form-group">
+                        <input type="file" style={{ display: 'none' }} ref={(ref) => campoArchivoRefs.current[index] = ref} onChange={(e) => handleArchivoSeleccionado(index, e)} accept="image/*" />
+                        <button type="button" className="btn btn-secondary" onClick={() => handleClickAdjuntarArchivo(index)}>Adjuntar imagen {index + 1}</button>
+                        {archivos[index] && <p>{archivos[index].name}</p>}
+                    </div>
+                ))}
                 <div className="form-group">
                     <label htmlFor="adicional">Información Adicional:</label>
                     <textarea className="form-control" id="adicional" rows="3" placeholder="Ingrese información adicional" value={adicional} onChange={(e) => setAdicional(e.target.value)}></textarea>
