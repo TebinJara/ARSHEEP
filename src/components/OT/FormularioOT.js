@@ -6,6 +6,7 @@ const FormularioOT = () => {
     const [descripcion, setDescripcion] = useState('');
     const [status, setStatus] = useState('');
     const [fechaCreacion, setFechaCreacion] = useState('');
+    const [fechaVencimiento, setFechaVencimiento] = useState('');
     const [prioridad, setPrioridad] = useState('');
     const [adicional, setAdicional] = useState('');
 
@@ -26,11 +27,21 @@ const FormularioOT = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="status">Estado:</label>
-                    <input type="text" className="form-control" id="status" placeholder="Ingrese el estado de la OT" value={status} onChange={(e) => setStatus(e.target.value)} required />
+                    <select className="form-control" id="status" value={status} onChange={(e) => setStatus(e.target.value)} required>
+                        <option value="">Seleccione Estado</option>
+                        <option value="Ingresada">Ingresada</option>
+                        <option value="En Proceso">En Proceso</option>
+                        <option value="Cancelada">Cancelada</option>
+                        <option value="Completada">Completada</option>
+                    </select>
                 </div>
                 <div className="form-group">
                     <label htmlFor="fechaCreacion">Fecha de Creación:</label>
                     <input type="date" className="form-control" id="fechaCreacion" value={fechaCreacion} onChange={(e) => setFechaCreacion(e.target.value)} required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="fechaVencimiento">Fecha de Vencimiento:</label>
+                    <input type="date" className="form-control" id="fechaVencimiento" value={fechaVencimiento} onChange={(e) => setFechaVencimiento(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="prioridad">Prioridad:</label>
@@ -41,6 +52,7 @@ const FormularioOT = () => {
                         <option value="Alta">Alta</option>
                     </select>
                 </div>
+                
                 <div className="form-group">
                     <label htmlFor="adicional">Información Adicional:</label>
                     <textarea className="form-control" id="adicional" rows="3" placeholder="Ingrese información adicional" value={adicional} onChange={(e) => setAdicional(e.target.value)}></textarea>
