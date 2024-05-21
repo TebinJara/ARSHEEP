@@ -94,3 +94,4 @@ export async function uploadImagen1(file) {
         console.log('Archivo subido exitosamente:', data);
     }
 }
+//cambio para el Felipe
