@@ -4,6 +4,7 @@ import cors from 'cors';
 import usuarioRoutes from './routes/usuario.js';
 import clienteRoutes from './routes/cliente.js';
 import otRouter from './routes/ot.js';
+import bodyParser from 'body-parser'; 
 
 
 const app = express();

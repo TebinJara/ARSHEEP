@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
-import './FormularioOT.css';
+import React, { useState } from 'react';
 import axios from 'axios';
-import supabase from '../../services/supa.js';
+import './FormularioOT.css';
 
 const FormularioOT = () => {
     const [descripcion, setDescripcion] = useState('');
@@ -10,53 +9,32 @@ const FormularioOT = () => {
     const [fechaVencimiento, setFechaVencimiento] = useState('');
     const [prioridad, setPrioridad] = useState('');
     const [adicional, setAdicional] = useState('');
-    const [img, setImg] = useState([null, null, null, null]);
-    const campoImgRefs = useRef([null, null, null, null]);
+    const [archivo, setArchivo] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('descripcion', descripcion);
+        formData.append('status', status);
+        formData.append('fechaCreacion', fechaCreacion);
+        formData.append('fechaVencimiento', fechaVencimiento);
+        formData.append('prioridad', prioridad);
+        formData.append('adicional', adicional);
+        if (archivo) {
+            formData.append('archivo', archivo);
+        }
+
         try {
-            const imgUrls = [];
-            for (const imagen of img) {
-                if (imagen) {
-                    const filePath = `img1/${Date.now()}_${imagen.name}`;
-                    const { data, error } = await supabase.storage.from('imgOT').upload(filePath, imagen);
-                    if (error) throw error;
-                    imgUrls.push(data.Key);
+            const response = await axios.post('http://localhost:3001/api/orden_trabajo', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
-            }
-
-            const formData = {
-                descripcion,
-                status,
-                fechaCreacion,
-                fechaVencimiento,
-                prioridad,
-                adicional,
-                imgUrls
-            };
-
-            const response = await axios.post('http://localhost:5000/api/orden-trabajo', formData);
-
-            if (response.status !== 200) {
-                throw new Error('Error al enviar el formulario');
-            }
-
+            });
             console.log('Formulario enviado:', response.data);
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
-    };
-
-    const handleImgSeleccionado = (index, event) => {
-        const imgSeleccionado = event.target.files[0];
-        const newImg = [...img];
-        newImg[index] = imgSeleccionado;
-        setImg(newImg);
-    };
-
-    const handleClickAdjuntarImg = (index) => {
-        campoImgRefs.current[index].click();
     };
 
     return (
@@ -94,38 +72,14 @@ const FormularioOT = () => {
                         <option value="Alta">Alta</option>
                     </select>
                 </div>
-               
-                {[0, 1, 2, 3].map((index) => (
-                    <div key={index} className="form-group">
-                        <input
-                            type="file"
-                            style={{ display: 'none' }}
-                            ref={(ref) => (campoImgRefs.current[index] = ref)}
-                            onChange={(e) => handleImgSeleccionado(index, e)}
-                            accept="image/*"
-                        />
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            onClick={() => handleClickAdjuntarImg(index)}
-                        >
-                            Adjuntar imagen {index + 1}
-                        </button>
-                        {img[index] && (
-                            <div className="image-preview">
-                                <img
-                                    src={URL.createObjectURL(img[index])}
-                                    alt={`Vista previa ${index + 1}`}
-                                />
-                            </div>
-                        )}
-                    </div>
-                ))}
+                <div className="form-group">
+                    <label htmlFor="archivo">Adjuntar archivo:</label>
+                    <input type="file" className="form-control-file" id="archivo" onChange={(e) => setArchivo(e.target.files[0])} />
+                </div>
                 <div className="form-group">
                     <label htmlFor="adicional">Información Adicional:</label>
                     <textarea className="form-control" id="adicional" rows="3" placeholder="Ingrese información adicional" value={adicional} onChange={(e) => setAdicional(e.target.value)}></textarea>
                 </div>
-                
                 <button type="submit" className="btn btn-primary">Enviar OT</button>
             </form>
         </div>
@@ -133,4 +87,3 @@ const FormularioOT = () => {
 };
 
 export { FormularioOT };
-

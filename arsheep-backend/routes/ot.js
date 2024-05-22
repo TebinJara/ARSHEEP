@@ -3,6 +3,6 @@ import { createOrdenTrabajo } from '../controllers/ordenTrabajoController.js';
 
 const router = express.Router();
 
-router.post('/orden-trabajo', createOrdenTrabajo);
+router.post('/', createOrdenTrabajo);
 
 export default router;
