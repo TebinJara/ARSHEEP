@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './FormularioOT.css';
-import { uploadImagen1 } from '../../services/supa'
+import axios from 'axios';
+import supabase from '../../services/supa.js';
 
 const FormularioOT = () => {
-    // Estado local para los valores del formulario
     const [descripcion, setDescripcion] = useState('');
     const [status, setStatus] = useState('');
     const [fechaCreacion, setFechaCreacion] = useState('');
@@ -13,16 +13,36 @@ const FormularioOT = () => {
     const [img, setImg] = useState([null, null, null, null]);
     const campoImgRefs = useRef([null, null, null, null]);
 
-    // Función para manejar el envío del formulario
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {            
+        try {
+            const imgUrls = [];
             for (const imagen of img) {
                 if (imagen) {
-                    await uploadImagen1(imagen);
+                    const filePath = `img1/${Date.now()}_${imagen.name}`;
+                    const { data, error } = await supabase.storage.from('imgOT').upload(filePath, imagen);
+                    if (error) throw error;
+                    imgUrls.push(data.Key);
                 }
-            }           
-            console.log('Formulario enviado:', { descripcion, status, fechaCreacion, fechaVencimiento, prioridad, adicional, img });
+            }
+
+            const formData = {
+                descripcion,
+                status,
+                fechaCreacion,
+                fechaVencimiento,
+                prioridad,
+                adicional,
+                imgUrls
+            };
+
+            const response = await axios.post('http://localhost:5000/api/orden-trabajo', formData);
+
+            if (response.status !== 200) {
+                throw new Error('Error al enviar el formulario');
+            }
+
+            console.log('Formulario enviado:', response.data);
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
@@ -38,6 +58,7 @@ const FormularioOT = () => {
     const handleClickAdjuntarImg = (index) => {
         campoImgRefs.current[index].click();
     };
+
     return (
         <div className="container">
             <h1>Formulario de Inserción de OT</h1>
@@ -112,3 +133,4 @@ const FormularioOT = () => {
 };
 
 export { FormularioOT };
+
