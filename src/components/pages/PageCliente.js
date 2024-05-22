@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import "../pages/PageCliente.css";
-import { obtenerClientes } from '../../services/supa';
+import "./PageCliente.css";
+import { obtenerClientes } from '../../services/ClienteService'; // Asegúrate que la ruta es correcta
+import { FormAgregarCliente } from './FormAgregarCliente';
+
 
 export const PageCliente = () => {
     const [data, setData] = useState([]);
@@ -8,15 +10,23 @@ export const PageCliente = () => {
     const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     const [filtro, setFiltro] = useState('');
     const [criterio, setCriterio] = useState('nombre_cliente');
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);  // Estado para controlar la visibilidad del formulario
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            const clientes = await obtenerClientes();
-            setData(clientes || []);
+            try {
+                const clientes = await obtenerClientes();
+                setData(clientes || []);
+            } catch (error) {
+                console.error('Error al obtener clientes:', error);
+            }
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        setFilteredData(data); // Actualiza filteredData cada vez que data cambia
+    }, [data]);
 
     const seleccionarCliente = cliente => {
         setClienteSeleccionado(cliente);
@@ -40,59 +50,7 @@ export const PageCliente = () => {
         setFiltro('');
     };
 
-
-    const abrirFormularioEnNuevaVentana = () => {
-        const overlay = document.createElement("div");
-        overlay.style.position = "fixed";
-        overlay.style.width = "100%";
-        overlay.style.height = "100%";
-        overlay.style.top = "0";
-        overlay.style.left = "0";
-        overlay.style.right = "0";
-        overlay.style.bottom = "0";
-        overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-        overlay.style.zIndex = "1000";  // Asegúrate de que el zIndex sea suficientemente alto para cubrir todo.
-        
-        document.body.appendChild(overlay);
     
-        const nuevaVentana = window.open('', '_blank', 'width=600,height=400,left=200,top=200');
-    
-        nuevaVentana.document.write(
-            `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Agregar Cliente</title>
-            </head>
-            <body>
-                <h1>Agregar Nuevo Cliente</h1>
-                <form>
-                    <label for="rut">RUT de Cliente:</label>
-                    <input type="text" id="rut" name="rut" required><br>
-                    <label for="dv">DV:</label>
-                    <input type="text" id="dv" name="dv" required><br>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required><br>
-                    <button type="submit">Guardar</button>
-                </form>
-                <button onclick="window.close()">Cerrar</button>
-            </body>
-            </html>
-            
-        `);
-    
-        nuevaVentana.document.close(); // Asegura que el contenido de la nueva ventana se ha cargado completamente
-    
-        // Escuchar cuando la nueva ventana se cierra para eliminar el overlay
-        const interval = setInterval(() => {
-            if (nuevaVentana.closed) {
-                clearInterval(interval);
-                document.body.removeChild(overlay);
-            }
-        }, 100);
-    }
 
     return (
         <div className='clientes-container-1'>
@@ -134,7 +92,8 @@ export const PageCliente = () => {
                         </tbody>
                     </table>
                     <div className='table-containt-button'>
-                        <button onClick={abrirFormularioEnNuevaVentana}>Agregar Cliente</button>
+                    <button onClick={() => setShowModal(true)}>Agregar Cliente</button>
+            {showModal && <FormAgregarCliente onClose={() => setShowModal(false)} />}
                         <button>PDF</button>
                         <button>Excel</button>
                     </div>
@@ -153,7 +112,7 @@ export const PageCliente = () => {
                             <p><strong>RUT:</strong> {clienteSeleccionado.run_cliente}</p>
                             <p><strong>Nombre:</strong> {clienteSeleccionado.nombre_cliente}</p>
                             <p><strong>Dirección:</strong> {clienteSeleccionado.direccion_cliente}</p>
-                            <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto}</p>
+                            <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto_cliente}</p>
                         </div>
                         <div className='table-containt-button'>
                             <button>Eliminar</button>
