@@ -68,6 +68,9 @@ input, textarea, select {
   box-shadow: var(--cont-shadow-conc);
   box-sizing: border-box;
 }
+label{
+  color: rgba(255, 255, 255, 0.528);
+}
 
 input:focus, textarea:focus, select:focus {
   border-color: var(--primary-color);
