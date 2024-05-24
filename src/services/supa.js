@@ -37,9 +37,32 @@ export const obtenerStatusPorId = async (idStatus) => {
     return data;
 };
 
-export const uploadImagen1 = async (file) => {
-    const filePath = `img1/${Date.now()}_${file.name}`;
-    const { data, error } = await supabase.storage.from('imgOT').upload(filePath, file);
+export const insertarOrdenTrabajo = async (ordenTrabajo) => {
+    const { data, error } = await supabase
+        .from('ORDEN_TRABAJO')
+        .insert([ordenTrabajo], { returning: 'minimal' }); // Opcional, especifica qué datos devolver después de la inserción
+        
+    if (error) {
+        throw error;
+        
+    }
+
+    return data;
+};
+
+export const obtenerEmpleado = async () => {
+    const { data, error } = await supabase.from('EMPLEADO').select('id_empleado, pnombre, apaterno, amaterno');
     if (error) throw error;
-    return data.Key;
+    // Combinar nombre, apellido paterno y apellido materno para mostrar el nombre completo en el combobox
+    const empleados = data.map(empleado => ({
+        ...empleado,
+        nombreCompleto: `${empleado.pnombre} ${empleado.apaterno} ${empleado.amaterno}`
+    }));
+    console.log('Empleados obtenidos:', empleados);
+    return empleados;
+};
+export const obtenerClientesrun = async () => {
+    const { data, error } = await supabase.from('CLIENTE').select('run_cliente, nombre_cliente');
+    if (error) throw error;
+    return data;
 };

@@ -2,7 +2,7 @@ import supabase from '../database/connection.js';
 
 export const createOrdenTrabajo = async (req, res) => {
     try {
-        const { descripcion, status, fechaCreacion, fechaVencimiento, prioridad, adicional, imgUrl } = req.body;
+        const { descripcion, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, imagen_1, run_cliente,id_empleado } = req.body;
 
         const { data, error } = await supabase
             .from('ORDEN_TRABAJO')
@@ -10,11 +10,13 @@ export const createOrdenTrabajo = async (req, res) => {
                 {
                     descripcion,
                     status,
-                    fecha_creacion: fechaCreacion,
-                    fecha_vencimiento: fechaVencimiento,
+                    fecha_creacion: fecha_creacion,
+                    fecha_vencimiento: fecha_vencimiento,
                     prioridad,
                     adicional,
-                    imagen_1: imgUrl
+                    imagen_1: imagen_1,
+                    run_cliente,
+                    id_empleado
                 }
             ]);
 
