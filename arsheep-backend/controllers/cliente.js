@@ -4,7 +4,7 @@ import supabase from '../database/connection.js';
 export const getClientes = async (req, res) => {
     const { data, error } = await supabase
         .from('CLIENTE')
-        .select('*');  // Asegura seleccionar todos los campos
+        .select('*');
 
     if (error) return res.status(400).json({ error });
     return res.json(data);
@@ -12,11 +12,11 @@ export const getClientes = async (req, res) => {
 
 // Obtener un cliente por ID
 export const getClienteById = async (req, res) => {
-    const { id } = req.params;  // Asegúrate de que el parámetro ID coincida con tu routing
+    const { id } = req.params;
     const { data, error } = await supabase
-        .from('cliente')
+        .from('CLIENTE')
         .select('*')
-        .eq('run_cliente', id)  // Usamos 'run_cliente' como la clave primaria si es la que identifica unívocamente a los clientes
+        .eq('run_cliente', id)
         .single();
 
     if (error) return res.status(400).json({ error });
@@ -25,23 +25,48 @@ export const getClienteById = async (req, res) => {
 
 // Crear un nuevo cliente
 export const createCliente = async (req, res) => {
-    const { run_cliente,dv_run, nombre_cliente, direccion_cliente, contacto, url_imagen } = req.body;
+    const { run_cliente, dv_run_cliente, nombre_cliente, direccion_cliente, url_imagen_cliente, numtelefono_cliente, numtelefono2_cliente, email_cliente, fecha_contrato_inicio, fecha_contrato_termino_cliente, fecha_creacion_cliente } = req.body;
+
     const { data, error } = await supabase
         .from('CLIENTE')
-        .insert([{ run_cliente, dv_run, nombre_cliente, direccion_cliente, contacto, url_imagen }]);
+        .insert([{
+            run_cliente,
+            dv_run_cliente,
+            nombre_cliente,
+            direccion_cliente,
+            url_imagen_cliente,
+            numtelefono_cliente,
+            numtelefono2_cliente,
+            email_cliente,
+            fecha_contrato_inicio,
+            fecha_contrato_termino_cliente,
+            fecha_creacion_cliente
+        }]);
 
     if (error) return res.status(400).json({ error });
-    return res.status(201).json(data);
+    return res.json(data);
 };
 
 // Actualizar un cliente
 export const updateCliente = async (req, res) => {
     const { id } = req.params;
-    const { dv_run, nombre_cliente, direccion_cliente, contacto_cliente, url_imagen } = req.body;
+    const { dv_run_cliente, nombre_cliente, direccion_cliente, url_imagen_cliente, numtelefono_cliente, numtelefono2_cliente, email_cliente, fecha_contrato_inicio, fecha_contrato_termino_cliente, fecha_creacion_cliente } = req.body;
+
     const { data, error } = await supabase
-        .from('cliente')
-        .update({ dv_run, nombre_cliente, direccion_cliente, contacto_cliente, url_imagen })
-        .match({ run_cliente: id });  // Asumiendo 'run_cliente' como clave
+        .from('CLIENTE')
+        .update({
+            dv_run_cliente,
+            nombre_cliente,
+            direccion_cliente,
+            url_imagen_cliente,
+            numtelefono_cliente,
+            numtelefono2_cliente,
+            email_cliente,
+            fecha_contrato_inicio,
+            fecha_contrato_termino_cliente,
+            fecha_creacion_cliente
+        })
+        .eq('run_cliente', id);
 
     if (error) return res.status(400).json({ error });
     return res.json(data);
@@ -50,10 +75,11 @@ export const updateCliente = async (req, res) => {
 // Eliminar un cliente
 export const deleteCliente = async (req, res) => {
     const { id } = req.params;
+
     const { data, error } = await supabase
-        .from('cliente')
+        .from('CLIENTE')
         .delete()
-        .match({ run_cliente: id });  // Asumiendo 'run_cliente' como clave
+        .match({ run_cliente: id });
 
     if (error) return res.status(400).json({ error });
     return res.json(data);
