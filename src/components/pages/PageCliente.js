@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "./PageCliente.css";
-import { obtenerClientes } from '../../services/ClienteService'; // Asegúrate que la ruta es correcta
+import { obtenerClientes, eliminarCliente } from '../../services/ClienteService';
 import { FormAgregarCliente } from './FormAgregarCliente';
-
+import { DashboardDetailsCliente } from './DashboardDetailsCliente';
 
 export const PageCliente = () => {
     const [data, setData] = useState([]);
@@ -12,24 +12,48 @@ export const PageCliente = () => {
     const [criterio, setCriterio] = useState('nombre_cliente');
     const [showModal, setShowModal] = useState(false);
 
+    const fetchData = async () => {
+        try {
+            const clientes = await obtenerClientes();
+            console.log('Clientes obtenidos:', clientes); // Log para verificar datos obtenidos
+            setData(clientes || []);
+            setFilteredData(clientes || []);
+        } catch (error) {
+            console.error('Error al obtener clientes:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const clientes = await obtenerClientes();
-                setData(clientes || []);
-            } catch (error) {
-                console.error('Error al obtener clientes:', error);
-            }
-        };
+        console.log('Efecto inicial para obtener clientes');
         fetchData();
     }, []);
 
     useEffect(() => {
-        setFilteredData(data); // Actualiza filteredData cada vez que data cambia
+        console.log('Data ha cambiado, actualizando filteredData:', data);
+        setFilteredData(data);
     }, [data]);
 
+    const formatearRUT = (run, dv) => {
+        const runStr = run.toString();
+        const runFormateado = runStr.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return `${runFormateado}-${dv}`;
+    };
+
+    const formatearFecha = (fecha) => {
+        if (!fecha) return '';
+        const [year, month, day] = fecha.split('-');
+        return `${day}-${month}-${year}`;
+    };
+
     const seleccionarCliente = cliente => {
-        setClienteSeleccionado(cliente);
+        // Formatea las fechas antes de establecer el cliente seleccionado
+        const clienteFormateado = {
+            ...cliente,
+            fecha_contrato_inicio: formatearFecha(cliente.fecha_contrato_inicio),
+            fecha_contrato_termino_cliente: formatearFecha(cliente.fecha_contrato_termino_cliente),
+        };
+        setClienteSeleccionado(clienteFormateado);
+        
     };
 
     const handleFilterChange = e => {
@@ -50,7 +74,37 @@ export const PageCliente = () => {
         setFiltro('');
     };
 
-    
+    const handleShowModal = () => {
+        setShowModal(true);
+        setClienteSeleccionado(null);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleCloseDashboard = () => {
+        setClienteSeleccionado(null);
+    };
+
+    const handleEliminarCliente = async (id) => {
+        const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este cliente?');
+        if (confirmacion) {
+            try {
+                const respuesta = await eliminarCliente(id);
+                if (respuesta) {
+                    console.log('Cliente eliminado, actualizando lista');
+                    await fetchData(); // Vuelve a obtener los datos después de eliminar el cliente
+                    deshacerFiltro(); // Aplica la lógica de deshacer filtro para actualizar la tabla
+                    setClienteSeleccionado(null); // Cierra los detalles del cliente
+                } else {
+                    console.error('Error al eliminar el cliente');
+                }
+            } catch (error) {
+                console.error('Error en la solicitud de eliminación:', error);
+            }
+        }
+    };
 
     return (
         <div className='clientes-container-1'>
@@ -76,53 +130,37 @@ export const PageCliente = () => {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>RUT de Cliente</th>
-                                <th>DV</th>
+                                <th>RUT</th>
                                 <th>Nombre</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredData.map((cliente) => (
                                 <tr key={cliente.run_cliente} onClick={() => seleccionarCliente(cliente)} className="table-row">
-                                    <td>{cliente.run_cliente}</td>
-                                    <td>{cliente.dv_run}</td>
+                                    <td>{formatearRUT(cliente.run_cliente, cliente.dv_run_cliente)}</td>
                                     <td>{cliente.nombre_cliente}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                     <div className='table-containt-button'>
-                    <button onClick={() => setShowModal(true)}>Agregar Cliente</button>
-            {showModal && <FormAgregarCliente onClose={() => setShowModal(false)} />}
+                        <button onClick={handleShowModal}>Agregar Cliente</button>
                         <button>PDF</button>
                         <button>Excel</button>
                     </div>
                 </div>
             </div>
+            {showModal && <FormAgregarCliente onClose={handleCloseModal} />}
             {clienteSeleccionado && (
-                <div className='dashboard-details'>
-                    <div className='dashboard-details-header'>
-                        <h2>Información del Cliente</h2>
-                    </div>
-                    <div className='dashboard-details-containt'>
-                        <div className='dashboard-details-containt-image'>
-                            <img src={clienteSeleccionado.url_imagen} alt={`Imagen de ${clienteSeleccionado.nombre_cliente}`} className="imagen-cliente" />
-                        </div>
-                        <div className='dashboard-details-containt-data'>
-                            <p><strong>RUT:</strong> {clienteSeleccionado.run_cliente}</p>
-                            <p><strong>Nombre:</strong> {clienteSeleccionado.nombre_cliente}</p>
-                            <p><strong>Dirección:</strong> {clienteSeleccionado.direccion_cliente}</p>
-                            <p><strong>Teléfono:</strong> {clienteSeleccionado.contacto_cliente}</p>
-                        </div>
-                        <div className='table-containt-button'>
-                            <button>Eliminar</button>
-                            <button>Modificar</button>
-                            <button>Notificar</button>
-                            <button>Tickets</button>
-                        </div>
-                    </div>
-                </div>
+                <DashboardDetailsCliente
+                    clienteSeleccionado={clienteSeleccionado}
+                    onClose={handleCloseDashboard}
+                    onEliminar={handleEliminarCliente}
+                    onUpdateCliente={fetchData}
+                />
             )}
         </div>
     );
-}
+};
+
+export default PageCliente;
