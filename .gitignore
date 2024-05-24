@@ -13,3 +13,4 @@
 
 # Logs
 *.log
+node_modules/.cache/default-development/7.pack

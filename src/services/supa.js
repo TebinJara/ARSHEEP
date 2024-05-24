@@ -66,3 +66,4 @@ export const obtenerClientesrun = async () => {
     if (error) throw error;
     return data;
 };
+
