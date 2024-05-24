@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { PageCliente } from '../pages/PageCliente';
+import ClienteDashboard from '../pages/PageCliente';
 import { Login } from '../login/Login';
 import { Layout } from '../Layout/Layout';
 import { PageOT } from '../OT/PageOT';
@@ -13,7 +13,7 @@ export const ArsheepRouter = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/Layout/*" element={<Layout />}>
-            <Route path="Clientes" element={<PageCliente />} />
+            <Route path="Clientes" element={<ClienteDashboard />} />
             <Route path="OT" element={<PageOT />} />
             <Route path="Formulario" element={<FormularioOT />} />
           </Route>

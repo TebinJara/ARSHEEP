@@ -1,4 +1,3 @@
-
 .clientes-container-1 {
   box-sizing: border-box;
   width: 100%;
@@ -7,126 +6,32 @@
   display: flex;
   background-color: #889758;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .list-clientes {
   box-sizing: border-box;
-  width: 30%;
-  height: auto;
-  background-color: #889758;
-  padding: 10px;
-  margin: 5px;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-}
-
-.dashboard-details {
-  box-sizing: border-box;
-  width: 70%;
-  min-height: 100%;
-  background-color: #889758;
-  padding: 10px;
-  margin: 5px;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: flex-start;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-}
-
-.dashboard-details-header {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding-left: 10px;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  font-size: 14px;
-  color: #e9f3c6;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
-    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-details-containt {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  margin: 2px;
-  display: flex;
-  flex-direction: c;
-  align-items: center;
-  justify-content: space-around;
-  color: black;
-  border-radius: 5px;
-  font-size: 12px;
-}
-
-.dashboard-details-containt-data {
-  box-sizing: border-box;
   width: 50%;
   height: 100%;
+  background-color: #889758;
   padding: 10px;
-  margin: 2px;
+  margin: 5px;
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
-  align-items: flex-start;
-  border-radius: 5px;
-
-  p {
-    box-sizing: border-box;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    font-size: 14px;
-    color: #e9f3c6;
-    border-radius: 5px;
-  }
-}
-
-.dashboard-details-containt-image {
-  box-sizing: border-box;
-  width: 800px;
-  height: 400px;
-  padding: 12px;
-  margin: 2px;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start;
   border-radius: 5px;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-  background-color: rgb(0, 0, 0);
-
-  img {
-    width: 100%;
-    max-height: 100%;
-  }
 }
 
 .table-containt {
   box-sizing: border-box;
-  width: 100%;
+  max-width: 500px;
   height: auto;
   background-color: #889758;
   padding: 10px;
@@ -149,12 +54,13 @@
   margin: 5px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-end;
+  justify-content: flex-end;
   border-radius: 5px;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
 }
+
 .table-containt-filter-input-header {
   box-sizing: border-box;
   width: 100%;
@@ -165,6 +71,7 @@
   color: #e9f3c6;
   margin: 0px;
 }
+
 .table-containt-filter-input {
   box-sizing: border-box;
   width: 100%;
@@ -174,6 +81,7 @@
   align-items: center;
   justify-content: space-around;
 }
+
 .table-containt-filter-button {
   box-sizing: border-box;
   width: 100%;
@@ -184,141 +92,7 @@
   justify-content: space-around;
 }
 
-.table-containt-button {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  background-color: #889758;
-  padding: 10px;
-  margin: 5px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-}
 
-.dashboard-details .table-containt-button {
-  box-sizing: border-box;
-  width: 40%;
-  height: 100%;
-  background-color: #889758;
-  padding: 10px;
-  margin: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  border-radius: 5px;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-}
 
-.table {
-  width: 100%;
-  height: auto;
-  margin: 5px;
-  border-collapse: collapse;
-  background-color: #889758;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-  font-size: 12px;
-}
 
-.table thead,
-.table th,
-.table td {
-  box-sizing: border-box;
-}
 
-.table-container {
-  width: 100%;
-  overflow-x: auto; /* Permite desplazamiento horizontal si es necesario */
-}
-
-.table thead {
-  width: 100%;
-  display: table; /* Mantiene la estructura de tabla */
-  table-layout: fixed; /* Asegura que las columnas tengan anchos fijos */
-}
-
-.table tbody {
-  display: block;
-  width: 100%;
-  overflow-y: auto; /* Permite desplazamiento vertical */
-  max-height: 250px; /* Altura máxima antes de que aparezca el desplazamiento */
-  background-color: #d5d5d1;
-  text-align: left;
-  font-size: 12px;
-  color: black;
-}
-
-.table tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* Asegura que las filas sigan el ancho de las columnas definido */
-  background-color: transparent; /* Previene que las filas tengan un fondo que no coincida con tbody */
-  transition: 0.3s;
-}
-
-.table th,
-.table td {
-  text-align: left;
-  padding: 8px; /* Ajusta el padding según tus necesidades */
-}
-
-.table thead th {
-  background-color: #889758;
-  color: white;
-  font-weight: bold;
-  text-align: left;
-  border: none;
-}
-
-.table tbody td {
-  background-color: transparent; /* Mantiene el fondo del tbody si es necesario */
-  box-shadow: none;
-  border: none;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #a1a1a157; /* Color de fondo para filas pares, más claro para contrastar */
-}
-
-.table tbody tr:hover {
-  background-color: #3033208b; /* Color de fondo al pasar el mouse por encima */
-  cursor: pointer;
-  background-color: #c2d971;
-  color: #5b5e64;
-}
-
-.clientes-container-1 button {
-  padding: 8px 20px; /* Ajuste para que todos los botones tengan el mismo tamaño */
-  margin: 2px ;
-  border: none;
-  background-color: #5b5e64;
-  color: #c2d971;
-  cursor: pointer;
-  transition: all 0.3s; /* Transición para color de fondo y borde */
-  font-size: 12px;
-}
-
-.clientes-container-1 button:hover {
-  background-color: #c2d971;
-  color: #5b5e64;
-}
-.clientes-container-1 input,
-select {
-  width: 10px;
-  height: auto;
-  padding: 8px 20px; /* Ajuste para que todos los botones tengan el mismo tamaño */
-  margin: 2px ;
-  border: none;
-  background-color: #5b5e64;
-  color: #c2d971;
-  cursor: pointer;
-  transition: all 0.3s; /* Transición para color de fondo y borde */
-  font-size: 10px;
-}

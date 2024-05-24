@@ -1,14 +1,165 @@
+:root {
+  --background-color: #5B5E64;
+  --text-color: #5B5E64;
+  --primary-color: #C2D971;
+  --primary-contrast-color: #5B5E64;
+  --secondary-color: #cbcdc3;
+  --secondary-contrast-color: #eaebe4;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --code-font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --padding: 8px 20px;
+  --margin: 5px;
+  --font-size: 12px;
+  --cont-shadow-conc: inset 1px 1px 1px rgba(0, 0, 0, 0.139),
+  inset -1px -1px 1px rgba(255, 255, 255, 0.135);
+  --cont-shadow-conv: inset 1px 1px 1px rgba(255, 255, 255, 0.135),
+  inset -1px -1px 1px rgba(0, 0, 0, 0.139);
+  --max-width-input: 250px;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+ 
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--code-font-family);
 }
 
+button {
+  max-width: 200px;
+  width: 80%;
+  padding: var(--padding);
+  margin: var(--margin);
+  border: none;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: var(--font-size);
+  box-shadow: var(--cont-shadow-conv);
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast-color);
+  box-shadow: var(--cont-shadow-conc);
+}
+
+/* Estilos para otros componentes */
+input, textarea, select {
+ 
+  max-width: var(--max-width-input) ;
+  padding: var(--padding);
+  margin: var(--margin);
+  border: 1px solid var(--background-color);
+  border-radius: 3px;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  transition: border-color 0.3s, background-color 0.3s;
+  box-shadow: var(--cont-shadow-conc);
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-contrast-color);
+  outline: none;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--primary-contrast-color);
+}
+
+ul, ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: var(--margin);
+}
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+  width: 100%; /* Asegura que la tabla ocupe el ancho completo del contenedor */
+}
+
+th, td {
+  padding: var(--padding);
+  border: 1px solid var(--background-color);
+  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
+ 
+}
+
+th {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  
+}
+
+thead, tbody {
+  display: block;
+}
+
+thead {
+  width: 100%;
+}
+
+tbody {
+  max-height: 200px; /* Altura máxima del cuerpo de la tabla */
+  overflow-y: auto; /* Desplazamiento vertical */
+  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  width: 100%; /* Asegura que el tbody ocupe el ancho completo del contenedor */
+}
+
+tr:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+
+tr:nth-child(odd) {
+  background-color: var(--secondary-contrast-color);
+}
+
+tr:hover {
+  background-color: var(--primary-color);
+  transition: background-color 0.3s;
+}
+
+td {
+  color: var(--text-color);
+}
+
+td:hover {
+  color: var(--primary-contrast-color);
+  cursor: pointer;
+}
+
+thead tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Mantiene las columnas alineadas */
+}
+
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Mantiene las columnas alineadas */
+}

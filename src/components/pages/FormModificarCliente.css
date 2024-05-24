@@ -1,0 +1,101 @@
+/* Estilos para el modal */
+.form-modificar-cliente-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .form-modificar-cliente-content {
+    background-color: #889758;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1001;
+    width: 90%; /* Ajusta el ancho según tus necesidades */
+    max-width: 600px; /* Limita el ancho máximo */
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  }
+  
+  .form-modificar-cliente-header {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #889758;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    color: white;
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
+      inset -1px -1px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  .form-modificar-cliente-header h2 {
+    margin: 0;
+  }
+  
+  .form-modificar-cliente-header h3 {
+    cursor: pointer;
+    color: #ff0000;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .form-modificar-cliente-header h3:hover {
+    color: #c2d971;
+  }
+  
+  .form-modificar-cliente-containt {
+    display: flex;
+    flex-direction: column;
+    background-color: #889758;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .form-modificar-cliente-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-modificar-cliente-form-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%; /* Ajusta el ancho según tus necesidades */
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  }
+  
+  .form-modificar-cliente-form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .form-modificar-cliente-image {
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .form-modificar-cliente-image img {
+    width: auto;
+    max-height: 250px;
+  }
