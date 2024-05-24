@@ -8,9 +8,9 @@ const FormularioOT = () => {
         status: '',
         fecha_creacion: '',
         fecha_vencimiento: '',
-        prioridad: '', 
+        prioridad: '',
         adicional: '',
-        run_cliente: '', 
+        run_cliente: '',
         id_empleado: '',
         imagen_1: ''
     });
@@ -61,32 +61,32 @@ const FormularioOT = () => {
     };
 
     return (
-
-        
         <div className="container">
-            <h1>Formulario de Inserción de OT</h1>
             <form onSubmit={handleSubmit}>
+            <div className='containt-header'>
+                <h2>Información del Cliente</h2>
+            </div>
                 <div className="form-group">
                     <label htmlFor="descripción">Descripción:</label>
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        id="descripción" 
-                        name="descripción" 
-                        placeholder="Ingrese la descripción de la OT" 
-                        value={newForm.descripción} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="descripción"
+                        name="descripción"
+                        placeholder="Ingrese la descripción de la OT"
+                        value={newForm.descripción}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="status">Estado:</label>
-                    <select 
-                        className="form-control" 
-                        id="status" 
-                        name="status" 
-                        value={newForm.status} 
-                        onChange={handleChange} 
+                    <select
+                        className="form-control"
+                        id="status"
+                        name="status"
+                        value={newForm.status}
+                        onChange={handleChange}
                         required
                     >
                         <option value="">Seleccione Estado</option>
@@ -98,36 +98,36 @@ const FormularioOT = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="fecha_creacion">Fecha de Creación:</label>
-                    <input 
-                        type="date" 
-                        className="form-control" 
-                        id="fecha_creacion" 
-                        name="fecha_creacion" 
-                        value={newForm.fecha_creacion} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="fecha_creacion"
+                        name="fecha_creacion"
+                        value={newForm.fecha_creacion}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="fecha_vencimiento">Fecha de Vencimiento:</label>
-                    <input 
-                        type="date" 
-                        className="form-control" 
-                        id="fecha_vencimiento" 
-                        name="fecha_vencimiento" 
-                        value={newForm.fecha_vencimiento} 
-                        onChange={handleChange} 
-                        required 
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="fecha_vencimiento"
+                        name="fecha_vencimiento"
+                        value={newForm.fecha_vencimiento}
+                        onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="prioridad">Prioridad:</label>
-                    <select 
-                        className="form-control" 
-                        id="prioridad" 
-                        name="prioridad" 
-                        value={newForm.prioridad} 
-                        onChange={handleChange} 
+                    <select
+                        className="form-control"
+                        id="prioridad"
+                        name="prioridad"
+                        value={newForm.prioridad}
+                        onChange={handleChange}
                         required
                     >
                         <option value="">Seleccione la prioridad</option>
@@ -138,23 +138,23 @@ const FormularioOT = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="adicional">Información Adicional:</label>
-                    <textarea 
-                        className="form-control" 
-                        id="adicional" 
-                        name="adicional" 
-                        rows="3" 
-                        placeholder="Ingrese información adicional" 
-                        value={newForm.adicional} 
+                    <textarea
+                        className="form-control"
+                        id="adicional"
+                        name="adicional"
+                        rows="3"
+                        placeholder="Ingrese información adicional"
+                        value={newForm.adicional}
                         onChange={handleChange}
                     ></textarea>
                 </div>
                 <div className="form-group">
                     <label htmlFor="run_cliente">RUT Cliente:</label>
-                    <select 
-                        className="form-control" 
-                        id="run_cliente" 
-                        name="run_cliente" 
-                        value={newForm.run_cliente} 
+                    <select
+                        className="form-control"
+                        id="run_cliente"
+                        name="run_cliente"
+                        value={newForm.run_cliente}
                         onChange={handleChange}
                     >
                         <option value="">Seleccione un cliente</option>
@@ -165,11 +165,11 @@ const FormularioOT = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="id_empleado">Empleado:</label>
-                    <select 
-                        className="form-control" 
-                        id="id_empleado" 
-                        name="id_empleado" 
-                        value={newForm.id_empleado} 
+                    <select
+                        className="form-control"
+                        id="id_empleado"
+                        name="id_empleado"
+                        value={newForm.id_empleado}
                         onChange={handleChange}
                     >
                         <option value="">Seleccione un empleado</option>
@@ -180,13 +180,13 @@ const FormularioOT = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="imagen_1">Imagen 1:</label>
-                    <textarea 
-                        className="form-control" 
-                        id="imagen_1" 
-                        name="imagen_1" 
-                        rows="3" 
-                        placeholder="Ingrese información de la imagen" 
-                        value={newForm.imagen_1} 
+                    <textarea
+                        className="form-control"
+                        id="imagen_1"
+                        name="imagen_1"
+                        rows="3"
+                        placeholder="Ingrese información de la imagen"
+                        value={newForm.imagen_1}
                         onChange={handleChange}
                     ></textarea>
                 </div>

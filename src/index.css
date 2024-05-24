@@ -54,8 +54,7 @@ button:hover {
 
 /* Estilos para otros componentes */
 input, textarea, select {
- 
-  max-width: var(--max-width-input) ;
+  width: 80%;
   padding: var(--padding);
   margin: var(--margin);
   border: 1px solid var(--background-color);
@@ -162,4 +161,19 @@ tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed; /* Mantiene las columnas alineadas */
+}
+
+.containt-header{
+  width: 100%;
+  margin: 5px;
+  padding: 0px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  color: white;
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  box-sizing: border-box;
 }
