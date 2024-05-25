@@ -13,8 +13,8 @@
 }
 
 .modal-content {
-  background-color: #677146;
-  margin: 5% auto;
+  background-color: #889758;
+  margin-top: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -43,13 +43,4 @@ h2 {
   text-align: center;
 }
 
-.form-grid {
-  display: grid;
-  gap: 10px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
 

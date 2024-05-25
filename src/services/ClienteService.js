@@ -29,16 +29,16 @@ export const obtenerClientePorId = async (id) => {
     }
 };
 
-// Crear un nuevo cliente
-export const crearCliente = async (cliente) => {
+export const crearCliente = async (formData) => {
     try {
-        const response = await apiClient.post('/clientes', cliente);
+        const response = await apiClient.post('/clientes', formData);
         return response.data;
     } catch (error) {
         console.error('Error al crear un cliente:', error.message);
-        return null;
+        return { error: error.response.data }; // Devuelve el error de la respuesta
     }
 };
+
 
 // Actualizar un cliente
 export const actualizarCliente = async (id, cliente) => {

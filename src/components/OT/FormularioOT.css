@@ -1,7 +1,7 @@
 /* Estilos para el formulario de inserción de OT */
 .container {
   box-sizing: border-box;
-  width: 100%;
+  width: 40%;
   min-height: 100%;
   padding: 10px;
   display: flex;
@@ -16,7 +16,7 @@
 
 form{
     box-sizing: border-box;
-    width: 40%;
+    width: 100%;
     min-height: 100%;
     padding: 10px;
     display: flex;
