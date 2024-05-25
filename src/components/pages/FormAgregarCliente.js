@@ -32,12 +32,14 @@ export const FormAgregarCliente = ({ onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const formData = new FormData();
+
         Object.keys(cliente).forEach(key => {
             formData.append(key, cliente[key]);
         });
         if (imagen) {
-            formData.append('imagen_cliente', imagen); // Asegúrate de que el nombre coincida con el esperado en el backend
+            formData.append('url_imagen_cliente', imagen); // Asegúrate de que el nombre coincida con el esperado en el backend
         }
 
         try {

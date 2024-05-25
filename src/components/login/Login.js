@@ -36,7 +36,7 @@ export const Login = () => {
         <div className='login-container'>
             <form onSubmit={handleSubmit} className='login-form'>
 
-                <div>
+                <div className='login-form-group'>
                     <label htmlFor="username">Usuario:</label>
                     <input
                         id="username"
@@ -46,7 +46,7 @@ export const Login = () => {
                     />
                 </div>
 
-                <div>
+                <div className='login-form-group'>
                     <label htmlFor="password">Contraseña:</label>
                     <input
                         id="password"

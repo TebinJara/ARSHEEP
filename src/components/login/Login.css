@@ -6,56 +6,22 @@
     justify-content: center;
     background-color: #4a4b4e; 
     color: white; 
-    font-family: Arial, sans-serif; 
 }
 
-.login-form {
-    width: 100%; 
-    max-width: 400px; 
-    padding: 20px;
-    padding-top: 200px;
-    padding-bottom: 200px;
-    box-sizing: border-box;
+
+.login-form{
+    width: 20%;
+}
+
+.login-form-group{
+    margin: 5px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #3a3b3d; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    justify-content: center;
+    input{
+        width: 100%;
+    }
 }
 
-.login-form label {
-    margin-bottom: 5px;
-    font-size: 1.1rem;
-}
-
-.login-form input {
-    width: 300px;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-.login-form button {
-    width: 50%;
-    padding: 10px;
-    font-size: 1.2rem;
-    color: white;
-    background-color: #c2d971;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.login-form button:hover {
-    background-color: #aebf60; 
-}
-
-
-.login-form input:focus {
-    outline: 2px solid #c2d971;
-    outline-offset: -2px;
-}

@@ -7,7 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.get('/', getClientes);
 router.get('/:id', getClienteById);
-router.post('/clientes', upload.single('imagen_cliente'), createCliente);
+router.post('/', upload.single('imagen_cliente'), createCliente);
 router.put('/:id', upload.single('imagen_cliente'), updateCliente);
 router.delete('/:id', deleteCliente);
 
