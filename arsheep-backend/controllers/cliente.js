@@ -1,6 +1,14 @@
 import supabase from '../database/connection.js';
 import { v4 as uuidv4 } from 'uuid';
 
+
+const upload = (req, res) =>{
+    return res.status(200).send({
+        status:"success",
+        message: "Subida de imagenes"
+    })
+}
+
 // Subir imagen a Supabase
 const uploadImage = async (file) => {
     const fileName = `${uuidv4()}.${file.mimetype.split('/')[1]}`;
@@ -78,6 +86,7 @@ export const createCliente = async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 };
+
 // Actualizar un cliente
 export const updateCliente = async (req, res) => {
     try {
