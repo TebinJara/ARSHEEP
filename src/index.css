@@ -1,5 +1,6 @@
 :root {
   --background-color: #5B5E64;
+  --background-color-container: #889758;
   --text-color: #5B5E64;
   --primary-color: #C2D971;
   --primary-contrast-color: #5B5E64;
@@ -193,5 +194,73 @@ tbody tr {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 0px;
+  
+}
+
+.principal-container{
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: 10px;
+  display: flex;
+  background-color: var(--background-color-container);
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  border-radius: 5px;
+}
+
+.secondary-container{
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 50%;
+  padding: 5px;
+  display: flex;
+  background-color: var(--background-color-container);
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.secondary-container-50{
+  box-sizing: border-box;
+  width: 50%;
+  min-height: 50%;
+  padding: 5px;
+  display: flex;
+  background-color: var(--background-color-container);
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.simple-container{
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 1px;
+  display: flex;
+  background-color: var(--background-color-container);
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-around;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  border-radius: 5px;
+}
+
+.simple-container-header {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  text-align: left;
+  font-size: 14px;
+  margin: 0px;
+  p{
+    margin: 0px 0px 5px 0px;
+    color: rgba(255, 255, 255, 0.642);
+  }
 }

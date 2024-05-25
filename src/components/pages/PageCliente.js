@@ -107,12 +107,12 @@ export const PageCliente = () => {
     };
 
     return (
-        <div className='clientes-container-1'>
-            <div className='list-clientes'>
-                <div className='table-containt'>
+        <div className='principal-container'>
+            <div className='secondary-container-50'>
+                <div className='secondary-container'>
                     <div className='table-containt-filter'>
                         <div className='table-containt-filter-input'>
-                            <div className='table-containt-filter-input-header'>
+                            <div className='simple-container-header'>
                                 <p>Filtrar</p>
                             </div>
                             <select value={criterio} onChange={handleCriterioChange}>
@@ -143,9 +143,13 @@ export const PageCliente = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className='table-containt-button'>
+                    <div className='simple-container'>
                         <button onClick={handleShowModal}>Agregar Cliente</button>
                         <button>PDF</button>
+                        <button>Excel</button>
+                        <button>Excel</button>
+                        <button>Excel</button>
+                        <button>Excel</button>
                         <button>Excel</button>
                     </div>
                 </div>

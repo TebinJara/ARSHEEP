@@ -40,7 +40,7 @@ export const PageOT = () => {
     };
 
     return (
-        <div className='ots-container'>
+        <div className='principal-container'>
             <table className="table">
                 <thead>
                     <tr>
