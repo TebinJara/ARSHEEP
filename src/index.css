@@ -1,20 +1,27 @@
 :root {
-  --background-color: #5B5E64;
+  --background-color: #5b5e64;
   --background-color-container: #889758;
-  --text-color: #5B5E64;
-  --primary-color: #C2D971;
-  --primary-contrast-color: #5B5E64;
+  --text-color: #5b5e64;
+  --primary-color: #c2d971;
+  --primary-contrast-color: #5b5e64;
   --secondary-color: #cbcdc3;
   --secondary-contrast-color: #eaebe4;
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  --code-font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-  --padding: 8px 20px;
-  --margin: 5px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  --code-font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  --padding-button: 10px 30px;
+  --margin-button: 5px;
+  --padding-input: 5px 30px;
+  --margin-input: 5px;
+  --padding-row-table: 5px;
+  --margin-row-table: 0px;
   --font-size: 12px;
   --cont-shadow-conc: inset 1px 1px 1px rgba(0, 0, 0, 0.139),
-  inset -1px -1px 1px rgba(255, 255, 255, 0.135);
+    inset -1px -1px 1px rgba(255, 255, 255, 0.135);
   --cont-shadow-conv: inset 1px 1px 1px rgba(255, 255, 255, 0.135),
-  inset -1px -1px 1px rgba(0, 0, 0, 0.139);
+    inset -1px -1px 1px rgba(0, 0, 0, 0.139);
   --max-width-input: 250px;
 }
 
@@ -25,7 +32,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);
   color: var(--text-color);
- 
 }
 
 code {
@@ -33,10 +39,9 @@ code {
 }
 
 button {
-  max-width: 200px;
-  width: 80%;
-  padding: var(--padding);
-  margin: var(--margin);
+  width: auto;
+  padding: var(--padding-button);
+  margin: var(--margin-button);
   border: none;
   background-color: var(--background-color);
   color: var(--primary-color);
@@ -54,10 +59,12 @@ button:hover {
 }
 
 /* Estilos para otros componentes */
-input, textarea, select {
+input,
+textarea,
+select {
   width: 80%;
-  padding: var(--padding);
-  margin: var(--margin);
+  padding: var(--padding-input);
+  margin: var(--margin-input);
   border: 1px solid var(--background-color);
   border-radius: 3px;
   background-color: var(--background-color);
@@ -69,11 +76,13 @@ input, textarea, select {
   box-shadow: var(--cont-shadow-conc);
   box-sizing: border-box;
 }
-label{
-  color: rgba(255, 255, 255, 0.528);
+label {
+  color: rgba(255, 255, 255, 0.617);
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   border-color: var(--primary-color);
   background-color: var(--secondary-color);
   color: var(--primary-contrast-color);
@@ -90,7 +99,8 @@ a:hover {
   color: var(--primary-contrast-color);
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: 20px;
 }
 
@@ -105,20 +115,20 @@ table {
   width: 100%; /* Asegura que la tabla ocupe el ancho completo del contenedor */
 }
 
-th, td {
-  padding: var(--padding);
+th,
+td {
+  padding: var(--padding-row-table);
   border: 1px solid var(--background-color);
   box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
- 
 }
 
 th {
   background-color: var(--background-color);
   color: var(--primary-color);
-  
 }
 
-thead, tbody {
+thead,
+tbody {
   display: block;
 }
 
@@ -127,31 +137,33 @@ thead {
 }
 
 tbody {
-  max-height: 200px; /* Altura máxima del cuerpo de la tabla */
-  overflow-y: auto; /* Desplazamiento vertical */
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
-  width: 100%; /* Asegura que el tbody ocupe el ancho completo del contenedor */
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 tr:nth-child(even) {
   background-color: var(--secondary-color);
+  transition: 0.3s;
 }
 
 tr:nth-child(odd) {
   background-color: var(--secondary-contrast-color);
+  transition: 0.3s;
 }
 
 tr:hover {
   background-color: var(--primary-color);
-  transition: background-color 0.3s;
 }
 
 td {
   color: var(--text-color);
+  transition: 0.3s;
 }
 
 td:hover {
-  color: var(--primary-contrast-color);
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -167,10 +179,23 @@ tbody tr {
   table-layout: fixed; /* Mantiene las columnas alineadas */
 }
 
-.containt-header{
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-header {
   width: 100%;
-  margin: 5px;
-  padding: 0px 25px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -182,26 +207,12 @@ tbody tr {
   box-sizing: border-box;
 }
 
-.form-grid{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.form-group{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-}
-
-.principal-container{
+.principal-container {
   box-sizing: border-box;
   width: 100%;
   min-height: 100%;
-  padding: 10px;
+  margin: 5px 1px;
+  padding: 5px 5px;
   display: flex;
   background-color: var(--background-color-container);
   flex-direction: row;
@@ -212,44 +223,115 @@ tbody tr {
   border-radius: 5px;
 }
 
-.secondary-container{
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 50%;
-  padding: 5px;
-  display: flex;
-  background-color: var(--background-color-container);
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-}
-
-.secondary-container-50{
-  box-sizing: border-box;
-  width: 50%;
-  min-height: 50%;
-  padding: 5px;
-  display: flex;
-  background-color: var(--background-color-container);
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-}
-
-.simple-container{
+.secondary-container {
   box-sizing: border-box;
   width: 100%;
   height: auto;
   margin: 5px 1px;
-  padding: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.secondary-container-row {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-flow: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.secondary-container-50 {
+  box-sizing: border-box;
+  width: 50%;
+  min-height: 50%;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.secondary-container-50-row {
+  box-sizing: border-box;
+  width: 50%;
+  min-height: 50%;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  padding: 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.simple-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
   display: flex;
   background-color: var(--background-color-container);
+  flex-flow: column wrap;
+  align-items: fle;
+  justify-content: flex-start;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  border-radius: 5px;
+  text-align: left;
+
+  p {
+    margin: 2px 2px;
+    padding: 4px;
+    background-color: var(--background-color);
+    color: white;
+  }
+  strong {
+    color: var(--primary-color);
+  }
+}
+
+.simple-container-row {
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
   flex-flow: row wrap;
   align-items: stretch;
   justify-content: space-around;
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
   border-radius: 5px;
+  text-align: left;
+  text-align: left;
+  overflow-y: auto;
+  p {
+    margin: 2px 2px;
+    padding: 4px;
+    background-color: var(--background-color);
+    color: white;
+  }
+  strong {
+    color: var(--primary-color);
+  }
 }
 
 .simple-container-header {
@@ -259,8 +341,76 @@ tbody tr {
   text-align: left;
   font-size: 14px;
   margin: 0px;
-  p{
+  p {
+    background-color: rgba(0, 255, 255, 0);
     margin: 0px 0px 5px 0px;
     color: rgba(255, 255, 255, 0.642);
+  }
+}
+
+.simple-container-row-buttons {
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  border-radius: 5px;
+  text-align: left;
+  text-align: left;
+  p {
+    margin: 2px 2px;
+    padding: 4px;
+    background-color: var(--background-color);
+    color: white;
+  }
+  strong {
+    color: var(--primary-color);
+  }
+}
+.data-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  text-align: left;
+  text-align: left;
+}
+.data-item {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 2px 10px 2px 0px;
+  padding: 2px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  color: black;
+  strong {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2px 0px 2px 10px;
+    margin-right: 10px ;
+    color: var(--primary-color)
+  }
+  span{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2px 0px 2px 10px;
+    border:1px solid rgba(0, 0, 0, 0.101); 
+    color: black;
+    background-color: rgba(255, 255, 255, 0.456);
   }
 }

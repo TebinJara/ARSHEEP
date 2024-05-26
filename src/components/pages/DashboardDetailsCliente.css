@@ -1,129 +1,39 @@
-.dashboard-details {
-  box-sizing: border-box;
-  width: 50%;
-  height: auto;
-  padding: 5px;
-  margin: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
+
+
+.cont-prueba {
+  width: 100%; /* Ajusta esto según necesites */
+  height: 400px; /* Define un alto fijo para el contenedor, ajusta esto según necesites */
+  display: flex; /* Utiliza flexbox para centrar la imagen */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
+}
+
+.imagen-cliente {
+  width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+  height: 100%; /* Ajusta el alto de la imagen al 100% del contenedor */
+  object-fit: cover; /* Hace que la imagen cubra completamente el espacio, cortándose según sea necesario */
+}
+
+.cont-prueba {
+  width: 80%; /* Ajusta esto según necesites */
+  height: 250px; /* Ajusta esto según necesites, o usa una altura dinámica si prefieres */
+  margin: 10px 0px;
+  display: flex; /* Utiliza flexbox para centrar la imagen */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
+  background-color: var(--background-color);
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
   border-radius: 5px;
-  background-color: #889758;
-}
-
-.dashboard-details-header {
-  margin: 5px;
-  padding: 0px 25px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 5px;
-  color: white;
-  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
-    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-}
-
-.dashboard-details-header h3 {
-  transition: 0.3s;
-  cursor: pointer;
-  color: #5b5e64;
-}
-
-.dashboard-details-header h3:hover {
-  cursor: pointer;
-  transform: scale(1.1,1.1);
-  color: #c2d971;
-}
-
-.dashboard-details-containt {
-  display: flex;
-  flex-direction: column;
-  background-color: #889758;
-  flex-grow: 1;
-}
-
-.dashboard-details-containt h3{
-  margin: 5px;
-  padding: 0px 25px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  align-items: center;
-  color: white;
-}
-
-.dashboard-details-containt-image {
-  padding: 2px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: black;
-  border-radius: 5px;
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-}
-
-.dashboard-details-containt-image img {
-  width: auto;
-  max-height: 250px;
-}
-
-.dashboard-details-containt-2 {
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-}
-
-.dashboard-details-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 5px;
-  
 }
 
 
-.dashboard-details-table td {
-  height: 15px;
-  padding: 5px;
-  text-align: left;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: rgb(0, 0, 0);
-  font-size: 12px;
-  background-color: #d5d5d1;
-}
-
-.dashboard-details-table th {
-  width: 40%;
-  color: white;
-  font-size: 12px;
-  text-align: right;
-  padding-right: 10px;
-  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.258),
-    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-details-containt-button {
-  box-sizing: border-box;
-  width: 30%;
-  padding: 10px;
-  margin: 5px;
-  background-color: #889758;
-  display: flex;
-  flex-direction: column;
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-  border-radius: 5px;
-  align-items: center;
-  justify-content: center;
+.imagen-cliente {
+  max-width: 100%; /* Asegura que la imagen no sea más ancha que el contenedor */
+  max-height: 100%; /* Asegura que la imagen no sea más alta que el contenedor */
+  height: auto; /* Para mantener la proporción */
+  object-fit: contain; /* Hace que la imagen se ajuste dentro del contenedor sin cortarla */
 }

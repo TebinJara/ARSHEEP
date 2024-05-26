@@ -110,8 +110,8 @@ export const PageCliente = () => {
         <div className='principal-container'>
             <div className='secondary-container-50'>
                 <div className='secondary-container'>
-                    <div className='table-containt-filter'>
-                        <div className='table-containt-filter-input'>
+                    <div className='simple-container'>
+                        <div className='simple-container'>
                             <div className='simple-container-header'>
                                 <p>Filtrar</p>
                             </div>
@@ -122,7 +122,7 @@ export const PageCliente = () => {
                             </select>
                             <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
                         </div>
-                        <div className='table-containt-filter-button'>
+                        <div className='simple-container-row-buttons'>
                             <button onClick={aplicarFiltro}>Filtrar</button>
                             <button onClick={deshacerFiltro}>Deshacer</button>
                         </div>
@@ -143,13 +143,9 @@ export const PageCliente = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className='simple-container'>
+                    <div className='simple-container-row-buttons'>
                         <button onClick={handleShowModal}>Agregar Cliente</button>
                         <button>PDF</button>
-                        <button>Excel</button>
-                        <button>Excel</button>
-                        <button>Excel</button>
-                        <button>Excel</button>
                         <button>Excel</button>
                     </div>
                 </div>
