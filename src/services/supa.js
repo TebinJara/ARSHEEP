@@ -67,3 +67,25 @@ export const obtenerClientesrun = async () => {
     return data;
 };
 
+export const subirImagen = async (file) => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `img1/${fileName}`; // Ruta del depósito: img1/nombre_del_archivo
+
+    try {
+        const { data, error } = await supabase
+            .storage
+            .from('imgOT') // Nombre del bucket
+            .upload(filePath, file); // Usar filePath como la ruta del archivo
+
+        if (error) {
+            console.log(file)
+            throw error;
+        }
+
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+
