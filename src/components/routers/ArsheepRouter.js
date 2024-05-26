@@ -5,6 +5,7 @@ import { Login } from '../login/Login';
 import { Layout } from '../Layout/Layout';
 import { PageOT } from '../OT/PageOT';
 import { FormularioOT } from '../OT/FormularioOT';
+import ImageUpload from '../OT/ImageUpload';;
 
 export const ArsheepRouter = () => {
   return (
@@ -16,6 +17,7 @@ export const ArsheepRouter = () => {
             <Route path="Clientes" element={<PageCliente />} />
             <Route path="OT" element={<PageOT />} />
             <Route path="Formulario" element={<FormularioOT />} />
+            <Route path="upload" element={<ImageUpload />} />
           </Route>
           <Route path="*" element={<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>} />
         </Routes>
