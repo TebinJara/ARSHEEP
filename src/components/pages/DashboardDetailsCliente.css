@@ -28,6 +28,7 @@
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
   border-radius: 5px;
   box-sizing: border-box;
+ 
 }
 
 
@@ -36,4 +37,6 @@
   max-height: 100%; /* Asegura que la imagen no sea más alta que el contenedor */
   height: auto; /* Para mantener la proporción */
   object-fit: contain; /* Hace que la imagen se ajuste dentro del contenedor sin cortarla */
+
 }
+

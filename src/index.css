@@ -75,9 +75,30 @@ select {
   transition: border-color 0.3s, background-color 0.3s;
   box-shadow: var(--cont-shadow-conc);
   box-sizing: border-box;
+  cursor: pointer;
 }
+
+.input-deshabilitado {
+  width: 80%;
+  padding: var(--padding-input);
+  margin: var(--margin-input);
+  border: 1px solid var(--background-color);
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.108);
+  color: rgba(255, 255, 255, 0.617);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: 700;
+  transition: border-color 0.3s, background-color 0.3s;
+  box-shadow: var(--cont-shadow-conc);
+  box-sizing: border-box;
+  cursor: default;
+}
+
 label {
   color: rgba(255, 255, 255, 0.617);
+  font-size: var(--font-size);
 }
 
 input:focus,
@@ -108,77 +129,43 @@ li {
   margin-bottom: var(--margin);
 }
 
+.table-container {
+  max-height: 400px; /* Ajusta el tamaño según tus necesidades */
+  overflow-y: auto;
+}
+
 table {
   border-collapse: collapse;
-  text-align: left;
+  width: 100%;
   font-size: 12px;
-  width: 100%; /* Asegura que la tabla ocupe el ancho completo del contenedor */
+  color: var(--background-color);
+  background-color: var(--secondary-color);
 }
 
-th,
-td {
-  padding: var(--padding-row-table);
-  border: 1px solid var(--background-color);
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
-}
-
-th {
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: var(--background-color);
   color: var(--primary-color);
 }
 
-thead,
-tbody {
-  display: block;
-}
-
-thead {
-  width: 100%;
-}
-
-tbody {
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
+th,
+td {
+  text-align: left;
+  padding: 4px;
 }
 
 tr:nth-child(even) {
-  background-color: var(--secondary-color);
-  transition: 0.3s;
+  background-color: #ffffff1e;
 }
 
-tr:nth-child(odd) {
-  background-color: var(--secondary-contrast-color);
-  transition: 0.3s;
-}
-
-tr:hover {
+tbody tr:hover {
   background-color: var(--primary-color);
-}
-
-td {
-  color: var(--text-color);
-  transition: 0.3s;
-}
-
-td:hover {
-  font-weight: 500;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(194, 217, 113, 0.5);
+  color: rgb(255, 255, 255);
 }
-
-thead tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* Mantiene las columnas alineadas */
-}
-
-tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* Mantiene las columnas alineadas */
-}
-
 .form-grid {
   display: flex;
   flex-direction: column;
@@ -205,13 +192,17 @@ tbody tr {
     inset -1px -1px 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: var(--background-color-container);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-size: 12px;
 }
 
 .principal-container {
   box-sizing: border-box;
   width: 100%;
   min-height: 100%;
-  margin: 5px 1px;
   padding: 5px 5px;
   display: flex;
   background-color: var(--background-color-container);
@@ -221,6 +212,7 @@ tbody tr {
   box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
   border-radius: 5px;
+
 }
 
 .secondary-container {
@@ -234,6 +226,9 @@ tbody tr {
   flex-flow: column;
   align-items: stretch;
   justify-content: flex-start;
+  max-height: 600px; /* Ajusta el tamaño según tus necesidades */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .secondary-container-row {
@@ -248,6 +243,9 @@ tbody tr {
   align-items: stretch;
   justify-content: flex-start;
   text-align: left;
+  max-height: 600px; /* Ajusta el tamaño según tus necesidades */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .secondary-container-50 {
@@ -262,6 +260,9 @@ tbody tr {
   align-items: stretch;
   justify-content: flex-start;
   text-align: left;
+  max-height: 600px; /* Ajusta el tamaño según tus necesidades */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .secondary-container-50-row {
@@ -277,6 +278,9 @@ tbody tr {
   align-items: stretch;
   justify-content: flex-start;
   text-align: left;
+  max-height: 600px; /* Ajusta el tamaño según tus necesidades */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .simple-container {
@@ -294,6 +298,7 @@ tbody tr {
     inset -1px -1px 1px rgba(255, 255, 255, 0.258);
   border-radius: 5px;
   text-align: left;
+  
 
   p {
     margin: 2px 2px;
@@ -335,6 +340,7 @@ tbody tr {
 }
 
 .simple-container-header {
+
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -346,9 +352,40 @@ tbody tr {
     margin: 0px 0px 5px 0px;
     color: rgba(255, 255, 255, 0.642);
   }
-}
 
+}
+.simple-container-buttons {
+  
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  margin: 5px 1px;
+  padding: 5px 5px;
+  background-color: var(--background-color-container);
+  display: flex;
+  flex-flow: column wrap;
+  align-items: stretch;
+  justify-content: flex-end;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
+  border-radius: 5px;
+  text-align: left;
+  text-align: left;;
+  p {
+    margin: 2px 2px;
+    padding: 4px;
+    background-color: var(--background-color);
+    color: white;
+  }
+  
+  strong {
+    color: var(--primary-color);
+  }
+
+  
+}
 .simple-container-row-buttons {
+ 
   box-sizing: border-box;
   width: auto;
   height: auto;
@@ -364,6 +401,9 @@ tbody tr {
   border-radius: 5px;
   text-align: left;
   text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   p {
     margin: 2px 2px;
     padding: 4px;
@@ -374,6 +414,7 @@ tbody tr {
     color: var(--primary-color);
   }
 }
+
 .data-container {
   box-sizing: border-box;
   width: 100%;
@@ -386,7 +427,9 @@ tbody tr {
   justify-content: space-around;
   border-radius: 5px;
   text-align: left;
-  text-align: left;
+
+
+
 }
 .data-item {
   box-sizing: border-box;
@@ -398,19 +441,5 @@ tbody tr {
   justify-content: flex-start;
   align-items: stretch;
   color: black;
-  strong {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 2px 0px 2px 10px;
-    margin-right: 10px ;
-    color: var(--primary-color)
-  }
-  span{
-    box-sizing: border-box;
-    width: 100%;
-    padding: 2px 0px 2px 10px;
-    border:1px solid rgba(0, 0, 0, 0.101); 
-    color: black;
-    background-color: rgba(255, 255, 255, 0.456);
-  }
+
 }

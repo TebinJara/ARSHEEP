@@ -1,38 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DashboardDetailsCliente.css';
-import { FormModificarCliente } from './FormModificarCliente';
+
 
 export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onEliminar, onUpdateCliente }) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({ ...clienteSeleccionado });
+    const [styleInput, setStyleInput] = useState("input-deshabilitado");
+
+    useEffect(() => {
+        setFormData({ ...clienteSeleccionado });
+    }, [clienteSeleccionado]);
+
+
 
     if (!clienteSeleccionado) {
         return <p>No hay información del cliente disponible</p>;
     }
 
-    const {
-        url_imagen_cliente = 'default-image-url.jpg',
-        nombre_cliente = 'Nombre no disponible',
-        run_cliente = 'RUT no disponible',
-        dv_run_cliente = '',
-        direccion_cliente = 'Dirección no disponible',
-        numtelefono_cliente = 'Teléfono no disponible',
-        numtelefono2_cliente = 'Teléfono adicional no disponible',
-        email_cliente = 'Email no disponible',
-        fecha_contrato_inicio = 'Fecha de inicio no disponible',
-        fecha_contrato_termino_cliente = 'Fecha de término no disponible',
-        fecha_creacion_cliente = 'Fecha de creación no disponible'
-    } = clienteSeleccionado;
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
+    };
+
+
 
     const handleModificarClick = () => {
         setIsEditing(true);
+        setStyleInput("")
     };
 
-    const displayPhoneNumber = (phone1, phone2) => {
-        if (phone1 && phone2) {
-            return `${phone1} o ${phone2}`;
-        }
-        return phone1 || phone2 || 'Teléfono no disponible';
+    const handleSaveClick = () => {
+        setIsEditing(false);
+        onUpdateCliente(formData); // Función para actualizar los detalles del cliente
+        setStyleInput("input-deshabilitado")
     };
+
 
     return (
         <div className='secondary-container-50'>
@@ -45,59 +47,123 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                 <div className='secondary-container'>
                     <div className='simple-container'>
                         <div className='container-header'>
-                            <h3>{nombre_cliente}</h3>
-                        </div>
-                        <div className='cont-prueba'>
-                            <img src={url_imagen_cliente} alt={`Imagen de ${nombre_cliente}`} className="imagen-cliente" />
+                            <h3>{formData.nombre_cliente}</h3>
                         </div>
 
                         <div className='data-container'>
                             <div className='data-item'>
-                                <label><strong>RUT:</strong></label>
-                                <span>{run_cliente}-{dv_run_cliente}</span>
+                                <label>RUT: </label>
+                                <input
+                                    type="text"
+                                    name="run_cliente"
+                                    value={formData.run_cliente}
+                                    onChange={handleInputChange}
+                                    disabled="false"
+                                    className="input-deshabilitado"
+                                />
+                                <input
+                                    type="text"
+                                    name="dv_run_cliente"
+                                    value={formData.dv_run_cliente}
+                                    onChange={handleInputChange}
+                                    disabled="false"
+                                    className="input-deshabilitado"
+                                />
                             </div>
                             <div className='data-item'>
-                                <label><strong>Dirección:</strong></label>
-                                <span>{direccion_cliente}</span>
+                                <label>Nombre:</label>
+                                <input
+                                    type="text"
+                                    name="nombre_cliente"
+                                    value={formData.nombre_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
                             </div>
                             <div className='data-item'>
-                                <label><strong>Teléfono:</strong></label>
-                                <span>{displayPhoneNumber(numtelefono_cliente, numtelefono2_cliente)}</span>
+                                <label>Dirección: </label>
+                                <input
+                                    type="text"
+                                    name="direccion_cliente"
+                                    value={formData.direccion_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
                             </div>
                             <div className='data-item'>
-                                <label><strong>Email:</strong></label>
-                                <span>{email_cliente}</span>
+                                <label>Teléfono:</label>
+                                <input
+                                    type="text"
+                                    name="numtelefono_cliente"
+                                    value={formData.numtelefono_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
+                                <input
+                                    type="text"
+                                    name="numtelefono2_cliente"
+                                    value={formData.numtelefono2_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
                             </div>
                             <div className='data-item'>
-                                <label><strong>Fecha de Inicio del Contrato:</strong></label>
-                                <span>{fecha_contrato_inicio}</span>
+                                <label>Email:</label>
+                                <input
+                                    type="email"
+                                    name="email_cliente"
+                                    value={formData.email_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
                             </div>
                             <div className='data-item'>
-                                <label><strong>Fecha de Término del Contrato:</strong></label>
-                                <span>{fecha_contrato_termino_cliente}</span>
+                                <label>Fecha de Inicio del Contrato:</label>
+                                <input
+                                    type="text"
+                                    name="fecha_contrato_inicio"
+                                    value={formData.fecha_contrato_inicio}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
                             </div>
+                            <div className='data-item'>
+                                <label>Fecha de Término del Contrato:</label>
+                                <input
+                                    type="text"
+                                    name="fecha_contrato_termino_cliente"
+                                    value={formData.fecha_contrato_termino_cliente}
+                                    onChange={handleInputChange}
+                                    disabled={!isEditing}
+                                    className={styleInput}
+                                />
+                            </div>
+                        </div>
+                        <div className='cont-prueba'>
+                            <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.nombre_cliente}`} className="imagen-cliente" />
                         </div>
 
-                        <div className='simple-container-row-buttons'>
-                            <button onClick={() => onEliminar(run_cliente)}>Eliminar</button>
-                            <button onClick={handleModificarClick}>Modificar</button>
-                            <button>Notificar</button>
-                            <button>Tickets</button>
-                        </div>
                     </div>
 
+                    
                 </div>
-
+                <div className='simple-container-row-buttons'>
+                        <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
+                        {isEditing ? (
+                            <button onClick={handleSaveClick}>Guardar</button>
+                        ) : (
+                            <button onClick={handleModificarClick}>Modificar</button>
+                        )}
+                        <button>Notificar</button>
+                        <button>Tickets</button>
+                    </div>
             </div>
-            {isEditing && (
-                <div className="edit-form-container">
-                    <FormModificarCliente
-                        clienteInicial={clienteSeleccionado}
-                        onClose={() => setIsEditing(false)}
-                        onUpdateCliente={onUpdateCliente}
-                    />
-                </div>
-            )}
         </div>
     );
 };

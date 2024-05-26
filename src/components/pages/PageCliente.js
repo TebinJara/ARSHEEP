@@ -53,7 +53,6 @@ export const PageCliente = () => {
             fecha_contrato_termino_cliente: formatearFecha(cliente.fecha_contrato_termino_cliente),
         };
         setClienteSeleccionado(clienteFormateado);
-        
     };
 
     const handleFilterChange = e => {
@@ -110,6 +109,7 @@ export const PageCliente = () => {
         <div className='principal-container'>
             <div className='secondary-container-50'>
                 <div className='secondary-container'>
+
                     <div className='simple-container'>
                         <div className='simple-container'>
                             <div className='simple-container-header'>
@@ -127,27 +127,30 @@ export const PageCliente = () => {
                             <button onClick={deshacerFiltro}>Deshacer</button>
                         </div>
                     </div>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>RUT</th>
-                                <th>Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredData.map((cliente) => (
-                                <tr key={cliente.run_cliente} onClick={() => seleccionarCliente(cliente)} className="table-row">
-                                    <td>{formatearRUT(cliente.run_cliente, cliente.dv_run_cliente)}</td>
-                                    <td>{cliente.nombre_cliente}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                     <div className='simple-container-row-buttons'>
                         <button onClick={handleShowModal}>Agregar Cliente</button>
                         <button>PDF</button>
                         <button>Excel</button>
                     </div>
+                    <div className="table-container">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>RUT</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredData.map((cliente) => (
+                                    <tr key={cliente.run_cliente} onClick={() => seleccionarCliente(cliente)} className="table-row">
+                                        <td>{formatearRUT(cliente.run_cliente, cliente.dv_run_cliente)}</td>
+                                        <td>{cliente.nombre_cliente}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
             {showModal && <FormAgregarCliente onClose={handleCloseModal} />}

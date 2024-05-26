@@ -30,16 +30,17 @@
   flex-direction: column;
   padding: 10px; /* Espaciado interno */
   box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
-  overflow: auto; /* Permite desplazamiento si el contenido excede */
+  overflow-y: auto; /* Permite desplazamiento si el contenido excede */
+  overflow-x: hidden;
 }
 
 .content {
   grid-area: content;
-  overflow: auto; /* Permite desplazamiento si el contenido excede */
   padding: 10px; /* Espaciado para el contenido, importante para la legibilidad */
   box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
   box-shadow: inset 1px 1px 2px #2b2c2b, inset -1px -1px 2px #7c7c78;
- 
+  overflow-y: auto; /* Permite desplazamiento si el contenido excede */
+  overflow-x: hidden;
 }
 
 .footer {

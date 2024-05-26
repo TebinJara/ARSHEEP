@@ -4,9 +4,12 @@ import { obtenerOrdenesDeTrabajo, obtenerEmpleadoPorId, obtenerStatusPorId } fro
 
 export const PageOT = () => {
     const [data, setData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const [otSeleccionada, setOtSeleccionada] = useState(null);
     const [nombreEmpleado, setNombreEmpleado] = useState(null);
     const [nombreStatus, setNombreStatus] = useState(null);
+    const [filtro, setFiltro] = useState('');
+    const [criterio, setCriterio] = useState('id_ot');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,10 +29,15 @@ export const PageOT = () => {
                     })
                 );
                 setData(updatedOrdenes);
+                setFilteredData(updatedOrdenes);
             }
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+        setFilteredData(data);
+    }, [data]);
 
     const seleccionarOT = async (ot) => {
         setOtSeleccionada(ot);
@@ -39,34 +47,71 @@ export const PageOT = () => {
         setNombreStatus(status);
     };
 
+    const handleFilterChange = (e) => {
+        setFiltro(e.target.value);
+    };
+
+    const handleCriterioChange = (e) => {
+        setCriterio(e.target.value);
+    };
+
+    const aplicarFiltro = () => {
+        const filtered = data.filter(ot => ot[criterio].toString().toLowerCase().includes(filtro.toLowerCase()));
+        setFilteredData(filtered);
+    };
+
+    const deshacerFiltro = () => {
+        setFilteredData(data);
+        setFiltro('');
+    };
+
     return (
         <div className='principal-container'>
             <div className='secondary-container-row'>
                 <div className='secondary-container'>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>ID OT</th>
-                                <th>Descripción</th>
-                                <th>Status</th>
-                                <th>Fecha Creación</th>
-                                <th>Fecha Vencimiento</th>
-                                <th>Prioridad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((ot) => (
-                                <tr key={ot.id_ot} onClick={() => seleccionarOT(ot)} className="table-row">
-                                    <td>{ot.id_ot}</td>
-                                    <td>{ot.descripción}</td>
-                                    <td>{ot.nombreStatus}</td>
-                                    <td>{ot.fecha_creacion}</td>
-                                    <td>{ot.fecha_vencimiento}</td>
-                                    <td>{ot.prioridad}</td>
+                    <div className='simple-container'>
+                        <div className='simple-container-header'>
+                            <p>Filtrar</p>
+                        </div>
+                        <select value={criterio} onChange={handleCriterioChange}>
+                            <option value="id_ot">ID OT</option>
+                            <option value="descripcion">Descripción</option>
+                            <option value="nombreStatus">Status</option>
+                            <option value="fecha_creacion">Fecha Creación</option>
+                            <option value="prioridad">Prioridad</option>
+                        </select>
+                        <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
+                        <div className='simple-container-row-buttons'>
+                            <button onClick={aplicarFiltro}>Filtrar</button>
+                            <button onClick={deshacerFiltro}>Deshacer</button>
+                        </div>
+                    </div>
+                    <div className='table-container'>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>ID OT</th>
+                                    <th>Descripción</th>
+                                    <th>Status</th>
+                                    <th>Fecha Creación</th>
+                                    <th>Fecha Vencimiento</th>
+                                    <th>Prioridad</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {filteredData.map((ot) => (
+                                    <tr key={ot.id_ot} onClick={() => seleccionarOT(ot)} className="table-row">
+                                        <td>{ot.id_ot}</td>
+                                        <td>{ot.descripcion}</td>
+                                        <td>{ot.nombreStatus}</td>
+                                        <td>{ot.fecha_creacion}</td>
+                                        <td>{ot.fecha_vencimiento}</td>
+                                        <td>{ot.prioridad}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div className='simple-container'>
                     {otSeleccionada && (
@@ -109,7 +154,6 @@ export const PageOT = () => {
                     )}
                 </div>
             </div>
-
         </div>
     );
 }
