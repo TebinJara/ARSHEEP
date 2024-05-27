@@ -1,6 +1,6 @@
 :root {
   --background-color: #5b5e64;
-  --background-color-container: #889758;
+  --background-color-container:#74777b;
   --text-color: #5b5e64;
   --primary-color: #c2d971;
   --primary-contrast-color: #5b5e64;
@@ -14,7 +14,7 @@
   --padding-button: 10px 30px;
   --margin-button: 5px;
   --padding-input: 5px 30px;
-  --margin-input: 5px;
+  --margin-input: 1px 5px;
   --padding-row-table: 5px;
   --margin-row-table: 0px;
   --font-size: 12px;
@@ -108,6 +108,7 @@ select:focus {
   background-color: var(--secondary-color);
   color: var(--primary-contrast-color);
   outline: none;
+ 
 }
 
 a {
