@@ -37,6 +37,24 @@ export const MenuNav = () => {
                                         Listado Clientes
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/Clientes/Listado"
+                                        onClick={() => handleNavLinkClick("/Layout/Clientes/Listado")}
+                                    >
+                                        Listado Clientes
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/Clientes/Listado"
+                                        onClick={() => handleNavLinkClick("/Layout/Clientes/Listado")}
+                                    >
+                                        Listado Clientes
+                                    </NavLink>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -48,17 +66,18 @@ export const MenuNav = () => {
                         >
                             Ordenes de Trabajo
                         </NavLink>
+                     
+
+                    </li>
                     <li>
-                        <NavLink
-                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                            to="/Layout/Formulario"
-                            onClick={() => handleNavLinkClick("/Layout/Formulario")}
-                        >
-                            Formulario O.T.
-                        </NavLink>
-                    </li>
-                            
-                    </li>
+                            <NavLink
+                                className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                to="/Layout/Formulario"
+                                onClick={() => handleNavLinkClick("/Layout/Formulario")}
+                            >
+                                Formulario O.T.
+                            </NavLink>
+                        </li>
                 </ul>
             </nav>
         </div>

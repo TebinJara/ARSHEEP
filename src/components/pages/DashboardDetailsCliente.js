@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './DashboardDetailsCliente.css';
 
-
 export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onEliminar, onUpdateCliente }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({ ...clienteSeleccionado });
-    const [styleInput, setStyleInput] = useState("input-deshabilitado");
+    const [styleInput, setStyleInput] = useState("input-desenabled");
 
     useEffect(() => {
         setFormData({ ...clienteSeleccionado });
     }, [clienteSeleccionado]);
-
-
 
     if (!clienteSeleccionado) {
         return <p>No hay información del cliente disponible</p>;
@@ -22,19 +19,23 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-
-
     const handleModificarClick = () => {
         setIsEditing(true);
-        setStyleInput("")
+        setStyleInput("");
     };
 
     const handleSaveClick = () => {
         setIsEditing(false);
         onUpdateCliente(formData); // Función para actualizar los detalles del cliente
-        setStyleInput("input-deshabilitado")
+        setStyleInput("input-desenabled");
     };
 
+    const formatRut = (rut, dv) => {
+        if (typeof rut !== 'string') {
+            rut = String(rut);
+        }
+        return `${rut.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}-${dv}`;
+    };
 
     return (
         <div className='secondary-container-50'>
@@ -56,18 +57,10 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                                 <input
                                     type="text"
                                     name="run_cliente"
-                                    value={formData.run_cliente}
+                                    value={formatRut(formData.run_cliente, formData.dv_run_cliente)}
                                     onChange={handleInputChange}
-                                    disabled="false"
-                                    className="input-deshabilitado"
-                                />
-                                <input
-                                    type="text"
-                                    name="dv_run_cliente"
-                                    value={formData.dv_run_cliente}
-                                    onChange={handleInputChange}
-                                    disabled="false"
-                                    className="input-deshabilitado"
+                                    disabled={true}
+                                    className="input-desenabled"
                                 />
                             </div>
                             <div className='data-item'>
@@ -150,19 +143,17 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                         </div>
 
                     </div>
-
-                    
                 </div>
                 <div className='simple-container-row-buttons'>
-                        <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
-                        {isEditing ? (
-                            <button onClick={handleSaveClick}>Guardar</button>
-                        ) : (
-                            <button onClick={handleModificarClick}>Modificar</button>
-                        )}
-                        <button>Notificar</button>
-                        <button>Tickets</button>
-                    </div>
+                    <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
+                    {isEditing ? (
+                        <button onClick={handleSaveClick}>Guardar</button>
+                    ) : (
+                        <button onClick={handleModificarClick}>Modificar</button>
+                    )}
+                    <button>Notificar</button>
+                    <button>Tickets</button>
+                </div>
             </div>
         </div>
     );
