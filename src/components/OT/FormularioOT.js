@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { insertarOrdenTrabajo, obtenerEmpleado, obtenerClientesrun } from '../../services/supa';
+import { insertarOrdenTrabajo, obtenerEmpleado, obtenerClientesrun, subirImagen } from '../../services/supa';
 import './FormularioOT.css';
 
 const FormularioOT = () => {
@@ -17,6 +17,7 @@ const FormularioOT = () => {
 
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
+    const [imagenFile, setImagenFile] = useState(null);
 
     useEffect(() => {
         const cargarClientes = async () => {
@@ -49,11 +50,25 @@ const FormularioOT = () => {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setImagenFile(e.target.files[0]);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await insertarOrdenTrabajo(newForm);
+            let imageUrl = '';
+            if (imagenFile) {
+                const { data, error } = await subirImagen(imagenFile);
+                if (error) {
+                    throw error;
+                }
+                imageUrl = data.publicUrl;
+            }
+
+            const formWithImage = { ...newForm, imagen_1: imageUrl };
+            const response = await insertarOrdenTrabajo(formWithImage);
             console.log('Respuesta del servidor:', response);
         } catch (error) {
             console.error('Error al insertar datos en Supabase:', error.message);
@@ -62,14 +77,12 @@ const FormularioOT = () => {
 
     return (
         <div className='principal-container'>
-
             <div className='secondary-container'>
                 <div className='simple-container'>
                     <div className='container-header'>
                         <h2>Formulario Orden de Trabajo</h2>
                     </div>
                     <form className="form-grid" onSubmit={handleSubmit}>
-
                         <div className="form-group">
                             <label htmlFor="descripción">Descripción:</label>
                             <input
@@ -184,23 +197,19 @@ const FormularioOT = () => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="imagen_1">Imagen 1:</label>
-                            <textarea
+                            <input
+                                type="file"
                                 className="form-control"
                                 id="imagen_1"
                                 name="imagen_1"
-                                rows="3"
-                                placeholder="Ingrese información de la imagen"
-                                value={newForm.imagen_1}
-                                onChange={handleChange}
-                            ></textarea>
+                                onChange={handleFileChange}
+                            />
                         </div>
                         <button type="submit" className="btn btn-primary">Enviar OT</button>
                     </form>
                 </div>
-
-
-            </div><div className='secondary-container'>
-
+            </div>
+            <div className='secondary-container'>
             </div>
         </div>
     );

@@ -69,23 +69,28 @@ export const obtenerClientesrun = async () => {
 
 export const subirImagen = async (file) => {
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
-    const filePath = `img1/${fileName}`; // Ruta del depósito: img1/nombre_del_archivo
+    const fileName = `${Date.now()}-${file.name}`;
+    const filePath = `img1/${fileName}`;
 
     try {
-        const { data, error } = await supabase
+        const response = await supabase
             .storage
-            .from('imgOT') // Nombre del bucket
-            .upload(filePath, file); // Usar filePath como la ruta del archivo
+            .from('imgOT')
+            .upload(filePath, file);
 
-        if (error) {
-            console.log(file)
-            throw error;
+        console.log("Respuesta de Supabase:", response);
+
+        if (response.error) {
+            throw response.error;
         }
 
-        return data;
+        const imageName = encodeURIComponent(response.data.path.split('/').pop()); // Obtener solo el nombre de la imagen y codificarlo
+        const imageUrl = `${supabase.storageUrl}/object/public/imgOT/img1/${imageName}`; // Construir la URL completa
+
+        console.log("URL de la imagen subida:", imageUrl);
+
+        return { publicUrl: imageUrl }; // Devolvemos la URL de la imagen como 'publicUrl'
     } catch (error) {
         throw error;
     }
 };
-
