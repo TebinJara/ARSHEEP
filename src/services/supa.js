@@ -69,50 +69,28 @@ export const obtenerClientesrun = async () => {
 
 export const subirImagen = async (file) => {
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${file.name}`; // Usar una marca de tiempo junto con el nombre original del archivo
+    const fileName = `${Date.now()}-${file.name}`;
     const filePath = `img1/${fileName}`;
-    
 
     try {
-        const { data, error } = await supabase
+        const response = await supabase
             .storage
             .from('imgOT')
             .upload(filePath, file);
-            console.log(filePath);
-        if (error) {            
-            throw error;            
-        }        
-        return data;        
+
+        console.log("Respuesta de Supabase:", response);
+
+        if (response.error) {
+            throw response.error;
+        }
+
+        const imageName = encodeURIComponent(response.data.path.split('/').pop()); // Obtener solo el nombre de la imagen y codificarlo
+        const imageUrl = `${supabase.storageUrl}/object/public/imgOT/img1/${imageName}`; // Construir la URL completa
+
+        console.log("URL de la imagen subida:", imageUrl);
+
+        return { publicUrl: imageUrl }; // Devolvemos la URL de la imagen como 'publicUrl'
     } catch (error) {
         throw error;
-    }
-};
-export const guardarImagenEnSupabase = async (imagenFile) => {
-    try {
-        console.log("1")
-        const { data, error } = await subirImagen(imagenFile);
-        console.log("2")
-        if (error) {
-            console.log("3")
-            throw error;
-            
-        }
-        console.log("4")
-        // Verifica si hay datos y si hay una URL pública, luego devuélvela
-        if (data && data.publicUrl) {
-            console.log("5")
-            return data.publicUrl;
-           
-        } else {
-            console.log("6")
-            throw new Error('La URL pública de la imagen no está disponible');
-            
-        }
-        
-    } catch (error) {
-        console.log("7")
-        console.error('Error al guardar la imagen en Supabase:', error);
-        // Devuelve null si ocurre un error para indicar que no se pudo guardar la imagen
-        return null;
     }
 };
