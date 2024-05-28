@@ -7,6 +7,12 @@ export const LayoutHeader = () => {
       <div className="logo-empresa">
         <img src="../img/logo-empresa.png" alt="Descripción" />
       </div>
+      <div className="user-data-container">
+        <label>Nombre del usuario aquí</label>
+        <div className="user-image">
+
+        </div>
+      </div>
     </header>
   );
 };

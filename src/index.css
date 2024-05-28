@@ -39,8 +39,8 @@ code {
 
 .layout {
   display: grid;
-  grid-template-columns: 150px 1fr; /* Tamaño fijo para el menú y el resto flexible */
-  grid-template-rows: 60px 1fr 50px; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
+  grid-template-columns: 100px 1fr; /* Tamaño fijo para el menú y el resto flexible */
+  grid-template-rows: 100px 1fr auto; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
   grid-template-areas:
     "header header"
     "menuNav content"
@@ -52,14 +52,15 @@ code {
   overflow: hidden; /* Evita cualquier desbordamiento accidental */
 }
 
-/*_____Menu de Navegación_____*/
+/*_____Header_____*/
 
 .header {
+  box-sizing: border-box;
   grid-area: header;
   width: 100%;
-  height: auto;
+  height: 100%;
   margin: 0;
-  padding: 5px;
+  padding: 2px;
   display: flex;
   background: var(--background-color-dark);
   flex-direction: row;
@@ -70,7 +71,7 @@ code {
     width: auto; /* Ajusta esto según necesites */
     height: 50px; /* Ajusta esto según necesites, o usa una altura dinámica si prefieres */
     margin: 10px 0px;
-    padding: 10px;
+    padding: 5px;
     display: flex; /* Utiliza flexbox para centrar la imagen */
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
@@ -88,6 +89,32 @@ code {
   }
 }
 
+.user-data-container {
+  box-sizing: border-box;
+  height: auto;
+  width: auto;
+  padding: 5px;
+  margin: 2px;
+  background-color: var(--background-color-dark-contrast);
+  box-shadow: var(--cont-shadow-conc);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  .user-image {
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
 /*_____Menu de Navegación_____*/
 
 .menuNav {
@@ -101,7 +128,7 @@ code {
   overflow-x: hidden;
 }
 
-.menu-nav{
+.menu-nav {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -114,18 +141,20 @@ code {
 /*_____Contenido Principal_____*/
 
 .content {
+  height: 100%;
   grid-area: content;
-  padding: 10px; 
-  box-sizing: border-box; 
+  padding: 10px;
+  box-sizing: border-box;
   background-color: var(--background-color-dark);
   box-shadow: var(--cont-shadow-conc);
-  overflow-y: auto; 
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
 /*_____Footer_____*/
 
 .footer {
+  height: auto;
   grid-area: footer;
   background: #ccc; /* Un gris claro */
   padding: 10px; /* Añadir padding para mejorar la visibilidad */
@@ -465,15 +494,19 @@ td {
   padding: 4px;
 }
 
-tr:nth-child(even) {
+tr {
   background-color: var(--background-color-light-contrast);
+}
+
+tr:nth-child(even) {
+  background-color: var(--background-color-light);
 }
 
 tbody tr:hover {
   background-color: var(--primary-color);
   cursor: pointer;
   box-shadow: 0 0 10px rgba(194, 217, 113, 0.5);
-  color:var(--text-color-dark)
+  color: var(--text-color-dark);
 }
 
 .form-grid {
@@ -515,7 +548,7 @@ tbody tr:hover {
   padding: 5px 5px;
   background-color: var(--background-color-light);
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   gap: 5px;
   box-shadow: var(--cont-shadow-conc);
   border-radius: 5px;
@@ -532,9 +565,8 @@ tbody tr:hover {
   justify-content: flex-start;
   gap: 5px;
   overflow-y: auto;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
-
 
 .simple-container-header {
   box-sizing: border-box;
@@ -549,7 +581,6 @@ tbody tr:hover {
     color: var(--text-color-light);
   }
 }
-
 
 .data-container {
   box-sizing: border-box;
@@ -573,12 +604,19 @@ tbody tr:hover {
   margin: 2px 10px 2px 0px;
   padding: 2px;
   border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0);
   background-color: var(--background-color-light-contrast);
   display: flex;
-  flex-flow: column wrap;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   color: black;
+  transition: 0.2s;
+}
+
+.data-item:hover {
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color);
 }
 
 .filter-container {
@@ -595,7 +633,7 @@ tbody tr:hover {
   height: auto; /* Ajusta la altura automáticamente según el contenido */
 }
 
-.filter-container-header{
+.filter-container-header {
   box-sizing: border-box;
   width: 100%;
   margin: 2px;
@@ -610,25 +648,26 @@ tbody tr:hover {
   }
 }
 
-.filter-container-group{
+.filter-container-group {
   padding: 5px;
   display: flex;
   margin: 2px;
   flex-flow: row wrap;
   border-radius: 5px;
-  input, select{
-      margin-top: 1px;
-      min-width: 200px;
+  input,
+  select {
+    margin-top: 1px;
+    min-width: 200px;
   }
 }
 
-.filter-container-button{
+.filter-container-button {
   display: flex;
   margin: 2px;
   flex-flow: row wrap;
 }
 
-.control-buttons-container{
+.control-buttons-container {
   box-sizing: border-box;
   padding: 5px;
   margin: 2px;
@@ -639,17 +678,14 @@ tbody tr:hover {
   border-radius: 5px;
   box-shadow: var(--cont-shadow-conc);
 }
-.control-buttons-container-group{
+.control-buttons-container-group {
   padding: 2px;
   display: flex;
   margin: 2px;
   flex-flow: row wrap;
   border-radius: 5px;
-  button{
-      margin-top: 1px;
-      min-width: 100px;
+  button {
+    margin-top: 1px;
+    min-width: 100px;
   }
 }
-
-
-
