@@ -69,23 +69,50 @@ export const obtenerClientesrun = async () => {
 
 export const subirImagen = async (file) => {
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
-    const filePath = `img1/${fileName}`; // Ruta del depósito: img1/nombre_del_archivo
+    const fileName = `${Date.now()}-${file.name}`; // Usar una marca de tiempo junto con el nombre original del archivo
+    const filePath = `img1/${fileName}`;
+    
 
     try {
         const { data, error } = await supabase
             .storage
-            .from('imgOT') // Nombre del bucket
-            .upload(filePath, file); // Usar filePath como la ruta del archivo
-
-        if (error) {
-            console.log(file)
-            throw error;
-        }
-
-        return data;
+            .from('imgOT')
+            .upload(filePath, file);
+            console.log(filePath);
+        if (error) {            
+            throw error;            
+        }        
+        return data;        
     } catch (error) {
         throw error;
     }
 };
-
+export const guardarImagenEnSupabase = async (imagenFile) => {
+    try {
+        console.log("1")
+        const { data, error } = await subirImagen(imagenFile);
+        console.log("2")
+        if (error) {
+            console.log("3")
+            throw error;
+            
+        }
+        console.log("4")
+        // Verifica si hay datos y si hay una URL pública, luego devuélvela
+        if (data && data.publicUrl) {
+            console.log("5")
+            return data.publicUrl;
+           
+        } else {
+            console.log("6")
+            throw new Error('La URL pública de la imagen no está disponible');
+            
+        }
+        
+    } catch (error) {
+        console.log("7")
+        console.error('Error al guardar la imagen en Supabase:', error);
+        // Devuelve null si ocurre un error para indicar que no se pudo guardar la imagen
+        return null;
+    }
+};
