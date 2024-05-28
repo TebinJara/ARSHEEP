@@ -45,114 +45,117 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
             </div>
 
             <div className='secondary-container'>
-                <div className='secondary-container'>
-                    <div className='simple-container'>
-                        <div className='container-header'>
-                            <h3>{formData.nombre_cliente}</h3>
-                        </div>
 
-                        <div className='data-container'>
-                            <div className='data-item'>
-                                <label>RUT: </label>
-                                <input
-                                    type="text"
-                                    name="run_cliente"
-                                    value={formatRut(formData.run_cliente, formData.dv_run_cliente)}
-                                    onChange={handleInputChange}
-                                    disabled={true}
-                                    className="input-desenabled"
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Nombre:</label>
-                                <input
-                                    type="text"
-                                    name="nombre_cliente"
-                                    value={formData.nombre_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Dirección: </label>
-                                <input
-                                    type="text"
-                                    name="direccion_cliente"
-                                    value={formData.direccion_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Teléfono:</label>
-                                <input
-                                    type="text"
-                                    name="numtelefono_cliente"
-                                    value={formData.numtelefono_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                                <input
-                                    type="text"
-                                    name="numtelefono2_cliente"
-                                    value={formData.numtelefono2_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    name="email_cliente"
-                                    value={formData.email_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Fecha de Inicio del Contrato:</label>
-                                <input
-                                    type="text"
-                                    name="fecha_contrato_inicio"
-                                    value={formData.fecha_contrato_inicio}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                            <div className='data-item'>
-                                <label>Fecha de Término del Contrato:</label>
-                                <input
-                                    type="text"
-                                    name="fecha_contrato_termino_cliente"
-                                    value={formData.fecha_contrato_termino_cliente}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditing}
-                                    className={styleInput}
-                                />
-                            </div>
-                        </div>
-                        <div className='cont-prueba'>
-                            <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.nombre_cliente}`} className="imagen-cliente" />
-                        </div>
-
-                    </div>
+                <div className='container-header'>
+                    <h3>{formData.nombre_cliente}</h3>
                 </div>
-                <div className='simple-container-row-buttons'>
-                    <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
-                    {isEditing ? (
-                        <button onClick={handleSaveClick}>Guardar</button>
-                    ) : (
-                        <button onClick={handleModificarClick}>Modificar</button>
-                    )}
-                    <button>Notificar</button>
-                    <button>Tickets</button>
+
+                <div className='data-container'>
+                    <div className='image-container'>
+                        <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.nombre_cliente}`} className="image-cliente" />
+                    </div>
+                    <div className='data-item'>
+                        <label>RUT: </label>
+                        <input
+                            type="text"
+                            name="run_cliente"
+                            value={formatRut(formData.run_cliente, formData.dv_run_cliente)}
+                            onChange={handleInputChange}
+                            disabled={true}
+                            className="input-desenabled"
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Nombre:</label>
+                        <input
+                            type="text"
+                            name="nombre_cliente"
+                            value={formData.nombre_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Dirección: </label>
+                        <input
+                            type="text"
+                            name="direccion_cliente"
+                            value={formData.direccion_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Teléfono:</label>
+                        <input
+                            type="text"
+                            name="numtelefono_cliente"
+                            value={formData.numtelefono_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                        <input
+                            type="text"
+                            name="numtelefono2_cliente"
+                            value={formData.numtelefono2_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email_cliente"
+                            value={formData.email_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Fecha de Inicio del Contrato:</label>
+                        <input
+                            type="text"
+                            name="fecha_contrato_inicio"
+                            value={formData.fecha_contrato_inicio}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Fecha de Término del Contrato:</label>
+                        <input
+                            type="text"
+                            name="fecha_contrato_termino_cliente"
+                            value={formData.fecha_contrato_termino_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+           
+                        
+
+                </div>
+
+                <div className='control-buttons-container'>
+                    <div className='control-buttons-container-group'>
+                        <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
+                        {isEditing ? (
+                            <button onClick={handleSaveClick}>Guardar</button>
+                        ) : (
+                            <button onClick={handleModificarClick}>Modificar</button>
+                        )}
+                        <button>Notificar</button>
+                        <button>Tickets</button>
+                    </div>
+
                 </div>
             </div>
         </div>

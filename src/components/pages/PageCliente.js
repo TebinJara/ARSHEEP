@@ -107,14 +107,13 @@ export const PageCliente = () => {
 
     return (
         <div className='principal-container'>
-            <div className='secondary-container-50'>
+            <div className='secondary-container'>
                 <div className='secondary-container'>
-
-                    <div className='simple-container'>
-                        <div className='simple-container'>
-                            <div className='simple-container-header'>
-                                <p>Filtrar</p>
-                            </div>
+                    <div className='filter-container'>
+                        <div className='filter-container-header'>
+                            <p>Filtrar</p>
+                        </div>
+                        <div className='filter-container-group'>
                             <select value={criterio} onChange={handleCriterioChange}>
                                 <option value="run_cliente">RUT</option>
                                 <option value="dv_run">DV</option>
@@ -122,15 +121,17 @@ export const PageCliente = () => {
                             </select>
                             <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
                         </div>
-                        <div className='simple-container-row-buttons'>
+                        <div className='filter-container-button'>
                             <button onClick={aplicarFiltro}>Filtrar</button>
                             <button onClick={deshacerFiltro}>Deshacer</button>
                         </div>
                     </div>
-                    <div className='simple-container-row-buttons'>
-                        <button onClick={handleShowModal}>Agregar Cliente</button>
-                        <button>PDF</button>
-                        <button>Excel</button>
+                    <div className='control-buttons-container'>
+                        <div className='control-buttons-container-group'>
+                            <button onClick={handleShowModal}>Agregar Cliente</button>
+                            <button>PDF</button>
+                            <button>Excel</button>
+                        </div>
                     </div>
                     <div className="table-container">
                         <table className="table">

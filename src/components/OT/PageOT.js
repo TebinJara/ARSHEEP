@@ -10,6 +10,9 @@ export const PageOT = () => {
     const [nombreStatus, setNombreStatus] = useState(null);
     const [filtro, setFiltro] = useState('');
     const [criterio, setCriterio] = useState('id_ot');
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({});
+    const [styleInput, setStyleInput] = useState("input-desenabled");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,10 +44,27 @@ export const PageOT = () => {
 
     const seleccionarOT = async (ot) => {
         setOtSeleccionada(ot);
+        setFormData(ot);
         const empleado = await obtenerEmpleadoPorId(ot.id_empleado);
         setNombreEmpleado(empleado);
         const status = await obtenerStatusPorId(ot.status);
         setNombreStatus(status);
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
+    };
+
+    const handleModificarClick = () => {
+        setIsEditing(true);
+        setStyleInput("");
+    };
+
+    const handleSaveClick = () => {
+        setIsEditing(false);
+        // Aquí puedes agregar la lógica para actualizar la OT en el backend
+        setStyleInput("input-desenabled");
     };
 
     const handleFilterChange = (e) => {
@@ -67,26 +87,28 @@ export const PageOT = () => {
 
     return (
         <div className='principal-container'>
-            <div className='secondary-container-row'>
+            <div className='secondary-container'>
                 <div className='secondary-container'>
-                    <div className='simple-container'>
-                        <div className='simple-container-header'>
+                    <div className='filter-container'>
+                        <div className='filter-container-header'>
                             <p>Filtrar</p>
                         </div>
-                        <select value={criterio} onChange={handleCriterioChange}>
-                            <option value="id_ot">ID OT</option>
-                            <option value="descripcion">Descripción</option>
-                            <option value="nombreStatus">Status</option>
-                            <option value="fecha_creacion">Fecha Creación</option>
-                            <option value="prioridad">Prioridad</option>
-                        </select>
-                        <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
-                        <div className='simple-container-row-buttons'>
+                        <div className='filter-container-group'>
+                            <select value={criterio} onChange={handleCriterioChange}>
+                                <option value="id_ot">ID OT</option>
+                                <option value="descripcion">Descripción</option>
+                                <option value="nombreStatus">Status</option>
+                                <option value="fecha_creacion">Fecha Creación</option>
+                                <option value="prioridad">Prioridad</option>
+                            </select>
+                            <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
+                        </div>
+                        <div className='filter-container-button'>
                             <button onClick={aplicarFiltro}>Filtrar</button>
                             <button onClick={deshacerFiltro}>Deshacer</button>
                         </div>
                     </div>
-                    <div className='table-container'>
+                    <div className="table-container">
                         <table className="table">
                             <thead>
                                 <tr>
@@ -113,46 +135,154 @@ export const PageOT = () => {
                         </table>
                     </div>
                 </div>
-                <div className='simple-container'>
-                    {otSeleccionada && (
-                        <div className='info-ot'>
-                            <div className='container-header'>
-                                <h2>Información de la OT</h2>
-                            </div>
-                            <p><strong>ID OT:</strong> {otSeleccionada.id_ot}</p>
-                            <p><strong>Descripción:</strong> {otSeleccionada.descripcion}</p>
-                            <p><strong>Status:</strong> {nombreStatus ? nombreStatus.nombre_status : 'Cargando...'}</p>
-                            <p><strong>Fecha de Creación:</strong> {otSeleccionada.fecha_creacion}</p>
-                            <p><strong>Prioridad:</strong> {otSeleccionada.prioridad}</p>
-                            <p><strong>Adicional:</strong> {otSeleccionada.adicional}</p>
-                            <p><strong>RUN Cliente:</strong> {otSeleccionada.run_cliente}</p>
-                            <p><strong>Empleado:</strong> {nombreEmpleado
-                                ? `${nombreEmpleado.pnombre} ${nombreEmpleado.snombre} ${nombreEmpleado.apaterno} ${nombreEmpleado.amaterno}`
-                                : 'Cargando...'}
-                            </p>
-                            <div>
-                                <h3>Diagnóstico</h3>
-                                <p>{otSeleccionada.diagnostico}</p>
-                            </div>
-                            <div>
-                                <h3>Reparación Realizada</h3>
-                                <p>{otSeleccionada.reparacion_realizada}</p>
-                            </div>
-                            <div>
-                                <h3>Repuestos Utilizados</h3>
-                                <p>{otSeleccionada.repuestos}</p>
-                            </div>
-                            <div>
-                                <h3>Imágenes Asociadas</h3>
-                                <div className="imagenes-ot">
-                                    {otSeleccionada.imagen_1 && <img src={otSeleccionada.imagen_1} alt="Imagen 1" />}
-                                    {otSeleccionada.imagen_2 && <img src={otSeleccionada.imagen_2} alt="Imagen 2" />}
-                                    {otSeleccionada.imagen_3 && <img src={otSeleccionada.imagen_3} alt="Imagen 3" />}
-                                </div>
+            </div>
+            <div className='secondary-container'>
+                {otSeleccionada && (
+                    <div className='secondary-container'>
+                    <div className='data-container'>
+                        <div className='container-header'>
+                            <h2>Información de la OT</h2>
+                        </div>
+                        <div className='data-item'>
+                            <label>ID OT:</label>
+                            <input
+                                type="text"
+                                name="id_ot"
+                                value={formData.id_ot}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Descripción:</label>
+                            <input
+                                type="text"
+                                name="descripcion"
+                                value={formData.descripcion}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Status:</label>
+                            <input
+                                type="text"
+                                name="nombreStatus"
+                                value={nombreStatus ? nombreStatus.nombre_status : 'Cargando...'}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Fecha de Creación:</label>
+                            <input
+                                type="text"
+                                name="fecha_creacion"
+                                value={formData.fecha_creacion}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Prioridad:</label>
+                            <input
+                                type="text"
+                                name="prioridad"
+                                value={formData.prioridad}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Adicional:</label>
+                            <input
+                                type="text"
+                                name="adicional"
+                                value={formData.adicional}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>RUN Cliente:</label>
+                            <input
+                                type="text"
+                                name="run_cliente"
+                                value={formData.run_cliente}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Empleado:</label>
+                            <input
+                                type="text"
+                                name="empleado"
+                                value={nombreEmpleado ? `${nombreEmpleado.pnombre} ${nombreEmpleado.snombre} ${nombreEmpleado.apaterno} ${nombreEmpleado.amaterno}` : 'Cargando...'}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Diagnóstico:</label>
+                            <input
+                                type="text"
+                                name="diagnostico"
+                                value={formData.diagnostico}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Reparación Realizada:</label>
+                            <input
+                                type="text"
+                                name="reparacion_realizada"
+                                value={formData.reparacion_realizada}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Repuestos Utilizados:</label>
+                            <input
+                                type="text"
+                                name="repuestos"
+                                value={formData.repuestos}
+                                onChange={handleInputChange}
+                                disabled={!isEditing}
+                                className={styleInput}
+                            />
+                        </div>
+                        <div className='data-item'>
+                            <label>Imágenes Asociadas:</label>
+                            <div className="imagenes-ot">
+                                {formData.imagen_1 && <img src={formData.imagen_1} alt="Imagen 1" />}
+                                {formData.imagen_2 && <img src={formData.imagen_2} alt="Imagen 2" />}
+                                {formData.imagen_3 && <img src={formData.imagen_3} alt="Imagen 3" />}
                             </div>
                         </div>
-                    )}
-                </div>
+                        </div>
+                        <div className='control-buttons-container'>
+                      <div className='control-buttons-container-group'>
+                          <button onClick={handleModificarClick}>Modificar</button>
+                          <button onClick={handleSaveClick}>Guardar</button>
+                      </div>
+                  </div>
+                    </div>
+                      
+                )}
+              
             </div>
         </div>
     );

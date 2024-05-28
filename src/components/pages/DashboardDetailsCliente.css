@@ -1,41 +1,15 @@
-
-
-.cont-prueba {
-  width: 100%; /* Ajusta esto según necesites */
-  height: 400px; /* Define un alto fijo para el contenedor, ajusta esto según necesites */
-  display: flex; /* Utiliza flexbox para centrar la imagen */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
-}
-
-.imagen-cliente {
-  width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
-  height: 100%; /* Ajusta el alto de la imagen al 100% del contenedor */
-  object-fit: cover; /* Hace que la imagen cubra completamente el espacio, cortándose según sea necesario */
-}
-
-.cont-prueba {
-  width: 80%; /* Ajusta esto según necesites */
-  height: 250px; /* Ajusta esto según necesites, o usa una altura dinámica si prefieres */
-  margin: 10px 0px;
-  display: flex; /* Utiliza flexbox para centrar la imagen */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
-  background-color: var(--background-color);
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.258);
-  border-radius: 5px;
+.image-container{
+  width: 500px;
+  height: 200px;
   box-sizing: border-box;
- 
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-
-.imagen-cliente {
-  max-width: 100%; /* Asegura que la imagen no sea más ancha que el contenedor */
-  max-height: 100%; /* Asegura que la imagen no sea más alta que el contenedor */
-  height: auto; /* Para mantener la proporción */
-  object-fit: contain; /* Hace que la imagen se ajuste dentro del contenedor sin cortarla */
+.image-cliente {
+  width: auto; /* Asegura que la imagen no sea más ancha que el contenedor */
+  height: 100%; /* Asegura que la imagen no sea más alta que el contenedor */
+  border-radius: 5px;
 }
 
