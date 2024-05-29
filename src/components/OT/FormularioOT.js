@@ -13,12 +13,15 @@ const FormularioOT = () => {
         adicional: '',
         run_cliente: '',
         id_empleado: '',
-        imagen_1: ''
+        imagen_1: '',
+        imagen_2: '',
+        imagen_3: '',
+        imagen_4: ''
     });
 
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
-    const [imagenFile, setImagenFile] = useState(null);
+    const [imagenFiles, setImagenFiles] = useState({ imagen_1: null, imagen_2: null, imagen_3: null, imagen_4: null });
 
     useEffect(() => {
         const cargarClientes = async () => {
@@ -52,21 +55,28 @@ const FormularioOT = () => {
     };
 
     const handleFileChange = (e) => {
-        setImagenFile(e.target.files[0]);
+        const { name, files } = e.target;
+        setImagenFiles(prevState => ({
+            ...prevState,
+            [name]: files[0]
+        }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         try {
-            let imageUrl = '';
-            if (imagenFile) {
-                const { publicUrl } = await subirImagen(imagenFile);
-                imageUrl = publicUrl;
+            let imageUrls = {};
+    
+            for (let key in imagenFiles) {
+                if (imagenFiles[key]) {
+                    const { publicUrl } = await subirImagen(imagenFiles[key], key);
+                    imageUrls[key] = publicUrl;
+                }
             }
-
-            const formWithImage = { ...newForm, imagen_1: imageUrl };
-            const response = await insertarOrdenTrabajo(formWithImage);
+    
+            const formWithImages = { ...newForm, ...imageUrls };
+            const response = await insertarOrdenTrabajo(formWithImages);
             console.log('Respuesta del servidor:', response);
         } catch (error) {
             console.error('Error al insertar datos en Supabase:', error.message);
@@ -199,6 +209,36 @@ const FormularioOT = () => {
                                 className="form-control"
                                 id="imagen_1"
                                 name="imagen_1"
+                                onChange={handleFileChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="imagen_2">Imagen 2:</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="imagen_2"
+                                name="imagen_2"
+                                onChange={handleFileChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="imagen_3">Imagen 3:</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="imagen_3"
+                                name="imagen_3"
+                                onChange={handleFileChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="imagen_4">Imagen 4:</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="imagen_4"
+                                name="imagen_4"
                                 onChange={handleFileChange}
                             />
                         </div>

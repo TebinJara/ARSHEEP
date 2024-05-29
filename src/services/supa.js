@@ -67,10 +67,10 @@ export const obtenerClientesrun = async () => {
     return data;
 };
 
-export const subirImagen = async (file) => {
+export const subirImagen = async (file, folder = 'img1') => {
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${file.name}`;
-    const filePath = `img1/${fileName}`;
+    const filePath = `${folder}/${fileName}`;
 
     try {
         const response = await supabase
@@ -85,7 +85,7 @@ export const subirImagen = async (file) => {
         }
 
         const imageName = encodeURIComponent(response.data.path.split('/').pop()); // Obtener solo el nombre de la imagen y codificarlo
-        const imageUrl = `${supabase.storageUrl}/object/public/imgOT/img1/${imageName}`; // Construir la URL completa
+        const imageUrl = `${supabase.storageUrl}/object/public/imgOT/${folder}/${imageName}`; // Construir la URL completa
 
         console.log("URL de la imagen subida:", imageUrl);
 
@@ -94,4 +94,3 @@ export const subirImagen = async (file) => {
         throw error;
     }
 };
-
