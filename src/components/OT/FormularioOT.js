@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { insertarOrdenTrabajo, obtenerEmpleado, obtenerClientesrun, subirImagen } from '../../services/supa';
 import './FormularioOT.css';
 
+
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
         descripción: '',
@@ -60,11 +61,8 @@ const FormularioOT = () => {
         try {
             let imageUrl = '';
             if (imagenFile) {
-                const { data, error } = await subirImagen(imagenFile);
-                if (error) {
-                    throw error;
-                }
-                imageUrl = data.publicUrl;
+                const { publicUrl } = await subirImagen(imagenFile);
+                imageUrl = publicUrl;
             }
 
             const formWithImage = { ...newForm, imagen_1: imageUrl };
@@ -93,8 +91,7 @@ const FormularioOT = () => {
                                 placeholder="Ingrese la descripción de la OT"
                                 value={newForm.descripción}
                                 onChange={handleChange}
-                                required
-                            />
+                                required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="status">Estado:</label>

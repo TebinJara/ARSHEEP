@@ -3,27 +3,25 @@ import {subirImagen} from '../../src/services/supa.js'
 
 export const createOrdenTrabajo = async (req, res) => {
     try {
-        const { descripcion, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, run_cliente, id_empleado } = req.body;
+        const { descripción, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, run_cliente, id_empleado } = req.body;
 
-        
         let imageUrl = null;
         if (req.file) {
-            imageUrl = await subirImagen(req.file);
+            const { publicUrl } = await subirImagen(req.file);
+            imageUrl = publicUrl;
         }
-
-        const { publicUrl } = imageUrl; // Obtener la URL de la imagen
 
         const { data, error } = await supabase
             .from('ORDEN_TRABAJO')
             .insert([
                 {
-                    descripcion,
+                    descripción,
                     status,
                     fecha_creacion,
                     fecha_vencimiento,
                     prioridad,
                     adicional,
-                    imagen_1: publicUrl, // Utiliza la URL de la imagen aquí
+                    imagen_1: imageUrl,
                     run_cliente,
                     id_empleado
                 }
