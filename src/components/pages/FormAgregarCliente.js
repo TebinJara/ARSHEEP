@@ -6,14 +6,21 @@ export const FormAgregarCliente = ({ onClose }) => {
     const [cliente, setCliente] = useState({
         run_cliente: '',
         dv_run_cliente: '',
-        nombre_cliente: '',
-        direccion_cliente: '',
+        pnombre_cliente: '',
+        snombre_cliente: '',
+        appaterno_cliente: '',
+        apmaterno_cliente: '',
+        dirección_cliente: '',
         numtelefono_cliente: '',
-        numtelefono2_cliente: '',
         email_cliente: '',
-        fecha_contrato_inicio: '',
-        fecha_contrato_termino_cliente: '',
-        fecha_creacion_cliente: new Date().toISOString().split('T')[0] // set current date
+        fecnac_cliente: '',
+        id_tipo_cliente: '',
+        razon_social_cliente: '',
+        id_comuna: '',
+        id_region: '',
+        fec_inicio_contrato_cliente: '',
+        fec_termino_contrato_cliente: '',
+        fec_creacion_cliente: new Date().toISOString().split('T')[0] // set current date
     });
 
     const [imagen, setImagen] = useState(null);
@@ -39,7 +46,7 @@ export const FormAgregarCliente = ({ onClose }) => {
             formData.append(key, cliente[key]);
         });
         if (imagen) {
-            formData.append('url_imagen_cliente', imagen); // Asegúrate de que el nombre coincida con el esperado en el backend
+            formData.append('imagen_cliente', imagen); // Asegúrate de que el nombre coincida con el esperado en el backend
         }
 
         try {
@@ -88,50 +95,73 @@ export const FormAgregarCliente = ({ onClose }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="nombre_cliente">Nombre:</label>
+                    <label htmlFor="pnombre_cliente">Primer Nombre:</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="nombre_cliente"
-                        name="nombre_cliente"
-                        value={cliente.nombre_cliente}
+                        id="pnombre_cliente"
+                        name="pnombre_cliente"
+                        value={cliente.pnombre_cliente}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="direccion_cliente">Dirección:</label>
+                    <label htmlFor="snombre_cliente">Segundo Nombre:</label>
                     <input
                         type="text"
                         className="form-control"
-                        id="direccion_cliente"
-                        name="direccion_cliente"
-                        value={cliente.direccion_cliente}
+                        id="snombre_cliente"
+                        name="snombre_cliente"
+                        value={cliente.snombre_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="appaterno_cliente">Apellido Paterno:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="appaterno_cliente"
+                        name="appaterno_cliente"
+                        value={cliente.appaterno_cliente}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="numtelefono_cliente">Contacto Principal:</label>
+                    <label htmlFor="apmaterno_cliente">Apellido Materno:</label>
                     <input
                         type="text"
+                        className="form-control"
+                        id="apmaterno_cliente"
+                        name="apmaterno_cliente"
+                        value={cliente.apmaterno_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="dirección_cliente">Dirección:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="dirección_cliente"
+                        name="dirección_cliente"
+                        value={cliente.dirección_cliente}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="numtelefono_cliente">Teléfono:</label>
+                    <input
+                        type="tel"
                         className="form-control"
                         id="numtelefono_cliente"
                         name="numtelefono_cliente"
                         value={cliente.numtelefono_cliente}
                         onChange={handleChange}
                         required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="numtelefono2_cliente">Contacto Secundario:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="numtelefono2_cliente"
-                        name="numtelefono2_cliente"
-                        value={cliente.numtelefono2_cliente}
-                        onChange={handleChange}
                     />
                 </div>
                 <div className="form-group">
@@ -147,25 +177,36 @@ export const FormAgregarCliente = ({ onClose }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="fecha_contrato_inicio">Fecha de Inicio de Contrato:</label>
+                    <label htmlFor="fecnac_cliente">Fecha de Nacimiento:</label>
                     <input
                         type="date"
                         className="form-control"
-                        id="fecha_contrato_inicio"
-                        name="fecha_contrato_inicio"
-                        value={cliente.fecha_contrato_inicio}
+                        id="fecnac_cliente"
+                        name="fecnac_cliente"
+                        value={cliente.fecnac_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="fec_inicio_contrato_cliente">Fecha de Inicio de Contrato:</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="fec_inicio_contrato_cliente"
+                        name="fec_inicio_contrato_cliente"
+                        value={cliente.fec_inicio_contrato_cliente}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="fecha_contrato_termino_cliente">Fecha de Término de Contrato:</label>
+                    <label htmlFor="fec_termino_contrato_cliente">Fecha de Término de Contrato:</label>
                     <input
                         type="date"
                         className="form-control"
-                        id="fecha_contrato_termino_cliente"
-                        name="fecha_contrato_termino_cliente"
-                        value={cliente.fecha_contrato_termino_cliente}
+                        id="fec_termino_contrato_cliente"
+                        name="fec_termino_contrato_cliente"
+                        value={cliente.fec_termino_contrato_cliente}
                         onChange={handleChange}
                     />
                 </div>

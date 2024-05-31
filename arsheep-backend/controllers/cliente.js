@@ -1,13 +1,12 @@
 import supabase from '../database/connection.js';
 import { v4 as uuidv4 } from 'uuid';
 
-
-const upload = (req, res) =>{
+const upload = (req, res) => {
     return res.status(200).send({
-        status:"success",
-        message: "Subida de imagenes"
-    })
-}
+        status: "success",
+        message: "Subida de imágenes"
+    });
+};
 
 // Subir imagen a Supabase
 const uploadImage = async (file) => {
@@ -36,7 +35,7 @@ export const getClienteById = async (req, res) => {
     const { data, error } = await supabase
         .from('CLIENTE')
         .select('*')
-        .eq('run_cliente', id)
+        .eq('numrun_cliente', id)
         .single();
 
     if (error) return res.status(400).json({ error });
@@ -47,37 +46,51 @@ export const getClienteById = async (req, res) => {
 export const createCliente = async (req, res) => {
     try {
         const {
-            run_cliente,
-            dv_run_cliente,
-            nombre_cliente,
-            direccion_cliente,
-            numtelefono_cliente,
-            numtelefono2_cliente,
+            numrun_cliente,
+            dvrun_cliente,
+            pnombre_cliente,
+            snombre_cliente,
+            appaterno_cliente,
+            apmaterno_cliente,
+            dirección_cliente,
             email_cliente,
-            fecha_contrato_inicio,
-            fecha_contrato_termino_cliente,
-            fecha_creacion_cliente
+            numtelefono_cliente,
+            id_comuna,
+            fecnac_cliente,
+            id_tipo_cliente,
+            razon_social_cliente,
+            id_region,
+            fec_inicio_contrato_cliente,
+            fec_termino_contrato_cliente,
+            fec_creacion_cliente
         } = req.body;
 
-        let url_imagen_cliente = '';
+        let imagen_cliente = '';
         if (req.file) {
-            url_imagen_cliente = await uploadImage(req.file);
+            imagen_cliente = await uploadImage(req.file);
         }
 
         const { data, error } = await supabase
             .from('CLIENTE')
             .insert([{
-                run_cliente,
-                dv_run_cliente,
-                nombre_cliente,
-                direccion_cliente,
-                url_imagen_cliente,
-                numtelefono_cliente,
-                numtelefono2_cliente,
+                numrun_cliente,
+                dvrun_cliente,
+                pnombre_cliente,
+                snombre_cliente,
+                appaterno_cliente,
+                apmaterno_cliente,
+                dirección_cliente,
                 email_cliente,
-                fecha_contrato_inicio,
-                fecha_contrato_termino_cliente,
-                fecha_creacion_cliente
+                numtelefono_cliente,
+                id_comuna,
+                fecnac_cliente,
+                id_tipo_cliente,
+                razon_social_cliente,
+                id_region,
+                imagen_cliente,
+                fec_inicio_contrato_cliente,
+                fec_termino_contrato_cliente,
+                fec_creacion_cliente
             }]);
 
         if (error) throw error;
@@ -92,37 +105,51 @@ export const updateCliente = async (req, res) => {
     try {
         const { id } = req.params;
         const {
-            dv_run_cliente,
-            nombre_cliente,
-            direccion_cliente,
-            numtelefono_cliente,
-            numtelefono2_cliente,
+            dvrun_cliente,
+            pnombre_cliente,
+            snombre_cliente,
+            appaterno_cliente,
+            apmaterno_cliente,
+            dirección_cliente,
             email_cliente,
-            fecha_contrato_inicio,
-            fecha_contrato_termino_cliente,
-            fecha_creacion_cliente
+            numtelefono_cliente,
+            id_comuna,
+            fecnac_cliente,
+            id_tipo_cliente,
+            razon_social_cliente,
+            id_region,
+            fec_inicio_contrato_cliente,
+            fec_termino_contrato_cliente,
+            fec_creacion_cliente
         } = req.body;
 
-        let url_imagen_cliente = req.body.url_imagen_cliente || '';
+        let imagen_cliente = req.body.imagen_cliente || '';
         if (req.file) {
-            url_imagen_cliente = await uploadImage(req.file);
+            imagen_cliente = await uploadImage(req.file);
         }
 
         const { data, error } = await supabase
             .from('CLIENTE')
             .update({
-                dv_run_cliente,
-                nombre_cliente,
-                direccion_cliente,
-                url_imagen_cliente,
-                numtelefono_cliente,
-                numtelefono2_cliente,
+                dvrun_cliente,
+                pnombre_cliente,
+                snombre_cliente,
+                appaterno_cliente,
+                apmaterno_cliente,
+                dirección_cliente,
                 email_cliente,
-                fecha_contrato_inicio,
-                fecha_contrato_termino_cliente,
-                fecha_creacion_cliente
+                numtelefono_cliente,
+                id_comuna,
+                fecnac_cliente,
+                id_tipo_cliente,
+                razon_social_cliente,
+                id_region,
+                imagen_cliente,
+                fec_inicio_contrato_cliente,
+                fec_termino_contrato_cliente,
+                fec_creacion_cliente
             })
-            .eq('run_cliente', id);
+            .eq('numrun_cliente', id);
 
         if (error) throw error;
         return res.json(data);
@@ -130,6 +157,7 @@ export const updateCliente = async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 };
+
 // Eliminar un cliente
 export const deleteCliente = async (req, res) => {
     const { id } = req.params;
@@ -137,7 +165,7 @@ export const deleteCliente = async (req, res) => {
     const { data, error } = await supabase
         .from('CLIENTE')
         .delete()
-        .match({ run_cliente: id });
+        .match({ numrun_cliente: id });
 
     if (error) return res.status(400).json({ error });
     return res.json(data);

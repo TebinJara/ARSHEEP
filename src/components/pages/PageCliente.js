@@ -9,7 +9,7 @@ export const PageCliente = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
     const [filtro, setFiltro] = useState('');
-    const [criterio, setCriterio] = useState('nombre_cliente');
+    const [criterio, setCriterio] = useState('pnombre_cliente');
     const [showModal, setShowModal] = useState(false);
 
     const fetchData = async () => {
@@ -46,11 +46,12 @@ export const PageCliente = () => {
     };
 
     const seleccionarCliente = cliente => {
-        // Formatea las fechas antes de establecer el cliente seleccionado
         const clienteFormateado = {
             ...cliente,
-            fecha_contrato_inicio: formatearFecha(cliente.fecha_contrato_inicio),
-            fecha_contrato_termino_cliente: formatearFecha(cliente.fecha_contrato_termino_cliente),
+            fecnac_cliente: formatearFecha(cliente.fecnac_cliente),
+            fec_inicio_contrato_cliente: formatearFecha(cliente.fec_inicio_contrato_cliente),
+            fec_termino_contrato_cliente: formatearFecha(cliente.fec_termino_contrato_cliente),
+            fec_creacion_cliente: formatearFecha(cliente.fec_creacion_cliente)
         };
         setClienteSeleccionado(clienteFormateado);
     };
@@ -64,7 +65,7 @@ export const PageCliente = () => {
     };
 
     const aplicarFiltro = () => {
-        const filtered = data.filter(cliente => cliente[criterio].toString().toLowerCase().includes(filtro.toLowerCase()));
+        const filtered = data.filter(cliente => cliente[criterio]?.toString().toLowerCase().includes(filtro.toLowerCase()));
         setFilteredData(filtered);
     };
 
@@ -115,9 +116,16 @@ export const PageCliente = () => {
                         </div>
                         <div className='filter-container-group'>
                             <select value={criterio} onChange={handleCriterioChange}>
-                                <option value="run_cliente">RUT</option>
-                                <option value="dv_run">DV</option>
-                                <option value="nombre_cliente">Nombre</option>
+                                <option value="numrun_cliente">RUT</option>
+                                <option value="dvrun_cliente">DV</option>
+                                <option value="pnombre_cliente">Primer Nombre</option>
+                                <option value="snombre_cliente">Segundo Nombre</option>
+                                <option value="appaterno_cliente">Apellido Paterno</option>
+                                <option value="apmaterno_cliente">Apellido Materno</option>
+                                <option value="razon_social_cliente">Razón Social</option>
+                                <option value="fec_inicio_contrato_cliente">Inicio Contrato</option>
+                                <option value="fec_termino_contrato_cliente">Término Contrato</option>
+                                <option value="fec_creacion_cliente">Fecha Creación</option>
                             </select>
                             <input type="text" value={filtro} onChange={handleFilterChange} placeholder="Ingrese filtro..." />
                         </div>
@@ -138,20 +146,33 @@ export const PageCliente = () => {
                             <thead>
                                 <tr>
                                     <th>RUT</th>
-                                    <th>Nombre</th>
+                                    <th>Primer Nombre</th>
+                                    <th>Segundo Nombre</th>
+                                    <th>Apellido Paterno</th>
+                                    <th>Apellido Materno</th>
+                                    <th>Razón Social</th>
+                                    <th>Inicio Contrato</th>
+                                    <th>Término Contrato</th>
+                                    <th>Fecha Creación</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredData.map((cliente) => (
-                                    <tr key={cliente.run_cliente} onClick={() => seleccionarCliente(cliente)} className="table-row">
-                                        <td>{formatearRUT(cliente.run_cliente, cliente.dv_run_cliente)}</td>
-                                        <td>{cliente.nombre_cliente}</td>
+                                    <tr key={cliente.numrun_cliente} onClick={() => seleccionarCliente(cliente)} className="table-row">
+                                        <td>{formatearRUT(cliente.numrun_cliente, cliente.dvrun_cliente)}</td>
+                                        <td>{cliente.pnombre_cliente}</td>
+                                        <td>{cliente.snombre_cliente}</td>
+                                        <td>{cliente.appaterno_cliente}</td>
+                                        <td>{cliente.apmaterno_cliente}</td>
+                                        <td>{cliente.razon_social_cliente}</td>
+                                        <td>{formatearFecha(cliente.fec_inicio_contrato_cliente)}</td>
+                                        <td>{formatearFecha(cliente.fec_termino_contrato_cliente)}</td>
+                                        <td>{formatearFecha(cliente.fec_creacion_cliente)}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
             {showModal && <FormAgregarCliente onClose={handleCloseModal} />}

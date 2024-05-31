@@ -37,6 +37,12 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         return `${rut.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}-${dv}`;
     };
 
+    const formatFecha = (fecha) => {
+        if (!fecha) return '';
+        const [year, month, day] = fecha.split('-');
+        return `${day}-${month}-${year}`;
+    };
+
     return (
         <div className='secondary-container-50'>
             <div className='container-header'>
@@ -47,30 +53,63 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
             <div className='secondary-container'>
 
                 <div className='container-header'>
-                    <h3>{formData.nombre_cliente}</h3>
+                    <h3>{formData.pnombre_cliente} {formData.snombre_cliente} {formData.appaterno_cliente} {formData.apmaterno_cliente}</h3>
                 </div>
 
                 <div className='data-container'>
                     <div className='image-container'>
-                        <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.nombre_cliente}`} className="image-cliente" />
+                        <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.pnombre_cliente}`} className="image-cliente" />
                     </div>
                     <div className='data-item'>
                         <label>RUT: </label>
                         <input
                             type="text"
-                            name="run_cliente"
-                            value={formatRut(formData.run_cliente, formData.dv_run_cliente)}
+                            name="numrun_cliente"
+                            value={formatRut(formData.numrun_cliente, formData.dvrun_cliente)}
                             onChange={handleInputChange}
                             disabled={true}
                             className="input-desenabled"
                         />
                     </div>
                     <div className='data-item'>
-                        <label>Nombre:</label>
+                        <label>Primer Nombre:</label>
                         <input
                             type="text"
-                            name="nombre_cliente"
-                            value={formData.nombre_cliente}
+                            name="pnombre_cliente"
+                            value={formData.pnombre_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Segundo Nombre:</label>
+                        <input
+                            type="text"
+                            name="snombre_cliente"
+                            value={formData.snombre_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Apellido Paterno:</label>
+                        <input
+                            type="text"
+                            name="appaterno_cliente"
+                            value={formData.appaterno_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
+                        <label>Apellido Materno:</label>
+                        <input
+                            type="text"
+                            name="apmaterno_cliente"
+                            value={formData.apmaterno_cliente}
                             onChange={handleInputChange}
                             disabled={!isEditing}
                             className={styleInput}
@@ -80,8 +119,8 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                         <label>Dirección: </label>
                         <input
                             type="text"
-                            name="direccion_cliente"
-                            value={formData.direccion_cliente}
+                            name="dirección_cliente"
+                            value={formData.dirección_cliente}
                             onChange={handleInputChange}
                             disabled={!isEditing}
                             className={styleInput}
@@ -90,17 +129,9 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                     <div className='data-item'>
                         <label>Teléfono:</label>
                         <input
-                            type="text"
+                            type="tel"
                             name="numtelefono_cliente"
                             value={formData.numtelefono_cliente}
-                            onChange={handleInputChange}
-                            disabled={!isEditing}
-                            className={styleInput}
-                        />
-                        <input
-                            type="text"
-                            name="numtelefono2_cliente"
-                            value={formData.numtelefono2_cliente}
                             onChange={handleInputChange}
                             disabled={!isEditing}
                             className={styleInput}
@@ -118,11 +149,22 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                         />
                     </div>
                     <div className='data-item'>
+                        <label>Fecha de Nacimiento:</label>
+                        <input
+                            type="date"
+                            name="fecnac_cliente"
+                            value={formData.fecnac_cliente}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        />
+                    </div>
+                    <div className='data-item'>
                         <label>Fecha de Inicio del Contrato:</label>
                         <input
-                            type="text"
-                            name="fecha_contrato_inicio"
-                            value={formData.fecha_contrato_inicio}
+                            type="date"
+                            name="fec_inicio_contrato_cliente"
+                            value={formData.fec_inicio_contrato_cliente}
                             onChange={handleInputChange}
                             disabled={!isEditing}
                             className={styleInput}
@@ -131,22 +173,30 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                     <div className='data-item'>
                         <label>Fecha de Término del Contrato:</label>
                         <input
-                            type="text"
-                            name="fecha_contrato_termino_cliente"
-                            value={formData.fecha_contrato_termino_cliente}
+                            type="date"
+                            name="fec_termino_contrato_cliente"
+                            value={formData.fec_termino_contrato_cliente}
                             onChange={handleInputChange}
                             disabled={!isEditing}
                             className={styleInput}
                         />
                     </div>
-           
-                        
-
+                    <div className='data-item'>
+                        <label>Fecha de Creación del Cliente:</label>
+                        <input
+                            type="date"
+                            name="fec_creacion_cliente"
+                            value={formData.fec_creacion_cliente}
+                            onChange={handleInputChange}
+                            disabled={true}
+                            className="input-desenabled"
+                        />
+                    </div>
                 </div>
 
                 <div className='control-buttons-container'>
                     <div className='control-buttons-container-group'>
-                        <button onClick={() => onEliminar(formData.run_cliente)}>Eliminar</button>
+                        <button onClick={() => onEliminar(formData.numrun_cliente)}>Eliminar</button>
                         {isEditing ? (
                             <button onClick={handleSaveClick}>Guardar</button>
                         ) : (
