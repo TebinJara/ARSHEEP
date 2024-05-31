@@ -155,7 +155,6 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                         <button>Notificar</button>
                         <button>Tickets</button>
                     </div>
-
                 </div>
             </div>
         </div>

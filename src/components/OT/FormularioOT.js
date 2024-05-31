@@ -91,11 +91,11 @@ const FormularioOT = () => {
     return (
         <div className='principal-container'>
             <div className='secondary-container'>
-                <div className='simple-container'>
+              
                     <div className='container-header'>
                         <h2>Formulario Orden de Trabajo</h2>
                     </div>
-                    <form className="form-grid" onSubmit={handleSubmit}>
+                    <form className="form-container" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="descripción">Descripción:</label>
                             <input
@@ -249,7 +249,7 @@ const FormularioOT = () => {
                         </div>
                         <button type="submit" className="btn btn-primary">Enviar OT</button>
                     </form>
-                </div>
+            
             </div>
             <div className='secondary-container'>
             </div>

@@ -1,17 +1,18 @@
 :root {
-  --primary-color: rgb(180, 210, 100);
-  --primary-color-contrast: rgb(160, 190, 80);
-  --secondary-color: rgb(230, 250, 150);
-  --background-color-light: rgb(130, 130, 140);
-  --background-color-light-contrast: rgb(150, 150, 160);
-  --background-color-dark: rgb(90, 90, 100);
-  --background-color-dark-contrast: rgb(80, 80, 90);
-  --text-color-light: rgb(250, 250, 250);
-  --text-color-dark: rgb(50, 50, 60);
-  --cont-shadow-conc: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-    inset -1px -1px 1px rgba(255, 255, 255, 0.2);
-  --cont-shadow-conv: inset 1px 1px 1px rgba(255, 255, 255, 0.2),
-    inset -1px -1px 1px rgba(0, 0, 0, 0.2);
+  --primary-color: #C2D971; /* Gris oscuro industrial */
+  --primary-color-contrast:#a3b65d; /* Amarillo brillante para contraste */
+  --secondary-color: rgb(153, 75, 195); /* Gris medio */
+  --background-light: linear-gradient(145deg, #9b9b9c, #6e6e6f);
+  --background-light-contrast: linear-gradient(145deg, #878788, #5a5a5b); /*#737373 Gris claro */
+  --background-dark: linear-gradient(145deg, #7d7d7e, #505051); /* Gris muy oscuro */
+  --background-dark-contrast: linear-gradient(145deg, #737374, #464647); /* Gris medio oscuro */
+  --background-button: linear-gradient(145deg, rgba(113, 131, 47, 0.8), rgba(85, 98, 34, 0.8));
+  --text-color-light: rgb(255, 255, 255); /* Blanco */
+  --text-color-dark: rgb(0, 0, 0); /* Negro */
+  --cont-shadow-conc: inset 1px 1px 1px rgba(0, 0, 0, 0.4),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.4);
+  --cont-shadow-conv: inset 1px 1px 1px rgba(255, 255, 255, 0.4),
+    inset -1px -1px 1px rgba(0, 0, 0, 0.4);
   --font-family: -apple-system, BlinkMacSystemFont, "Arial", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -27,7 +28,7 @@ body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   color: var(--text-color-light);
 }
 
@@ -62,7 +63,7 @@ code {
   margin: 0;
   padding: 2px;
   display: flex;
-  background: var(--background-color-dark);
+  background: var(--background-dark);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -76,7 +77,7 @@ code {
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
-    background-color: var(--background-color-dark-contrast);
+    background: var(--background-light-contrast);
     box-shadow: var(--cont-shadow-conc);
     border-radius: 5px;
     box-sizing: border-box;
@@ -95,7 +96,7 @@ code {
   width: auto;
   padding: 5px;
   margin: 2px;
-  background-color: var(--background-color-dark-contrast);
+  background: var(--background-dark-contrast);
   box-shadow: var(--cont-shadow-conc);
   display: flex;
   flex-direction: row;
@@ -106,7 +107,7 @@ code {
     box-sizing: border-box;
     width: 60px;
     height: 60px;
-    background-color: var(--primary-color);
+    background: var(--primary-color);
     border-radius: 50%;
     img {
       width: 100%;
@@ -119,7 +120,7 @@ code {
 
 .menuNav {
   grid-area: menuNav;
-  background: var(--background-color-dark);
+  background: var(--background-dark);
   display: flex;
   flex-direction: column;
   padding: 2px;
@@ -145,7 +146,7 @@ code {
   grid-area: content;
   padding: 10px;
   box-sizing: border-box;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   box-shadow: var(--cont-shadow-conc);
   overflow-y: auto;
   overflow-x: hidden;
@@ -176,20 +177,27 @@ button {
   padding: 10px 20px 10px 20px;
   border: none;
   border-radius: 2px;
-  background-color: var(--background-color-light-contrast);
-  color: var(--text-color-dark);
+  background: var(--background-button);
+  color: var(--text-color-light);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: var(--cont-shadow-conv);
+  border: 1px solid #546824;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-  background-color: var(--primary-color);
-  color: var(--text-color-dark);
-  box-shadow: 0 0 2px var(--primary-color);
+
+    background: linear-gradient(145deg, #a3c44a, #687c2d);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
+
 
 /*_____Input_____*/
 
@@ -200,13 +208,14 @@ input {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   color: var(--primary-color);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: var(--cont-shadow-conc);
+  
 }
 
 input:focus {
@@ -216,7 +225,7 @@ input:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--text-color-light);
+  background: var(--text-color-light);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -232,7 +241,7 @@ input:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--accent-color);
+  background: var(--accent-color);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -250,7 +259,7 @@ textarea {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   color: var(--primary-color);
   font-size: 12px;
   font-weight: lighter;
@@ -266,7 +275,7 @@ textarea:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--text-color-light);
+  background: var(--text-color-light);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -281,7 +290,7 @@ textarea:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--accent-color);
+  background: var(--accent-color);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -299,7 +308,7 @@ select {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   color: var(--primary-color);
   font-size: 12px;
   font-weight: lighter;
@@ -315,7 +324,7 @@ select:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--text-color-light);
+  background: var(--text-color-light);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -331,7 +340,7 @@ select:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background-color: var(--accent-color);
+  background: var(--accent-color);
   color: var(--text-color-dark);
   font-size: 12px;
   font-weight: lighter;
@@ -341,12 +350,12 @@ select:focus {
 }
 
 option {
-  background-color: var(--text-color-light);
+  background: var(--text-color-light);
   color: var(--text-color-dark);
 }
 
 option:checked {
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   color: var(--text-color-dark);
 }
 
@@ -359,7 +368,7 @@ label {
   padding: 8px 5px 8px 5px;
   border: 0;
   border-radius: 0;
-  background-color: none;
+  background: none;
   color: var(--text-color-light);
   font-size: 12px;
   font-weight: 600;
@@ -395,7 +404,7 @@ li {
   height: auto;
   margin: px 0px;
   padding: 10px 0px;
-  background-color: var(--background-color-dark-contrast);
+  background: var(--background-dark-contrast);
   list-style: none;
   border-radius: 2px;
   display: flex;
@@ -446,7 +455,7 @@ li {
   height: auto;
   margin: 0px;
   padding: 10px 0px;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   list-style: none;
   box-sizing: border-box;
 }
@@ -477,14 +486,14 @@ table {
   width: 100%;
   font-size: 12px;
   color: var(--text-color-dark);
-  background-color: var(--background-color-light);
+  background: var(--background-light);
 }
 
 thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: var(--background-color-dark);
+  background: var(--background-dark);
   color: var(--primary-color);
 }
 
@@ -495,32 +504,48 @@ td {
 }
 
 tr {
-  background-color: var(--background-color-light-contrast);
+  background: var(--background-light-contrast);
 }
 
 tr:nth-child(even) {
-  background-color: var(--background-color-light);
+  background: var(--background-light);
 }
 
 tbody tr:hover {
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   cursor: pointer;
   box-shadow: 0 0 10px rgba(194, 217, 113, 0.5);
   color: var(--text-color-dark);
 }
 
-.form-grid {
+.form-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 2px;
+  padding: 20px;
+  background: var(--background-dark-contrast);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
 }
 
 .form-group {
+  width: 100%;
+  height: auto;
+  margin: 10px 2px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
+  box-shadow: var(--cont-shadow-conc);
+  input,select,textarea{
+    width: 70%;
+  }
 }
 
 .container-header {
@@ -530,11 +555,11 @@ tbody tr:hover {
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
   box-shadow: var(--cont-shadow-conv);
   border-radius: 5px;
   box-sizing: border-box;
-  background-color: var(--background-color-light);
+  background: var(--background-light);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -544,9 +569,9 @@ tbody tr:hover {
 .principal-container {
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 5px 5px;
-  background-color: var(--background-color-light);
+  background: var(--background-light);
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -557,7 +582,7 @@ tbody tr:hover {
 .secondary-container {
   box-sizing: border-box;
   width: 100%;
-  max-height: 530px;
+  max-height: 100%;
   padding: 1px;
   display: flex;
   flex-flow: column;
@@ -566,20 +591,6 @@ tbody tr:hover {
   gap: 5px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.simple-container-header {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  text-align: left;
-  font-size: 14px;
-  margin: 0px;
-  p {
-    background-color: rgba(0, 255, 255, 0);
-    margin: 0px 0px 5px 0px;
-    color: var(--text-color-light);
-  }
 }
 
 .data-container {
@@ -605,13 +616,17 @@ tbody tr:hover {
   padding: 2px;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0);
-  background-color: var(--background-color-light-contrast);
+  background: var(--background-light-contrast);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  color: black;
+  color: var(--text-color-dark);
   transition: 0.2s;
+  label{
+    color: var(--text-color-dark);
+  }
+
 }
 
 .data-item:hover {
@@ -642,7 +657,7 @@ tbody tr:hover {
   font-size: 14px;
   margin: 0px;
   p {
-    background-color: rgba(0, 255, 255, 0);
+    background: rgba(0, 255, 255, 0);
     margin: 0px 0px 5px 0px;
     color: var(--text-color-light);
   }

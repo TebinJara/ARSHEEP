@@ -33,32 +33,33 @@ export const Login = () => {
     };
 
     return (
-        <div className='login-container'>
-            <form onSubmit={handleSubmit} className='login-form'>
+     
 
-                <div className='login-form-group'>
-                    <label htmlFor="username">Usuario:</label>
-                    <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                    />
-                </div>
+            <div className='login-container'>
+                <form onSubmit={handleSubmit} className='form-container'>
+                    <div className='form-group'>
+                        <label htmlFor="username">Usuario:</label>
+                        <input
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </div>
 
-                <div className='login-form-group'>
-                    <label htmlFor="password">Contraseña:</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </div>
+                    <div className='form-group'>
+                        <label htmlFor="password">Contraseña:</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
 
-                <button type="submit">Iniciar sesión</button>
-            </form>
-        </div>
+                    <button type="submit">Iniciar sesión</button>
+                </form>
+            </div>
 
     );
 
