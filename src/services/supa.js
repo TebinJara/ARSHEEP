@@ -11,7 +11,7 @@ const supabaseUrl = 'https://niqxbeaxtqofvrboxnzb.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pcXhiZWF4dHFvZnZyYm94bnpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ4NTMyMDksImV4cCI6MjAzMDQyOTIwOX0.k025dPkt6rB55YNbs1elSUr-Zoi1CF5Of_HDOV3OENc';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
-
+const API_URL = 'http://localhost:3001/api';
 
 export const obtenerUsuario = async () => {
     const { data, error } = await supabase.from('USUARIO').select('*');
@@ -48,28 +48,15 @@ export const insertarOrdenTrabajo = async (ordenTrabajo) => {
     }
 };
 
-// Obtener todos los empleados
-export const obtenerEmpleados = async () => {
-    try {
-        const response = await supaClient.get('/empleados');
-        return response.data; // Devuelve los datos recibidos del servidor
-    } catch (error) {
-        console.error('Error al obtener los empleados:', error.message);
-        return []; // Retorna un array vacío en caso de error
-    }
-};
-
-// Obtener todos los clientes
 export const obtenerClientes = async () => {
-    try {
-        const response = await supaClient.get('/clientes');
-        return response.data; // Devuelve los datos recibidos del servidor
-    } catch (error) {
-        console.error('Error al obtener los clientes:', error.message);
-        return []; // Retorna un array vacío en caso de error
-    }
+    const response = await axios.get(`${API_URL}/clientes`);
+    return response.data;
 };
 
+export const obtenerEmpleados = async () => {
+    const response = await axios.get(`${API_URL}/empleados`);
+    return response.data;
+};
 // Subir imagen
 export const subirImagen = async (file, folder = 'img1') => {
     const formData = new FormData();

@@ -4,6 +4,7 @@ import cors from 'cors';
 import usuarioRoutes from './routes/usuario.js';
 import clienteRoutes from './routes/cliente.js';
 import otRouter from './routes/ot.js';
+import empleadoRouter from './routes/empleadoroute.js';
 import bodyParser from 'body-parser'; 
 
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
+app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/orden_trabajo', otRouter);
