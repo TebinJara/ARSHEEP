@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {obtenerEmpleados,obtenerClientes} from '../../services/supa'
+import { obtenerEmpleados, obtenerClientes, insertarOrdenTrabajo } from '../../services/OtService';
 import './FormularioOT.css';
-
 
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
@@ -23,6 +22,7 @@ const FormularioOT = () => {
         const cargarClientes = async () => {
             try {
                 const listaClientes = await obtenerClientes();
+                console.log('Clientes recibidos:', listaClientes);
                 setClientes(listaClientes);
             } catch (error) {
                 console.error('Error al cargar clientes:', error);
@@ -32,6 +32,7 @@ const FormularioOT = () => {
         const cargarEmpleados = async () => {
             try {
                 const listaEmpleados = await obtenerEmpleados();
+                console.log('Empleados recibidos:', listaEmpleados);
                 setEmpleados(listaEmpleados);
             } catch (error) {
                 console.error('Error al cargar empleados:', error);
@@ -73,17 +74,8 @@ const FormularioOT = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/orden_trabajo', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Respuesta del servidor:', result);
-            } else {
-                console.error('Error al enviar el formulario');
-            }
+            const result = await insertarOrdenTrabajo(formData);
+            console.log('Respuesta del servidor:', result);
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
@@ -207,7 +199,7 @@ const FormularioOT = () => {
                             <option value="">Seleccione un empleado</option>
                             {empleados.map(empleado => (
                                 <option key={empleado.id_empleado} value={empleado.id_empleado}>
-                                    {empleado.nombreCompleto}
+                                     {`${empleado.pnombre} ${empleado.snombre ? empleado.snombre + ' ' : ''}${empleado.apaterno} ${empleado.amaterno}`}
                                 </option>
                             ))}
                         </select>

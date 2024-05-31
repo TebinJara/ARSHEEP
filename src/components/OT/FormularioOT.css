@@ -25,3 +25,11 @@
   height: auto;
   margin-top: 5px;
 }
+
+.form-control option {
+  color: black; 
+}
+
+.form-group select option {
+  color: black; 
+}
