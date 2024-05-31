@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { insertarOrdenTrabajo, obtenerEmpleado, obtenerClientesrun, subirImagen } from '../../services/supa';
+import {obtenerEmpleados,obtenerClientes} from '../../services/supa'
 import './FormularioOT.css';
-
 
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
@@ -13,10 +12,6 @@ const FormularioOT = () => {
         adicional: '',
         run_cliente: '',
         id_empleado: '',
-        imagen_1: '',
-        imagen_2: '',
-        imagen_3: '',
-        imagen_4: ''
     });
 
     const [clientes, setClientes] = useState([]);
@@ -26,7 +21,7 @@ const FormularioOT = () => {
     useEffect(() => {
         const cargarClientes = async () => {
             try {
-                const listaClientes = await obtenerClientesrun();
+                const listaClientes = await obtenerClientes();
                 setClientes(listaClientes);
             } catch (error) {
                 console.error('Error al cargar clientes:', error);
@@ -35,7 +30,7 @@ const FormularioOT = () => {
 
         const cargarEmpleados = async () => {
             try {
-                const listaEmpleados = await obtenerEmpleado();
+                const listaEmpleados = await obtenerEmpleados();
                 setEmpleados(listaEmpleados);
             } catch (error) {
                 console.error('Error al cargar empleados:', error);
@@ -64,22 +59,32 @@ const FormularioOT = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
-        try {
-            let imageUrls = {};
-    
-            for (let key in imagenFiles) {
-                if (imagenFiles[key]) {
-                    const { publicUrl } = await subirImagen(imagenFiles[key], key);
-                    imageUrls[key] = publicUrl;
-                }
+
+        const formData = new FormData();
+        for (let key in newForm) {
+            formData.append(key, newForm[key]);
+        }
+
+        for (let key in imagenFiles) {
+            if (imagenFiles[key]) {
+                formData.append(key, imagenFiles[key]);
             }
-    
-            const formWithImages = { ...newForm, ...imageUrls };
-            const response = await insertarOrdenTrabajo(formWithImages);
-            console.log('Respuesta del servidor:', response);
+        }
+
+        try {
+            const response = await fetch('http://localhost:3001/api/orden_trabajo', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Respuesta del servidor:', result);
+            } else {
+                console.error('Error al enviar el formulario');
+            }
         } catch (error) {
-            console.error('Error al insertar datos en Supabase:', error.message);
+            console.error('Error al enviar el formulario:', error);
         }
     };
 

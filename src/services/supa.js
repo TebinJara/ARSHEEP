@@ -1,17 +1,17 @@
+import axios from 'axios';
 import { createClient } from '@supabase/supabase-js';
 
+const supaClient = axios.create({
+    baseURL: 'http://localhost:3001/api', // Asegúrate de que esta sea la URL correcta
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 const supabaseUrl = 'https://niqxbeaxtqofvrboxnzb.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pcXhiZWF4dHFvZnZyYm94bnpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ4NTMyMDksImV4cCI6MjAzMDQyOTIwOX0.k025dPkt6rB55YNbs1elSUr-Zoi1CF5Of_HDOV3OENc';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default supabase;
-
-export const obtenerClientes = async () => {
-    const { data, error } = await supabase.from('CLIENTE').select('*');
-    if (error) throw error;
-    return data;
-};
 
 export const obtenerUsuario = async () => {
     const { data, error } = await supabase.from('USUARIO').select('*');
@@ -36,61 +36,57 @@ export const obtenerStatusPorId = async (idStatus) => {
     if (error) throw error;
     return data;
 };
-
+//cambio
+// Insertar orden de trabajo
 export const insertarOrdenTrabajo = async (ordenTrabajo) => {
-    const { data, error } = await supabase
-        .from('ORDEN_TRABAJO')
-        .insert([ordenTrabajo], { returning: 'minimal' }); // Opcional, especifica qué datos devolver después de la inserción
-        
-    if (error) {
-        throw error;
-        
+    try {
+        const response = await supaClient.post('/orden_trabajo', ordenTrabajo);
+        return response.data; // Devuelve los datos recibidos del servidor
+    } catch (error) {
+        console.error('Error al insertar la orden de trabajo:', error.message);
+        throw error; // Lanza el error para que el componente que llama pueda manejarlo
     }
-
-    return data;
 };
 
-export const obtenerEmpleado = async () => {
-    const { data, error } = await supabase.from('EMPLEADO').select('id_empleado, pnombre, apaterno, amaterno');
-    if (error) throw error;
-    // Combinar nombre, apellido paterno y apellido materno para mostrar el nombre completo en el combobox
-    const empleados = data.map(empleado => ({
-        ...empleado,
-        nombreCompleto: `${empleado.pnombre} ${empleado.apaterno} ${empleado.amaterno}`
-    }));
-    console.log('Empleados obtenidos:', empleados);
-    return empleados;
-};
-export const obtenerClientesrun = async () => {
-    const { data, error } = await supabase.from('CLIENTE').select('run_cliente, nombre_cliente');
-    if (error) throw error;
-    return data;
+// Obtener todos los empleados
+export const obtenerEmpleados = async () => {
+    try {
+        const response = await supaClient.get('/empleados');
+        return response.data; // Devuelve los datos recibidos del servidor
+    } catch (error) {
+        console.error('Error al obtener los empleados:', error.message);
+        return []; // Retorna un array vacío en caso de error
+    }
 };
 
+// Obtener todos los clientes
+export const obtenerClientes = async () => {
+    try {
+        const response = await supaClient.get('/clientes');
+        return response.data; // Devuelve los datos recibidos del servidor
+    } catch (error) {
+        console.error('Error al obtener los clientes:', error.message);
+        return []; // Retorna un array vacío en caso de error
+    }
+};
+
+// Subir imagen
 export const subirImagen = async (file, folder = 'img1') => {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${file.name}`;
-    const filePath = `${folder}/${fileName}`;
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
-        const response = await supabase
-            .storage
-            .from('imgOT')
-            .upload(filePath, file);
+        const response = await supaClient.post(`/subirImagen/${folder}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
 
-        console.log("Respuesta de Supabase:", response);
-
-        if (response.error) {
-            throw response.error;
-        }
-
-        const imageName = encodeURIComponent(response.data.path.split('/').pop()); // Obtener solo el nombre de la imagen y codificarlo
-        const imageUrl = `${supabase.storageUrl}/object/public/imgOT/${folder}/${imageName}`; // Construir la URL completa
-
-        console.log("URL de la imagen subida:", imageUrl);
-
-        return { publicUrl: imageUrl }; // Devolvemos la URL de la imagen como 'publicUrl'
+        return response.data; // Devuelve los datos recibidos del servidor
     } catch (error) {
-        throw error;
+        console.error('Error al subir la imagen:', error.message);
+        throw error; // Lanza el error para que el componente que llama pueda manejarlo
     }
 };
+
+export default supaClient;

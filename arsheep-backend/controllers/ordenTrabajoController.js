@@ -1,5 +1,16 @@
 import supabase from '../database/connection.js';
-import {subirImagen} from '../../src/services/supa.js'
+
+
+const insertarOrdenTrabajo = async (ordenTrabajoData) => {
+    const { data, error } = await supabase
+        .from('ORDEN_TRABAJO')
+        .insert([ordenTrabajoData], { returning: 'minimal' });
+
+    if (error) {
+        throw error;
+    }
+    return data;
+};
 
 const handleInsertarOrdenTrabajo = async (req, res) => {
     const { descripción, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, run_cliente, id_empleado } = req.body;
@@ -46,3 +57,4 @@ const handleInsertarOrdenTrabajo = async (req, res) => {
 };
 
 export { handleInsertarOrdenTrabajo };
+//cambio para funcion backend
