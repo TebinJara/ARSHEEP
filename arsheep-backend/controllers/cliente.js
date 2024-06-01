@@ -158,15 +158,25 @@ export const updateCliente = async (req, res) => {
     }
 };
 
-// Eliminar un cliente
 export const deleteCliente = async (req, res) => {
     const { id } = req.params;
+    console.log(`Intentando eliminar el cliente con ID: ${id}`); // Log para depuración
 
-    const { data, error } = await supabase
-        .from('CLIENTE')
-        .delete()
-        .match({ numrun_cliente: id });
+    try {
+        const { data, error } = await supabase
+            .from('CLIENTE')
+            .delete()
+            .match({ numrun_cliente: id });
 
-    if (error) return res.status(400).json({ error });
-    return res.json(data);
+        if (error) {
+            console.error('Error al eliminar el cliente:', error.message); // Log para depuración
+            return res.status(400).json({ error: error.message });
+        }
+
+        console.log('Cliente eliminado:', data); // Log para depuración
+        return res.json(data);
+    } catch (error) {
+        console.error('Error en el servidor al eliminar el cliente:', error.message);
+        return res.status(500).json({ error: error.message });
+    }
 };

@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { obtenerComunaPorId, obtenerRegionPorId, obtenerRegiones, obtenerComunasPorRegion } from '../../services/RegionComunaService';
 import './DashboardDetailsCliente.css';
 
+// Componente para mostrar los detalles del cliente
 export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onEliminar, onUpdateCliente }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({ ...clienteSeleccionado });
     const [styleInput, setStyleInput] = useState("input-desenabled");
+    const [region, setRegion] = useState({});
+
+    const getDescRegion = async (id) => {
+        try {
+            const region = await obtenerRegionPorId(id);
+            console.log("region: " , region);
+            setRegion(region || []);
+        } catch (error) {
+            console.error('Error al obtener region:', error);
+        }
+    };
 
     useEffect(() => {
         setFormData({ ...clienteSeleccionado });
+        getDescRegion(clienteSeleccionado.id_region);
     }, [clienteSeleccionado]);
 
     if (!clienteSeleccionado) {
@@ -37,16 +51,14 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         return `${rut.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}-${dv}`;
     };
 
-    const formatFecha = (fecha) => {
-        if (!fecha) return '';
-        const [year, month, day] = fecha.split('-');
-        return `${day}-${month}-${year}`;
-    };
+    
+
+
 
     return (
         <div className='secondary-container-50'>
             <div className='container-header'>
-                <h2>Información del Cliente</h2>
+                <h2>Información del Cliente {region.desc_region}</h2>
                 <h3 onClick={onClose}>x</h3>
             </div>
 
@@ -196,7 +208,7 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
 
                 <div className='control-buttons-container'>
                     <div className='control-buttons-container-group'>
-                        <button onClick={() => onEliminar(formData.numrun_cliente)}>Eliminar</button>
+                        <button onClick={() => onEliminar(clienteSeleccionado.numrun_cliente)}>Eliminar</button>
                         {isEditing ? (
                             <button onClick={handleSaveClick}>Guardar</button>
                         ) : (

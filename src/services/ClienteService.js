@@ -54,10 +54,16 @@ export const actualizarCliente = async (id, cliente) => {
 // Eliminar un cliente
 export const eliminarCliente = async (id) => {
     try {
+        console.log(`Enviando solicitud para eliminar el cliente con ID: ${id}`);
         const response = await apiClient.delete(`/clientes/${id}`);
+        console.log('Respuesta del servidor:', response.data); // Log para depuración
         return response.data;
     } catch (error) {
         console.error('Error al eliminar el cliente:', error.message);
+        if (error.response) {
+            console.error('Detalles del error:', error.response.data);
+            return { error: error.response.data };
+        }
         return null;
     }
 };
