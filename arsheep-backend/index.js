@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import usuarioRoutes from './routes/usuario.js';
 import clienteRoutes from './routes/cliente.js';
+import tipoClienteRoutes from './routes/tipoCliente.js'
 import otRouter from './routes/ot.js';
 import empleadoRouter from './routes/empleadoroute.js';
 import regionComunaRoutes from './routes/regionComuna.js';
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
+app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRouter);
 app.use('/api', regionComunaRoutes); 
 

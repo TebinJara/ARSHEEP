@@ -225,13 +225,14 @@ input:focus {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background: var(--text-color-light);
-  color: var(--text-color-dark);
+  background: rgb(65, 65, 65);
+  color: var(--primary-color);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: var(--cont-shadow-conc);
+  text-shadow:0 0 10px rgba(194, 217, 113, 0.5);
 }
 
 .input-desenabled {
@@ -476,7 +477,7 @@ li {
 }
 
 .table-container {
-  width: 100%;
+  width: auto;
   max-height: 400px; /* Ajusta el tamaño según tus necesidades */
   overflow-y: auto;
 }
@@ -485,30 +486,34 @@ table {
   border-collapse: collapse;
   width: 100%;
   font-size: 12px;
-  color: var(--text-color-dark);
-  background: var(--background-light);
+  color: var(--text-color-light);
 }
 
 thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--background-dark);
   color: var(--primary-color);
 }
 
 th,
 td {
   text-align: left;
-  padding: 4px;
+  padding: 4px 20px;
 }
 
 tr {
   background: var(--background-light-contrast);
+  
 }
 
 tr:nth-child(even) {
-  background: var(--background-light);
+  background: red;
+}
+
+tbody{
+  text-shadow: 0.4px 0.4px 0.4px #000000; 
+  font-weight: 500;
 }
 
 tbody tr:hover {
@@ -516,6 +521,7 @@ tbody tr:hover {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(194, 217, 113, 0.5);
   color: var(--text-color-dark);
+  
 }
 
 .form-container {

@@ -5,6 +5,7 @@ import './DashboardDetailsCliente.css';
 
 // Componente para mostrar los detalles del cliente
 export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onEliminar, onUpdateCliente }) => {
+
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({ ...clienteSeleccionado });
     const [styleInput, setStyleInput] = useState("input-desenabled");
@@ -17,6 +18,7 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         getRegionById(clienteSeleccionado.id_region);
         getRegiones();
     }, [clienteSeleccionado]);
+
 
     useEffect(() => {
         if (formData.id_region) {
@@ -79,6 +81,8 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         }
     };
 
+    // Funciones Handle
+
     const handleCancelClick = () => {
         setIsEditing(false);
         setFormData({ ...clienteSeleccionado });
@@ -95,6 +99,8 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         const selectedComunaId = e.target.value;
         setFormData(prevData => ({ ...prevData, id_comuna: selectedComunaId }));
     };
+
+    //Funciones Auxiliares
 
     const formatRut = (rut, dv) => {
         if (typeof rut !== 'string') {
@@ -113,11 +119,12 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
             <div className='secondary-container'>
                 <div className='container-header'>
                     <h3>{formData.pnombre_cliente} {formData.snombre_cliente} {formData.appaterno_cliente} {formData.apmaterno_cliente}</h3>
+                    
                 </div>
 
                 <div className='data-container'>
                     <div className='image-container'>
-                        <img src={formData.url_imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.pnombre_cliente}`} className="image-cliente" />
+                        <img src={formData.imagen_cliente || 'default-image-url.jpg'} alt={`Imagen de ${formData.pnombre_cliente}`} className="image-cliente" />
                     </div>
                     <div className='data-item'>
                         <label>RUT: </label>

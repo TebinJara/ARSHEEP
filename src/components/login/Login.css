@@ -1,5 +1,8 @@
 .login-container {
+    box-sizing: border-box;
     height: 100vh; 
+    width: 100%;
+    padding: 200px 550px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,26 +13,5 @@
 }
 
 
-.login-form{
-    width: auto;
-    height: auto;
-    padding: 50px 20px;
-    border-radius: 10px;
-    background-color: var(--primary-color);
-    color: back;
-    label{
-        color: black;
-    }
-    box-shadow: var(--cont-shadow-conv);
-}
 
-.login-form-group{
-    margin: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-}
 

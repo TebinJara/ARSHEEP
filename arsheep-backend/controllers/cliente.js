@@ -1,23 +1,5 @@
 import supabase from '../database/connection.js';
-import { v4 as uuidv4 } from 'uuid';
 
-const upload = (req, res) => {
-    return res.status(200).send({
-        status: "success",
-        message: "Subida de imágenes"
-    });
-};
-
-// Subir imagen a Supabase
-const uploadImage = async (file) => {
-    const fileName = `${uuidv4()}.${file.mimetype.split('/')[1]}`;
-    const { data, error } = await supabase.storage
-        .from('imagen_cliente')
-        .upload(fileName, file.buffer);
-
-    if (error) throw error;
-    return data.Key;
-};
 
 // Obtener todos los clientes
 export const getClientes = async (req, res) => {
@@ -60,15 +42,11 @@ export const createCliente = async (req, res) => {
             id_tipo_cliente,
             razon_social_cliente,
             id_region,
+            imagen_cliente,
             fec_inicio_contrato_cliente,
             fec_termino_contrato_cliente,
             fec_creacion_cliente
         } = req.body;
-
-        let imagen_cliente = '';
-        if (req.file) {
-            imagen_cliente = await uploadImage(req.file);
-        }
 
         const { data, error } = await supabase
             .from('CLIENTE')
@@ -176,4 +154,18 @@ export const deleteCliente = async (req, res) => {
         console.error('Error en el servidor al eliminar el cliente:', error.message);
         return res.status(500).json({ error: error.message });
     }
+};
+
+
+// Obtener un tipo cliente por ID
+export const getTipoClienteById = async (req, res) => {
+    const { id } = req.params;
+    const { data, error } = await supabase
+        .from('TIPO_CLIENTE')
+        .select('*')
+        .eq('id_tipo_cliente', id)
+        .single();
+
+    if (error) return res.status(400).json({ error });
+    return res.json(data);
 };
