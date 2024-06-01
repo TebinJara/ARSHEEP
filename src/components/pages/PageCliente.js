@@ -43,24 +43,9 @@ export const PageCliente = () => {
         return `${runFormateado}-${dv}`;
     };
 
-    // Función para formatear la fecha
-    const formatearFecha = (fecha) => {
-        if (!fecha) return '';
-        const [year, month, day] = fecha.split('-');
-        return `${day}-${month}-${year}`;
-    };
-
-    // Función para seleccionar un cliente y formatear sus fechas
+    // Función para seleccionar un cliente
     const seleccionarCliente = cliente => {
-        const clienteFormateado = {
-            ...cliente,
-            fecnac_cliente: formatearFecha(cliente.fecnac_cliente),
-            fec_inicio_contrato_cliente: formatearFecha(cliente.fec_inicio_contrato_cliente),
-            fec_termino_contrato_cliente: formatearFecha(cliente.fec_termino_contrato_cliente),
-            fec_creacion_cliente: formatearFecha(cliente.fec_creacion_cliente)
-        };
-        setClienteSeleccionado(clienteFormateado);
-        console.log(cliente);
+        setClienteSeleccionado(cliente);
     };
 
     const handleFilterChange = e => {
@@ -116,8 +101,6 @@ export const PageCliente = () => {
             }
         }
     };
-
-
 
     return (
         <div className='principal-container'>
@@ -177,9 +160,9 @@ export const PageCliente = () => {
                                     <td>{cliente.appaterno_cliente}</td>
                                     <td>{cliente.apmaterno_cliente}</td>
                                     <td>{cliente.razon_social_cliente}</td>
-                                    <td>{formatearFecha(cliente.fec_inicio_contrato_cliente)}</td>
-                                    <td>{formatearFecha(cliente.fec_termino_contrato_cliente)}</td>
-                                    <td>{formatearFecha(cliente.fec_creacion_cliente)}</td>
+                                    <td>{cliente.fec_inicio_contrato_cliente}</td>
+                                    <td>{cliente.fec_termino_contrato_cliente}</td>
+                                    <td>{cliente.fec_creacion_cliente}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -193,7 +176,7 @@ export const PageCliente = () => {
                     clienteSeleccionado={clienteSeleccionado}
                     onClose={handleCloseDashboard}
                     onEliminar={handleEliminarCliente}
-                    onUpdateCliente={fetchData}
+                    onUpdateCliente={fetchData}  // Aquí se pasa fetchData como prop
                 />
             )}
         </div>

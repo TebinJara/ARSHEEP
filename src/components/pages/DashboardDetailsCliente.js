@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { obtenerComunaPorId, obtenerRegionPorId, obtenerRegiones, obtenerComunasPorRegion } from '../../services/RegionComunaService';
+import { actualizarCliente } from '../../services/ClienteService'; // Importar la función actualizarCliente
 import './DashboardDetailsCliente.css';
 
 // Componente para mostrar los detalles del cliente
@@ -11,10 +12,21 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
     const [regiones, setRegiones] = useState([]);
     const [comunas, setComunas] = useState([]);
 
+    useEffect(() => {
+        setFormData({ ...clienteSeleccionado });
+        getRegionById(clienteSeleccionado.id_region);
+        getRegiones();
+    }, [clienteSeleccionado]);
+
+    useEffect(() => {
+        if (formData.id_region) {
+            getComunas(formData.id_region);
+        }
+    }, [formData.id_region]);
+
     const getRegionById = async (id) => {
         try {
             const region = await obtenerRegionPorId(id);
-            console.log("region: ", region);
             setRegion(region || {});
         } catch (error) {
             console.error('Error al obtener región:', error);
@@ -33,28 +45,11 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
     const getComunas = async (id) => {
         try {
             const listComunas = await obtenerComunasPorRegion(id);
-            console.log("comunas: ", listComunas);
             setComunas(listComunas || []);
         } catch (error) {
             console.error('Error al obtener lista de comunas:', error);
         }
     };
-
-    useEffect(() => {
-        setFormData({ ...clienteSeleccionado });
-        getRegionById(clienteSeleccionado.id_region);
-        getRegiones();
-    }, [clienteSeleccionado]);
-
-    useEffect(() => {
-        if (region.id_region) {
-            getComunas(region.id_region);
-        }
-    }, [region]);
-
-    if (!clienteSeleccionado) {
-        return <p>No hay información del cliente disponible</p>;
-    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -66,17 +61,34 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         setStyleInput("");
     };
 
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
+        if (window.confirm("¿Realmente quieres modificar el cliente?")) {
+            try {
+                const updatedCliente = await actualizarCliente(formData.numrun_cliente, formData); // Actualiza el cliente en la BD
+                if (updatedCliente) {
+                    onUpdateCliente(); // Actualiza el estado del cliente en el componente padre
+                    setIsEditing(false);
+                    setStyleInput("input-desenabled");
+                } else {
+                    alert("Hubo un error al actualizar el cliente.");
+                }
+            } catch (error) {
+                console.error("Error al actualizar el cliente:", error);
+                alert("Hubo un error al actualizar el cliente.");
+            }
+        }
+    };
+
+    const handleCancelClick = () => {
         setIsEditing(false);
-        onUpdateCliente(formData); // Función para actualizar los detalles del cliente
+        setFormData({ ...clienteSeleccionado });
         setStyleInput("input-desenabled");
     };
 
     const handleRegionChange = (e) => {
         const selectedRegionId = e.target.value;
-        const selectedRegion = regiones.find(region => region.id_region === selectedRegionId);
-        setRegion(selectedRegion);
-        setFormData(prevData => ({ ...prevData, id_region: selectedRegionId, id_comuna: '' }));
+        setFormData(prevData => ({ ...prevData, id_region: selectedRegionId, id_comuna: '' })); // Reiniciar comuna
+        getComunas(selectedRegionId);
     };
 
     const handleComunaChange = (e) => {
@@ -94,7 +106,7 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
     return (
         <div className='secondary-container-50'>
             <div className='container-header'>
-                <h2>Información del Cliente {region.desc_region}</h2>
+                <h2>Información del Cliente</h2>
                 <h3 onClick={onClose}>x</h3>
             </div>
 
@@ -279,12 +291,19 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                     <div className='control-buttons-container-group'>
                         <button onClick={() => onEliminar(clienteSeleccionado.numrun_cliente)}>Eliminar</button>
                         {isEditing ? (
-                            <button onClick={handleSaveClick}>Guardar</button>
+                            <>
+                                <button onClick={handleSaveClick}>Confirmar</button>
+                                <button onClick={handleCancelClick}>Cancelar</button>
+                            </>
                         ) : (
                             <button onClick={handleModificarClick}>Modificar</button>
                         )}
-                        <button>Notificar</button>
-                        <button>Tickets</button>
+                        {!isEditing && (
+                            <>
+                                <button>Notificar</button>
+                                <button>Tickets</button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

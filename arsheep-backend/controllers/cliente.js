@@ -120,13 +120,10 @@ export const updateCliente = async (req, res) => {
             id_region,
             fec_inicio_contrato_cliente,
             fec_termino_contrato_cliente,
-            fec_creacion_cliente
+            fec_creacion_cliente,
+            imagen_cliente
         } = req.body;
 
-        let imagen_cliente = req.body.imagen_cliente || '';
-        if (req.file) {
-            imagen_cliente = await uploadImage(req.file);
-        }
 
         const { data, error } = await supabase
             .from('CLIENTE')
