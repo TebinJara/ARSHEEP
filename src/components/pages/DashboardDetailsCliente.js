@@ -8,21 +8,49 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
     const [formData, setFormData] = useState({ ...clienteSeleccionado });
     const [styleInput, setStyleInput] = useState("input-desenabled");
     const [region, setRegion] = useState({});
+    const [regiones, setRegiones] = useState([]);
+    const [comunas, setComunas] = useState([]);
 
-    const getDescRegion = async (id) => {
+    const getRegionById = async (id) => {
         try {
             const region = await obtenerRegionPorId(id);
-            console.log("region: " , region);
-            setRegion(region || []);
+            console.log("region: ", region);
+            setRegion(region || {});
         } catch (error) {
-            console.error('Error al obtener region:', error);
+            console.error('Error al obtener región:', error);
+        }
+    };
+
+    const getRegiones = async () => {
+        try {
+            const listRegiones = await obtenerRegiones();
+            setRegiones(listRegiones || []);
+        } catch (error) {
+            console.error('Error al obtener lista de regiones:', error);
+        }
+    };
+
+    const getComunas = async (id) => {
+        try {
+            const listComunas = await obtenerComunasPorRegion(id);
+            console.log("comunas: ", listComunas);
+            setComunas(listComunas || []);
+        } catch (error) {
+            console.error('Error al obtener lista de comunas:', error);
         }
     };
 
     useEffect(() => {
         setFormData({ ...clienteSeleccionado });
-        getDescRegion(clienteSeleccionado.id_region);
+        getRegionById(clienteSeleccionado.id_region);
+        getRegiones();
     }, [clienteSeleccionado]);
+
+    useEffect(() => {
+        if (region.id_region) {
+            getComunas(region.id_region);
+        }
+    }, [region]);
 
     if (!clienteSeleccionado) {
         return <p>No hay información del cliente disponible</p>;
@@ -44,16 +72,24 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
         setStyleInput("input-desenabled");
     };
 
+    const handleRegionChange = (e) => {
+        const selectedRegionId = e.target.value;
+        const selectedRegion = regiones.find(region => region.id_region === selectedRegionId);
+        setRegion(selectedRegion);
+        setFormData(prevData => ({ ...prevData, id_region: selectedRegionId, id_comuna: '' }));
+    };
+
+    const handleComunaChange = (e) => {
+        const selectedComunaId = e.target.value;
+        setFormData(prevData => ({ ...prevData, id_comuna: selectedComunaId }));
+    };
+
     const formatRut = (rut, dv) => {
         if (typeof rut !== 'string') {
             rut = String(rut);
         }
         return `${rut.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}-${dv}`;
     };
-
-    
-
-
 
     return (
         <div className='secondary-container-50'>
@@ -63,7 +99,6 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
             </div>
 
             <div className='secondary-container'>
-
                 <div className='container-header'>
                     <h3>{formData.pnombre_cliente} {formData.snombre_cliente} {formData.appaterno_cliente} {formData.apmaterno_cliente}</h3>
                 </div>
@@ -137,6 +172,40 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
                             disabled={!isEditing}
                             className={styleInput}
                         />
+                    </div>
+                    <div className='data-item'>
+                        <label>Región:</label>
+                        <select
+                            name="id_region"
+                            value={formData.id_region}
+                            onChange={handleRegionChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        >
+                            <option value="">Seleccione una región</option>
+                            {regiones.map(region => (
+                                <option key={region.id_region} value={region.id_region}>
+                                    {region.desc_region}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='data-item'>
+                        <label>Comuna:</label>
+                        <select
+                            name="id_comuna"
+                            value={formData.id_comuna}
+                            onChange={handleComunaChange}
+                            disabled={!isEditing}
+                            className={styleInput}
+                        >
+                            <option value="">Seleccione una comuna</option>
+                            {comunas.map(comuna => (
+                                <option key={comuna.id_comuna} value={comuna.id_comuna}>
+                                    {comuna.desc_comuna}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className='data-item'>
                         <label>Teléfono:</label>
