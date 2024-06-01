@@ -11,7 +11,7 @@ const FormularioOT = () => {
         fecha_vencimiento: '',
         prioridad: '',
         adicional: '',
-        run_cliente: '',
+        numrun_cliente: '',
         id_empleado: '',
     });
 
@@ -184,13 +184,13 @@ const FormularioOT = () => {
                             className="form-control"
                             id="run_cliente"
                             name="run_cliente"
-                            value={newForm.run_cliente}
+                            value={newForm.numrun_cliente}
                             onChange={handleChange}
                         >
                             <option value="">Seleccione un cliente</option>
                             {clientes.map(cliente => (
-                                <option key={cliente.run_cliente} value={cliente.run_cliente}>
-                                    {cliente.nombre_cliente}
+                                <option key={cliente.numrun_cliente} value={cliente.numrun_cliente}>
+                                    {cliente.numrun_cliente}
                                 </option>
                             ))}
                         </select>
@@ -207,7 +207,7 @@ const FormularioOT = () => {
                             <option value="">Seleccione un empleado</option>
                             {empleados.map(empleado => (
                                 <option key={empleado.id_empleado} value={empleado.id_empleado}>
-                                    {empleado.nombreCompleto}
+                                     {`${empleado.pnombre} ${empleado.snombre ? empleado.snombre + ' ' : ''}${empleado.apaterno} ${empleado.amaterno}`}
                                 </option>
                             ))}
                         </select>
