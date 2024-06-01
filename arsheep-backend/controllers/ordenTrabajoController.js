@@ -13,7 +13,7 @@ const insertarOrdenTrabajo = async (ordenTrabajoData) => {
 };
 
 const handleInsertarOrdenTrabajo = async (req, res) => {
-    const { descripción, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, run_cliente, id_empleado } = req.body;
+    const { descripción, status, fecha_creacion, fecha_vencimiento, prioridad, adicional, numrun_cliente, id_empleado } = req.body;
     const { imagen_1, imagen_2, imagen_3, imagen_4 } = req.files; // Suponiendo que estás usando algún middleware como multer para manejar la subida de archivos
 
     try {
@@ -43,7 +43,7 @@ const handleInsertarOrdenTrabajo = async (req, res) => {
             fecha_vencimiento,
             prioridad,
             adicional,
-            run_cliente,
+            numrun_cliente,
             id_empleado,
             ...imageUrls
         };
