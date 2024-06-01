@@ -174,15 +174,15 @@ const FormularioOT = () => {
                         <label htmlFor="run_cliente">RUT Cliente:</label>
                         <select
                             className="form-control"
-                            id="run_cliente"
-                            name="run_cliente"
-                            value={newForm.run_cliente}
+                            id="numrun_cliente"
+                            name="numrun_cliente"
+                            value={newForm.numrun_cliente}
                             onChange={handleChange}
                         >
                             <option value="">Seleccione un cliente</option>
                             {clientes.map(cliente => (
-                                <option key={cliente.run_cliente} value={cliente.run_cliente}>
-                                    {cliente.nombre_cliente}
+                                <option key={cliente.numrun_cliente} value={cliente.numrun_cliente}>
+                                    {cliente.numrun_cliente}
                                 </option>
                             ))}
                         </select>
