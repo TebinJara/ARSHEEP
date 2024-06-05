@@ -8,15 +8,25 @@ const apiClient = axios.create({
 });
 
 // Insertar orden de trabajo
-export const insertarOrdenTrabajo = async (ordenTrabajo) => {
-    console.log("me fui afuera del try u.u")
+// export const insertarOrdenTrabajo = async (ordenTrabajo) => {
+//     console.log("me fui afuera del try u.u")
+//     try {
+//         console.log("entre al try!! :$")
+//         const response = await apiClient.post('/orden_trabajo', ordenTrabajo);
+//         return response.data; // Devuelve los datos recibidos del servidor
+//     } catch (error) {
+//         console.error('Error al insertar la orden de trabajo:', error.message);
+//         throw error; // Lanza el error para que el componente que llama pueda manejarlo
+//     }
+// };
+
+export const insertarOrdenTrabajo = async (formData) => {
     try {
-        console.log("entre al try!! :$")
-        const response = await apiClient.post('/orden_trabajo', ordenTrabajo);
-        return response.data; // Devuelve los datos recibidos del servidor
+        const response = await apiClient.post('/orden_trabajo', formData);
+        return response.data;
     } catch (error) {
-        console.error('Error al insertar la orden de trabajo:', error.message);
-        throw error; // Lanza el error para que el componente que llama pueda manejarlo
+        console.error('Error al crear un OT:', error.message);
+        return { error: error.response.data }; // Devuelve el error de la respuesta
     }
 };
 
@@ -40,20 +50,20 @@ export const obtenerEmpleados = async () => {
     }
 };
 // Subir imagen
-export const subirImagen = async (file, folder = 'img1') => {
-    const formData = new FormData();
-    formData.append('file', file);
+// export const subirImagen = async (file, folder = 'img1') => {
+//     const formData = new FormData();
+//     formData.append('file', file);
 
-    try {
-        const response = await apiClient.post(`/subirImagen/${folder}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+//     try {
+//         const response = await apiClient.post(`/subirImagen/${folder}`, formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         });
 
-        return response.data; // Devuelve los datos recibidos del servidor
-    } catch (error) {
-        console.error('Error al subir la imagen:', error.message);
-        throw error; // Lanza el error para que el componente que llama pueda manejarlo
-    }
-};
+//         return response.data; // Devuelve los datos recibidos del servidor
+//     } catch (error) {
+//         console.error('Error al subir la imagen:', error.message);
+//         throw error; // Lanza el error para que el componente que llama pueda manejarlo
+//     }
+// };
