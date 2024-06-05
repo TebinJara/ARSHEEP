@@ -9,7 +9,9 @@ const apiClient = axios.create({
 
 // Insertar orden de trabajo
 export const insertarOrdenTrabajo = async (ordenTrabajo) => {
+    console.log("me fui afuera del try u.u")
     try {
+        console.log("entre al try!! :$")
         const response = await apiClient.post('/orden_trabajo', ordenTrabajo);
         return response.data; // Devuelve los datos recibidos del servidor
     } catch (error) {

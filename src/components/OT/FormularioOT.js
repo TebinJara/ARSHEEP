@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { obtenerEmpleados, obtenerClientes, insertarOrdenTrabajo } from '../../services/OtService';
 import './FormularioOT.css';
 
-
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
         descripción: '',
@@ -33,7 +32,6 @@ const FormularioOT = () => {
         const cargarEmpleados = async () => {
             try {
                 const listaEmpleados = await obtenerEmpleados();
-                
                 setEmpleados(listaEmpleados);
             } catch (error) {
                 console.error('Error al cargar empleados:', error);
@@ -50,6 +48,7 @@ const FormularioOT = () => {
             ...prevState,
             [name]: value
         }));
+        console.log(JSON.stringify(newForm));
     };
 
     const handleFileChange = (e) => {
@@ -58,12 +57,14 @@ const FormularioOT = () => {
             ...prevState,
             [name]: files[0]
         }));
+        console.log(JSON.stringify(imagenFiles));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const formData = new FormData();
+        console.log(JSON.stringify(newForm));
         for (let key in newForm) {
             formData.append(key, newForm[key]);
         }
@@ -72,6 +73,10 @@ const FormularioOT = () => {
             if (imagenFiles[key]) {
                 formData.append(key, imagenFiles[key]);
             }
+        }
+
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
         }
 
         try {
@@ -84,7 +89,7 @@ const FormularioOT = () => {
                 const result = await response.json();
                 console.log('Respuesta del servidor:', result);
             } else {
-                console.error('Error al enviar el formulario');
+                console.error('Error al enviar el formulario: ', response.statusText);
             }
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
@@ -181,11 +186,11 @@ const FormularioOT = () => {
                         ></textarea>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="numrun_cliente">RUT Cliente:</label>
+                        <label htmlFor="run_cliente">RUT Cliente:</label>
                         <select
                             className="form-control"
-                            id="numrun_cliente"
-                            name="numrun_cliente"
+                            id="run_cliente"
+                            name="run_cliente"
                             value={newForm.numrun_cliente}
                             onChange={handleChange}
                         >
