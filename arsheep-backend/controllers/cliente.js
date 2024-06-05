@@ -25,6 +25,7 @@ export const getClienteById = async (req, res) => {
 };
 
 // Crear un nuevo cliente
+// Crear un nuevo cliente
 export const createCliente = async (req, res) => {
     try {
         const {
@@ -77,6 +78,7 @@ export const createCliente = async (req, res) => {
         return res.status(400).json({ error: error.message });
     }
 };
+
 
 // Actualizar un cliente
 export const updateCliente = async (req, res) => {

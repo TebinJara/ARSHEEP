@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { crearCliente } from '../../services/ClienteService';
+import { uploadImageToSupabase } from '../../services/ImageService'; // Importar el nuevo servicio
 import "./FormAgregarCliente.css";
 
 export const FormAgregarCliente = ({ onClose }) => {
@@ -20,7 +21,8 @@ export const FormAgregarCliente = ({ onClose }) => {
         id_region: '',
         fec_inicio_contrato_cliente: '',
         fec_termino_contrato_cliente: '',
-        fec_creacion_cliente: new Date().toISOString().split('T')[0] // set current date
+        fec_creacion_cliente: new Date().toISOString().split('T')[0],
+        imagen_cliente: '' // Añadir el campo de URL de imagen
     });
 
     const [imagen, setImagen] = useState(null);
@@ -40,17 +42,13 @@ export const FormAgregarCliente = ({ onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-
-        Object.keys(cliente).forEach(key => {
-            formData.append(key, cliente[key]);
-        });
-        if (imagen) {
-            formData.append('imagen_cliente', imagen); // Asegúrate de que el nombre coincida con el esperado en el backend
-        }
-
         try {
-            const response = await crearCliente(formData);
+            if (imagen) {
+                const imageUrl = await uploadImageToSupabase(imagen);
+                cliente.imagen_cliente = imageUrl;
+            }
+
+            const response = await crearCliente(cliente);
             if (response && response.error) {
                 alert('Error al agregar el cliente: ' + response.error.message);
             } else {
@@ -184,6 +182,50 @@ export const FormAgregarCliente = ({ onClose }) => {
                         id="fecnac_cliente"
                         name="fecnac_cliente"
                         value={cliente.fecnac_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="id_tipo_cliente">Tipo de Cliente:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="id_tipo_cliente"
+                        name="id_tipo_cliente"
+                        value={cliente.id_tipo_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="razon_social_cliente">Razón Social:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="razon_social_cliente"
+                        name="razon_social_cliente"
+                        value={cliente.razon_social_cliente}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="id_comuna">Comuna:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="id_comuna"
+                        name="id_comuna"
+                        value={cliente.id_comuna}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="id_region">Región:</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="id_region"
+                        name="id_region"
+                        value={cliente.id_region}
                         onChange={handleChange}
                     />
                 </div>
