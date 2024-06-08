@@ -1,17 +1,146 @@
 .login-container {
-    box-sizing: border-box;
-    height: 100vh; 
-    width: 100%;
-    padding: 200px 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #4a4b4e; 
-    color: white; 
-    z-index: 1;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: url("C:/Users/esteb/OneDrive/Escritorio/pt/ARSHEEP/public/img/bg_login_arsheep.jpg");
+  background: rgb(100,105,100);
+  background-size: cover; /* Esto asegura que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen en el contenedor */
+  text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.login-container .form-container {
+  box-sizing: border-box;
+  width: 800px;
+  height: 80vh;
+  margin: 20px;
+  box-shadow: 
+  inset 1px 1px 1px rgba(255, 255, 255, 0.4),
+  inset -1px -1px 1px rgba(0, 0, 0, 0.4);
+    background: rgb(110,115,110);
+  p{
+    font-size: 18px;
+  }
+  label{
+    font-size: 18px;
+  }
+
+  border-radius: 50px;
 }
 
 
 
 
+.login-container .form-container button {
+  width: 200px;
+  margin: 10px;
+  background: rgb(0,0,0);
+  color:rgb(250,250,250);
+  border-radius:6px;
+  border: none;
+  font-size: 18px;
+}
+
+.login-container .form-container button:hover {
+  width: 200px;
+  background: rgb(250,250,250);
+  color: rgb(0,0,0);
+  border-radius: 6px;
+  border: none;
+  font-size: 18px;
+}
+
+
+
+.login-container .form-container .login-header {
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+  padding: 1px;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container .form-group{
+  padding: 10px 2px;
+  margin: 5px 0px;
+  background: none;
+  box-shadow: none;
+  input{
+    min-width: 200px;
+    background: rgb(0,0,0);
+    color: rgb(250,250,250);
+    font-size: 18px;
+  }
+  input:hover{
+    background: rgb(250,250,250);
+    color: rgb(0,0,0);
+    font-size: 18px;
+  }
+  input:focus{
+    background: rgb(250,250,250);
+    color: rgb(0,0,0);
+    font-size: 18px;
+  }
+}
+
+.login-container .form-container .login-header img {
+  width: 200px;
+}
+
+.login-container .form-container .login-header h1 {
+  color: rgb(250,250,250);
+  text-align: center;
+  padding: 10px;
+}
+
+
+.login-info{
+  box-sizing: border-box;
+  p{
+    font-size: 18px;
+  }
+}
+
+.login-info .login-info-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img{
+    max-height: 100px;
+  }
+
+}
+
+.login-info .login-info-content .login-info-list{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.login-info .login-info-content .login-info-list aside{
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 300px;
+  padding: 2px 5px;
+  margin: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  background: rgb(125,130,125);
+  border-radius: 10px;
+  h3{
+    color: rgb(250,250,250);
+    font-size: 20px;
+  }
+  p{
+    color: rgb(250,250,250);
+    font-size: 18px;
+  }
+  label{
+    font-size: 18px;
+  }
+}
