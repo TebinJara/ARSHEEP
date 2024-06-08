@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { obtenerEmpleados, obtenerClientes, insertarOrdenTrabajo } from '../../services/OtService';
 import './FormularioOT.css';
 
-
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
-        descripción: '',
+        descripcion: '',
         status: '',
         fecha_creacion: '',
         fecha_vencimiento: '',
@@ -17,7 +16,7 @@ const FormularioOT = () => {
 
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
-    const [imagenFiles, setImagenFiles] = useState({ imagen_1: null, imagen_2: null, imagen_3: null, imagen_4: null });
+    // const [imagenFiles, setImagenFiles] = useState({ imagen_1: null, imagen_2: null, imagen_3: null, imagen_4: null });
 
     useEffect(() => {
         const cargarClientes = async () => {
@@ -33,7 +32,6 @@ const FormularioOT = () => {
         const cargarEmpleados = async () => {
             try {
                 const listaEmpleados = await obtenerEmpleados();
-                
                 setEmpleados(listaEmpleados);
             } catch (error) {
                 console.error('Error al cargar empleados:', error);
@@ -50,42 +48,40 @@ const FormularioOT = () => {
             ...prevState,
             [name]: value
         }));
+        console.log(JSON.stringify(newForm));
     };
 
-    const handleFileChange = (e) => {
-        const { name, files } = e.target;
-        setImagenFiles(prevState => ({
-            ...prevState,
-            [name]: files[0]
-        }));
-    };
+    // const handleFileChange = (e) => {
+    //     const { name, files } = e.target;
+    //     setImagenFiles(prevState => ({
+    //         ...prevState,
+    //         [name]: files[0]
+    //     }));
+    //     console.log(JSON.stringify(imagenFiles));
+    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const formData = new FormData();
+        console.log(JSON.stringify(newForm));
         for (let key in newForm) {
             formData.append(key, newForm[key]);
         }
 
-        for (let key in imagenFiles) {
-            if (imagenFiles[key]) {
-                formData.append(key, imagenFiles[key]);
-            }
+        // for (let key in imagenFiles) {
+        //     if (imagenFiles[key]) {
+        //         formData.append(key, imagenFiles[key]);
+        //     }
+        // }
+
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/orden_trabajo', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Respuesta del servidor:', result);
-            } else {
-                console.error('Error al enviar el formulario');
-            }
+            const result = await insertarOrdenTrabajo(formData);
+            console.log('Respuesta del servidor:', result);
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
@@ -99,14 +95,14 @@ const FormularioOT = () => {
                 </div>
                 <form className="form-container" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="descripción">Descripción:</label>
+                        <label htmlFor="descripcion">Descripción:</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="descripción"
-                            name="descripción"
+                            id="descripcion"
+                            name="descripcion"
                             placeholder="Ingrese la descripción de la OT"
-                            value={newForm.descripción}
+                            value={newForm.descripcion}
                             onChange={handleChange}
                             required
                         />
@@ -214,7 +210,7 @@ const FormularioOT = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="imagen_1">Imagen 1:</label>
                         <input
                             type="file"
@@ -253,7 +249,7 @@ const FormularioOT = () => {
                             name="imagen_4"
                             onChange={handleFileChange}
                         />
-                    </div>
+                    </div> */}
                     <button type="submit" className="btn btn-primary">Enviar OT</button>
                 </form>
             </div>
