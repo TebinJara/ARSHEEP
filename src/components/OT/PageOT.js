@@ -97,7 +97,7 @@ export const PageOT = () => {
                         <div className='filter-container-group'>
                             <select value={criterio} onChange={handleCriterioChange}>
                                 <option value="id_ot">ID OT</option>
-                                <option value="descripción">Descripción</option>
+                                <option value="descripcion">Descripción</option>
                                 <option value="nombreStatus">Status</option>
                                 <option value="fecha_creacion">Fecha Creación</option>
                                 <option value="prioridad">Prioridad</option>
@@ -125,7 +125,7 @@ export const PageOT = () => {
                                 {filteredData.map((ot) => (
                                     <tr key={ot.id_ot} onClick={() => seleccionarOT(ot)} className="table-row">
                                         <td>{ot.id_ot}</td>
-                                        <td>{ot.descripción}</td>
+                                        <td>{ot.descripcion}</td>
                                         <td>{ot.nombreStatus}</td>
                                         <td>{ot.fecha_creacion}</td>
                                         <td>{ot.fecha_vencimiento}</td>
@@ -159,8 +159,8 @@ export const PageOT = () => {
                             <label>Descripción:</label>
                             <input
                                 type="text"
-                                name="descripción"
-                                value={formData.descripción}
+                                name="descripcion"
+                                value={formData.descripcion}
                                 onChange={handleInputChange}
                                 disabled={!isEditing}
                                 className={styleInput}
