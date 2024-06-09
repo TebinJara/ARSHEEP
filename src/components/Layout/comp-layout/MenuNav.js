@@ -7,6 +7,7 @@ export const MenuNav = () => {
     const [menuSelected, setMenuSelected] = useState(null);
 
     const handleNavLinkClick = (url) => {
+        console.log('Navigating to:', url);
         // Toggle the submenu: hide if already shown, show otherwise
         if (menuSelected === url) {
             setMenuSelected(null);
@@ -69,7 +70,21 @@ export const MenuNav = () => {
                             onClick={() => handleNavLinkClick("/Layout/OT")}
                         >
                             Ordenes de Trabajo
+                            
                         </NavLink>
+                        <div className={`sub-menu-nav ${menuSelected === "/Layout/OT" ? "visible" : ""}`}>
+                            <ul>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/Calendario"
+                                        onClick={() => handleNavLinkClick("/Layout/Calendario")}
+                                    >
+                                        Calendario
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
 
 
                     </li>

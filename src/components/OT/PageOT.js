@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../OT/PageOT.css";
 import { obtenerOrdenesDeTrabajo, obtenerEmpleadoPorId, obtenerStatusPorId } from '../../services/supa';
+import OTCalendario from './OTCalendario';
 
 export const PageOT = () => {
     const [data, setData] = useState([]);
@@ -284,6 +285,7 @@ export const PageOT = () => {
                 )}
               
             </div>
+            {/* <OTCalendario data={filteredData} /> Pasar los datos filtrados a OTCalendario */}
         </div>
     );
 }
