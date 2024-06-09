@@ -25,6 +25,7 @@ app.use('/api/auth', authRoutes);
 
 // Rutas protegidas
 app.use('/api/empleados', empleadoRouter);
+app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/tipoCliente', tipoClienteRoutes);

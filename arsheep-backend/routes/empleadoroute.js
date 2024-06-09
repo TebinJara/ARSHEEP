@@ -3,6 +3,6 @@ import { getEmpleados } from '../controllers/empleadoController.js';
 
 const router = express.Router();
 
-router.get('/api/empleados', getEmpleados);
+router.get('/', getEmpleados);
 
 export default router;
