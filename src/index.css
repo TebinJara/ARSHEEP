@@ -1,12 +1,28 @@
 :root {
-  --primary-color: #C2D971; /* Gris oscuro industrial */
-  --primary-color-contrast:#a3b65d; /* Amarillo brillante para contraste */
+  --primary-color: #c2d971; /* Gris oscuro industrial */
+  --primary-color-contrast: #a3b65d; /* Amarillo brillante para contraste */
   --secondary-color: rgb(153, 75, 195); /* Gris medio */
   --background-light: linear-gradient(145deg, #9b9b9c, #6e6e6f);
-  --background-light-contrast: linear-gradient(145deg, #878788, #5a5a5b); /*#737373 Gris claro */
-  --background-dark: linear-gradient(145deg, #7d7d7e, #505051); /* Gris muy oscuro */
-  --background-dark-contrast: linear-gradient(145deg, #737374, #464647); /* Gris medio oscuro */
-  --background-button: linear-gradient(145deg, rgba(113, 131, 47, 0.8), rgba(85, 98, 34, 0.8));
+  --background-light-contrast: linear-gradient(
+    145deg,
+    #878788,
+    #5a5a5b
+  ); /*#737373 Gris claro */
+  --background-dark: linear-gradient(
+    145deg,
+    #7d7d7e,
+    #505051
+  ); /* Gris muy oscuro */
+  --background-dark-contrast: linear-gradient(
+    145deg,
+    #737374,
+    #464647
+  ); /* Gris medio oscuro */
+  --background-button: linear-gradient(
+    145deg,
+    rgba(113, 131, 47, 0.8),
+    rgba(85, 98, 34, 0.8)
+  );
   --text-color-light: rgb(255, 255, 255); /* Blanco */
   --text-color-dark: rgb(0, 0, 0); /* Negro */
   --cont-shadow-conc: inset 1px 1px 1px rgba(0, 0, 0, 0.4),
@@ -63,55 +79,27 @@ code {
   margin: 0;
   padding: 2px;
   display: flex;
-  background: var(--background-dark);
+  background: rgb(120, 125, 120);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  .logo-empresa {
-    width: auto; /* Ajusta esto según necesites */
-    height: 50px; /* Ajusta esto según necesites, o usa una altura dinámica si prefieres */
+  .logo-arsheep {
+    width: auto;
+    height: 50px;
     margin: 10px 0px;
     padding: 5px;
-    display: flex; /* Utiliza flexbox para centrar la imagen */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    overflow: hidden; /* Oculta cualquier parte de la imagen que exceda las dimensiones del contenedor */
-    background: var(--background-light-contrast);
-    box-shadow: var(--cont-shadow-conc);
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: rgb(120, 125, 120);
     box-sizing: border-box;
     img {
-      max-width: 100%; /* Asegura que la imagen no sea más ancha que el contenedor */
-      max-height: 100%; /* Asegura que la imagen no sea más alta que el contenedor */
-      height: auto; /* Para mantener la proporción */
-      object-fit: contain; /* Hace que la imagen se ajuste dentro del contenedor sin cortarla */
-    }
-  }
-}
-
-.user-data-container {
-  box-sizing: border-box;
-  height: auto;
-  width: auto;
-  padding: 5px;
-  margin: 2px;
-  background: var(--background-dark-contrast);
-  box-shadow: var(--cont-shadow-conc);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 5px;
-  .user-image {
-    box-sizing: border-box;
-    width: 60px;
-    height: 60px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    img {
-      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
       height: auto;
+      object-fit: contain;
     }
   }
 }
@@ -120,7 +108,7 @@ code {
 
 .menuNav {
   grid-area: menuNav;
-  background: var(--background-dark);
+  background: rgb(120, 125, 120);
   display: flex;
   flex-direction: column;
   padding: 2px;
@@ -146,7 +134,7 @@ code {
   grid-area: content;
   padding: 10px;
   box-sizing: border-box;
-  background: var(--background-dark);
+  background: rgb(100, 105, 100);
   box-shadow: var(--cont-shadow-conc);
   overflow-y: auto;
   overflow-x: hidden;
@@ -157,13 +145,12 @@ code {
 .footer {
   height: auto;
   grid-area: footer;
-  background: #ccc; /* Un gris claro */
-  padding: 10px; /* Añadir padding para mejorar la visibilidad */
-  display: flex;
+  background: rgb(120, 125, 120);
+  padding: 10px;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box; /* Asegura que el padding no añada al tamaño definido */
-  height: 10px; /* Establecer la altura del footer en 100px */
+  box-sizing: border-box;
+  height: 10px;
 }
 
 /*-----UI COMPONENTS-----*/
@@ -171,33 +158,22 @@ code {
 /*_____Botón_____*/
 
 button {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 10px 20px 10px 20px;
-  border: none;
-  border-radius: 2px;
-  background: var(--background-button);
-  color: var(--text-color-light);
+  min-width: 100px;
+  margin: 10px;
+  padding: 10px;
+  background: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
   font-size: 12px;
-  font-weight: lighter;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conv);
-  border: 1px solid #546824;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 1px 1px 2px rgba(255, 255, 255, 0.3);
-    color: #ffffff;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background 0.3s, box-shadow 0.3s;
+  border-radius: 6px;
+  border: none;
+  transition: 0.3s;
 }
 
 button:hover {
-
-    background: linear-gradient(145deg, #a3c44a, #687c2d);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
-
 
 /*_____Input_____*/
 
@@ -208,46 +184,23 @@ input {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background: var(--background-dark);
-  color: var(--primary-color);
+  background: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
+  transition: 0.3s;
 }
 
 input:focus {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 8px 5px 8px 5px;
-  border: none;
-  border-radius: 2px;
-  background: rgb(65, 65, 65);
-  color: var(--primary-color);
-  font-size: 12px;
-  font-weight: lighter;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
-
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
 }
 
 .input-desenabled {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 8px 5px 8px 5px;
-  border: none;
-  border-radius: 2px;
-  background: var(--accent-color);
-  color: var(--text-color-dark);
-  font-size: 12px;
-  font-weight: lighter;
-  cursor: default;
-  transition: all 0.2s;
-  box-shadow: none;
+  background: none;
+  background: none;
+  color: rgb(250, 250, 250);
 }
 
 /*_____Text Area_____*/
@@ -259,45 +212,22 @@ textarea {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background: var(--background-dark);
-  color: var(--primary-color);
+  background: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
+  transition: 0.3s;
 }
 
 textarea:focus {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 8px 5px 8px 5px;
-  border: none;
-  border-radius: 2px;
-  background: rgb(65, 65, 65);
-  color: var(--primary-color);
-  font-size: 12px;
-  font-weight: lighter;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
-  
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
 }
 .textarea-desenabled {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 8px 5px 8px 5px;
-  border: none;
-  border-radius: 2px;
-  background: var(--accent-color);
-  color: var(--text-color-dark);
-  font-size: 12px;
-  font-weight: lighter;
-  cursor: default;
-  transition: all 0.2s;
-  box-shadow: none;
+  background: none;
+  background: none;
+  color: rgb(0, 0, 0);
 }
 
 /*_____Select_____*/
@@ -309,29 +239,17 @@ select {
   padding: 8px 5px 8px 5px;
   border: none;
   border-radius: 2px;
-  background: var(--background-dark);
-  color: var(--primary-color);
+  background: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
   font-size: 12px;
   font-weight: lighter;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
+  transition: 0.3s;
 }
 
 select:focus {
-  width: auto;
-  height: auto;
-  margin: 2px 2px 2px 2px;
-  padding: 8px 5px 8px 5px;
-  border: none;
-  border-radius: 2px;
-  background: rgb(65, 65, 65);
-  color: var(--primary-color);
-  font-size: 12px;
-  font-weight: lighter;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: var(--cont-shadow-conc);
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
 }
 
 .select-desenabled {
@@ -351,13 +269,13 @@ select:focus {
 }
 
 option {
-  background: rgb(65, 65, 65);
-  color: var(--primary-color);
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
 }
 
 option:checked {
-  background: var(--primary-color);
-  color: var(--text-color-dark);
+  background: rgb(0, 0, 0);
+  color: rgb(250, 250, 250);
 }
 
 /*_____Label_____*/
@@ -370,7 +288,7 @@ label {
   border: 0;
   border-radius: 0;
   background: none;
-  color: var(--text-color-light);
+  color: rgb(250, 250, 250);
   font-size: 12px;
   font-weight: 600;
   cursor: default;
@@ -405,40 +323,37 @@ li {
   height: auto;
   margin: px 0px;
   padding: 10px 0px;
-  background: var(--background-dark-contrast);
   list-style: none;
-  border-radius: 2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  box-shadow: var(--cont-shadow-conc);
 }
 
 .navlink {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-  color: var(--text-color-light);
+  color: rgb(0, 0, 0);
   transition: 0.3s;
 }
 
 .navlink:hover {
   text-decoration: none;
-  font-size: 14px;
   font-weight: 500;
-  color: var(--primary-color);
+  color: rgb(250, 250, 250);
 }
 
 .navlink-activo {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 500;
-  color: var(--primary-color);
+  color: rgb(250, 250, 250);
 }
 
 .sub-menu-nav {
   display: none;
+  border: 1px solid white;
 }
 
 .sub-menu-nav.visible {
@@ -456,24 +371,23 @@ li {
   height: auto;
   margin: 0px;
   padding: 10px 0px;
-  background: var(--background-dark);
   list-style: none;
   box-sizing: border-box;
 }
 
 .sub-menu-nav.visible .navlink {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-  color: var(--text-color-light);
+  color: rgb(0, 0, 0);
   transition: 0.3s;
 }
 
 .sub-menu-nav.visible .navlink:hover {
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-  color: var(--primary-color);
+  color: rgb(250, 250, 250);
 }
 
 .table-container {
@@ -486,46 +400,40 @@ table {
   border-collapse: collapse;
   width: 100%;
   font-size: 12px;
-  color: var(--text-color-light);
-  
+  color: rgb(250, 250, 250);
 }
 
 thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  color: var(--primary-color);
-  background: rgb(90,90,90);
-  
+  color: rgb(250, 250, 250);
+  background: rgb(0, 0, 0);
 }
 
 th,
 td {
   text-align: left;
   padding: 4px 40px;
- 
 }
 
 tr {
-  background: rgb(110,110,110);
-  
+  background: rgb(120, 125, 120);
 }
 
 tr:nth-child(even) {
-  background: rgb(90,90,90);
+  background: rgb(110, 115, 110);
 }
 
-tbody{
-  text-shadow: 0.4px 0.4px 0.4px #000000; 
+tbody {
+  text-shadow: 0.4px 0.4px 0.4px #000000;
   font-weight: 500;
 }
 
 tbody tr:hover {
-  background: var(--primary-color);
+  background: rgb(250, 250, 250);
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(194, 217, 113, 0.5);
-  color: var(--text-color-dark);
-  
+  color: rgb(0, 0, 0);
 }
 
 .form-container {
@@ -534,7 +442,7 @@ tbody tr:hover {
   height: auto;
   margin: 2px;
   padding: 20px;
-  background: var(--background-dark-contrast);
+  background: rgb(120, 125, 120);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -552,9 +460,11 @@ tbody tr:hover {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  box-shadow: var(--cont-shadow-conc);
-  input,select,textarea{
-    width: 70%;
+  input,
+  select,
+  textarea {
+    min-width: 60%;
+    margin: 0;
   }
 }
 
@@ -565,11 +475,11 @@ tbody tr:hover {
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
-  color: var(--text-color-dark);
+  color: rgb(250, 250, 250);
   box-shadow: var(--cont-shadow-conv);
   border-radius: 5px;
   box-sizing: border-box;
-  background: var(--background-light);
+  background: rgb(110, 115, 110);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -581,19 +491,21 @@ tbody tr:hover {
   width: 100%;
   height: 100vh;
   padding: 5px 5px;
-  background: var(--background-light);
+  background: rgb(100, 105, 100);
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
   gap: 5px;
-  box-shadow: var(--cont-shadow-conc);
+
   border-radius: 5px;
 }
 
 .secondary-container {
   box-sizing: border-box;
-  width: 100%;
+  width: auto;
   max-height: 100%;
-  padding: 1px;
+  padding: 10px;
   display: flex;
   flex-flow: column;
   align-items: flex-start;
@@ -601,12 +513,14 @@ tbody tr:hover {
   gap: 5px;
   overflow-y: auto;
   overflow-x: hidden;
+  box-shadow: inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.4),
+  inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.4);
 }
 
 .data-container {
   box-sizing: border-box;
   width: 100%;
-  max-height: 500px;
+  height: 100%;
   margin: 5px 1px;
   padding: 5px 5px;
   display: flex;
@@ -625,24 +539,22 @@ tbody tr:hover {
   margin: 2px 10px 2px 0px;
   padding: 2px;
   border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  background: var(--background-light-contrast);
+  background: rgb(120, 125, 120);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  color: var(--text-color-dark);
+ 
   transition: 0.2s;
-  label{
-    color: var(--text-color-dark);
+  label {
+    color: rgb(250, 250, 250);
   }
-
 }
 
 .data-item:hover {
-  border: 1px solid var(--primary-color);
-  box-shadow: 0 0 3px var(--primary-color);
+  background:rgb(135, 140, 135);
 }
+
 
 .filter-container {
   box-sizing: border-box;
@@ -653,9 +565,10 @@ tbody tr:hover {
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: 5px;
-  box-shadow: var(--cont-shadow-conc);
-  width: auto; /* Ajusta el ancho automáticamente según el contenido */
-  height: auto; /* Ajusta la altura automáticamente según el contenido */
+  box-shadow: inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.4),
+  inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.4);
+  width: auto; 
+  height: auto; 
 }
 
 .filter-container-header {
@@ -692,25 +605,19 @@ tbody tr:hover {
   flex-flow: row wrap;
 }
 
-.control-buttons-container {
+
+.control-buttons-container{
   box-sizing: border-box;
-  padding: 5px;
+  padding: 2px;
   margin: 2px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: 5px;
-  box-shadow: var(--cont-shadow-conc);
+  box-shadow: inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.4),
+  inset -0.5px -0.5px 1px rgba(255, 255, 255, 0.4);
 }
-.control-buttons-container-group {
-  padding: 2px;
-  display: flex;
-  margin: 2px;
-  flex-flow: row wrap;
-  border-radius: 5px;
-  button {
-    margin-top: 1px;
-    min-width: 100px;
-  }
-}
+
+
+

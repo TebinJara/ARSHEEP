@@ -110,7 +110,7 @@ export const DashboardDetailsCliente = ({ clienteSeleccionado, onClose, onElimin
     };
 
     return (
-        <div className='secondary-container-50'>
+        <div className='secondary-container'>
             <div className='container-header'>
                 <h2>Información del Cliente</h2>
                 <h3 onClick={onClose}>x</h3>

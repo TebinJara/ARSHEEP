@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./MenuNav.css";
 import { NavLink } from 'react-router-dom';
+import { UserInfo } from '../../login/UserInfo';
 
 export const MenuNav = () => {
     const [menuSelected, setMenuSelected] = useState(null);
@@ -16,6 +17,9 @@ export const MenuNav = () => {
 
     return (
         <div className='menu-nav'>
+            <div>
+              <UserInfo/>
+            </div>
             <nav>
                 <ul>
                     <li>
@@ -66,18 +70,27 @@ export const MenuNav = () => {
                         >
                             Ordenes de Trabajo
                         </NavLink>
-                     
+
 
                     </li>
                     <li>
-                            <NavLink
-                                className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                to="/Layout/Formulario"
-                                onClick={() => handleNavLinkClick("/Layout/Formulario")}
-                            >
-                                Formulario O.T.
-                            </NavLink>
-                        </li>
+                        <NavLink
+                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                            to="/Layout/Formulario"
+                            onClick={() => handleNavLinkClick("/Layout/Formulario")}
+                        >
+                            Formulario O.T.
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                            to="/Layout/usuarios"
+                            onClick={() => handleNavLinkClick("/Layout/usurios")}
+                        >
+                            Usuarios
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </div>

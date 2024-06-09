@@ -5,15 +5,9 @@ export const LayoutHeader = () => {
 
   return (
     <header className="header">
-      <div className="logo-empresa">
-        <img src="../img/logo-empresa.png" alt="Descripción" />
-      </div>
-      <div className="user-data-container">
-        <label>Nombre del usuario aquí</label>
-        <div className="user-image">
-
-          {/* Aquí podrías añadir la imagen del usuario si está disponible */}
-        </div>
+      <div className="logo-arsheep">
+        <img src="../img/isotipo-arsheep.png" alt="Descripción" />
+        <img src="../img/logotipo-arsheep.png" alt="Descripción" />
       </div>
     </header>
   );

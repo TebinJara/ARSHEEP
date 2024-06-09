@@ -5,6 +5,7 @@ import { Login } from '../login/Login';
 import { Layout } from '../Layout/Layout';
 import { PageOT } from '../OT/PageOT';
 import { FormularioOT } from '../OT/FormularioOT';
+import { UsuarioP } from '../pages/usuario/UsuarioP';
 
 
 export const ArsheepRouter = () => {
@@ -16,7 +17,8 @@ export const ArsheepRouter = () => {
           <Route path="/Layout/*" element={<Layout />}>
             <Route path="Clientes" element={<PageCliente />} />
             <Route path="OT" element={<PageOT />} />
-            <Route path="Formulario" element={<FormularioOT />} />            
+            <Route path="Formulario" element={<FormularioOT />} />
+            <Route path="Usuarios" element={<UsuarioP/>} />
           </Route>
           <Route path="*" element={<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>} />
         </Routes>

@@ -1,12 +1,17 @@
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+import authMiddleware from './middlewares/authMiddleware.js';
 import usuarioRoutes from './routes/usuario.js';
 import clienteRoutes from './routes/cliente.js';
 import tipoClienteRoutes from './routes/tipoCliente.js';
 import otRoutes from './routes/ot.js';
 import empleadoRouter from './routes/empleadoroute.js';
 import regionComunaRoutes from './routes/regionComuna.js';
-import bodyParser from 'body-parser'; 
+import authRoutes from './routes/authRoutes.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const puerto = 3001;
@@ -15,13 +20,14 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
+// Rutas públicas
+app.use('/api/auth', authRoutes);
+
+// Rutas protegidas
 app.use('/api/empleados', empleadoRouter);
-app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/tipoCliente', tipoClienteRoutes);
-app.post('/api/orden_trabajo', otRoutes);
-app.get('/api/orden_trabajo', otRoutes);
 app.use('/api/orden_trabajo', otRoutes);
 app.use('/api', regionComunaRoutes);
 
