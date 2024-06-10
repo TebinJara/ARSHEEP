@@ -12,6 +12,12 @@ const UploadImage = () => {
       try {
         const response = await axios.get('http://localhost:3001/api/orden_trabajo');
         setIdOts(response.data);
+
+        // Recuperar el id_ot del almacenamiento local y establecerlo como seleccionado
+        const storedIdOt = localStorage.getItem('id_ot');
+        if (storedIdOt) {
+          setSelectedIdOt(storedIdOt);
+        }
       } catch (error) {
         console.error('Error fetching id_ot:', error);
       }
@@ -42,6 +48,9 @@ const UploadImage = () => {
         }
       });
       console.log('Image uploaded successfully:', response.data);
+
+      // Limpiar el id_ot del almacenamiento local después de subir la imagen
+      localStorage.removeItem('id_ot');
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -66,4 +75,3 @@ const UploadImage = () => {
 };
 
 export default UploadImage;
-
