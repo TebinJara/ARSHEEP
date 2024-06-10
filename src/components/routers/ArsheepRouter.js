@@ -1,12 +1,12 @@
-import React from 'react'
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PageCliente } from '../pages/PageCliente';
 import { Login } from '../login/Login';
 import { Layout } from '../Layout/Layout';
 import { PageOT } from '../OT/PageOT';
 import { FormularioOT } from '../OT/FormularioOT';
 import { UsuarioP } from '../pages/usuario/UsuarioP';
-
+import { UserData } from '../pages/config_profile/UserData';
 
 export const ArsheepRouter = () => {
   return (
@@ -14,7 +14,8 @@ export const ArsheepRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/Layout/*" element={<Layout />}>
+          <Route path="/Layout" element={<Layout />}>
+            <Route path="PerfilUsuario" element={<UserData />} />
             <Route path="Clientes" element={<PageCliente />} />
             <Route path="OT" element={<PageOT />} />
             <Route path="Formulario" element={<FormularioOT />} />
@@ -24,5 +25,5 @@ export const ArsheepRouter = () => {
         </Routes>
       </BrowserRouter>
     </div>
-  )
-}
+  );
+};
