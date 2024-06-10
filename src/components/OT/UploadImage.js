@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const UploadImage = () => {
   const [idOts, setIdOts] = useState([]);
   const [selectedIdOt, setSelectedIdOt] = useState('');
   const [file, setFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(null);
 
   useEffect(() => {
     // Fetch the list of id_ot from the backend
@@ -47,29 +49,29 @@ const UploadImage = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Image uploaded successfully:', response.data);
+      console.log('Image Subida Con Exito!:', response.data);
+      setUploadStatus('success'); // Indicar éxito en la subida de la imagen
 
       // Limpiar el id_ot del almacenamiento local después de subir la imagen
       localStorage.removeItem('id_ot');
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error al Subir Imagen', error);
+      setUploadStatus('error'); // Indicar error en la subida de la imagen
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="id_ot">ID OT:</label>
-      <select id="id_ot" value={selectedIdOt} onChange={(e) => setSelectedIdOt(e.target.value)}>
-        <option value="">Select ID OT</option>
-        {idOts.map((ot) => (
-          <option key={ot.id_ot} value={ot.id_ot}>{ot.id_ot}</option>
-        ))}
-      </select>
+       <label>ID OT:</label>
+       <div>{selectedIdOt}</div>
 
-      <label htmlFor="file">Upload Image:</label>
+      <label htmlFor="file">Subir Image:</label>
       <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} />
 
-      <button type="submit">Upload</button>
+      {uploadStatus === 'success' && <div>Image uploaded successfully</div>}
+      {uploadStatus === 'error' && <div>Error uploading image</div>}  
+
+      <button type="submit">Subir</button>
     </form>
   );
 };
