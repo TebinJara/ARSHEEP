@@ -10,6 +10,8 @@ import regionComunaRoutes from './routes/regionComuna.js';
 import authRoutes from './routes/authRoutes.js';
 import authMiddleware from './middlewares/authMiddleware.js';
 import dotenv from 'dotenv';
+import imgRouter from './routes/img.js';
+
 
 dotenv.config();
 
@@ -31,6 +33,7 @@ app.use('/api/clientes', clienteRoutes);
 app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRoutes);
 app.use('/api', regionComunaRoutes);
+app.use('/api/img', imgRouter);
 
 
 
