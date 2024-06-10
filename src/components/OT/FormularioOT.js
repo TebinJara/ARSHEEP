@@ -16,7 +16,7 @@ const FormularioOT = () => {
 
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
-    // const [imagenFiles, setImagenFiles] = useState({ imagen_1: null, imagen_2: null, imagen_3: null, imagen_4: null });
+
 
     useEffect(() => {
         const cargarClientes = async () => {
@@ -51,14 +51,6 @@ const FormularioOT = () => {
         console.log(JSON.stringify(newForm));
     };
 
-    // const handleFileChange = (e) => {
-    //     const { name, files } = e.target;
-    //     setImagenFiles(prevState => ({
-    //         ...prevState,
-    //         [name]: files[0]
-    //     }));
-    //     console.log(JSON.stringify(imagenFiles));
-    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -69,11 +61,7 @@ const FormularioOT = () => {
             formData.append(key, newForm[key]);
         }
 
-        // for (let key in imagenFiles) {
-        //     if (imagenFiles[key]) {
-        //         formData.append(key, imagenFiles[key]);
-        //     }
-        // }
+
 
         for (let pair of formData.entries()) {
             console.log(pair[0] + ': ' + pair[1]);
@@ -210,46 +198,7 @@ const FormularioOT = () => {
                             ))}
                         </select>
                     </div>
-                    {/* <div className="form-group">
-                        <label htmlFor="imagen_1">Imagen 1:</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="imagen_1"
-                            name="imagen_1"
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="imagen_2">Imagen 2:</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="imagen_2"
-                            name="imagen_2"
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="imagen_3">Imagen 3:</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="imagen_3"
-                            name="imagen_3"
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="imagen_4">Imagen 4:</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="imagen_4"
-                            name="imagen_4"
-                            onChange={handleFileChange}
-                        />
-                    </div> */}
+                  
                     <button type="submit" className="btn btn-primary">Enviar OT</button>
                 </form>
             </div>

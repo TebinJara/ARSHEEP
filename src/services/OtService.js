@@ -45,7 +45,7 @@ export const obtenerEmpleados = async () => {
         const response = await apiClient.get('/empleados');
         return response.data; // Devuelve los datos recibidos del servidor
     } catch (error) {
-        console.error('Error al obtener los clientes:', error.message);
+        console.error('Error al obtener los empleados:', error.message);
         return []; // Retorna un array vacío en caso de error
     }
 };
