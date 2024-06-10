@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { login } from '../../services/authService';
 import "./Login.css";
 
 export const Login = () => {
@@ -12,11 +12,17 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3001/api/auth/login', { username, password });
+            const data = await login(username, password);
 
             // Guarda el token y la información del usuario en localStorage
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('usuario', JSON.stringify(response.data.user));
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('usuario', JSON.stringify(data.user));
+            localStorage.setItem('empleado', JSON.stringify(data.empleado));
+            localStorage.setItem('tipoUsuario', JSON.stringify(data.tipoDeUsuario));
+            localStorage.setItem('rol', JSON.stringify(data.rol));
+            localStorage.setItem('departamento', JSON.stringify(data.departamento));
+
+
 
             // Navega a la página principal
             navigate('Layout');
@@ -75,4 +81,4 @@ export const Login = () => {
             </div>
         </div>
     );
-}
+};
