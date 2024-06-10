@@ -146,10 +146,10 @@ const OTCalendario = () => {
         </div>
       )}
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <h2>Alertas</h2>
+        <h2>Importante</h2>
         {alerts.map(alert => (
           <div key={alert.id} className="alert">
-            <p>La OT "{alert.title}" vencerá en {moment(alert.end).endOf('day').diff(moment().startOf('day'), 'days')} días.</p>
+            <p>La OT "{alert.title}" vencerá en {moment(alert.end).endOf('day').diff(moment().startOf('day'), 'days')} días. {moment(alert.end).format('DD/MM/YYYY')}</p>
           </div>
         ))}
       </Modal>
