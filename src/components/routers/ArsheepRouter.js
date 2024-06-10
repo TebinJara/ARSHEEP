@@ -7,6 +7,7 @@ import { PageOT } from '../OT/PageOT';
 import { FormularioOT } from '../OT/FormularioOT';
 import  Calendario  from '../OT/OTCalendario';
 import { UsuarioP } from '../pages/usuario/UsuarioP';
+import UploadImage from '../OT/UploadImage';
 
 
 export const ArsheepRouter = () => {
@@ -21,6 +22,7 @@ export const ArsheepRouter = () => {
             <Route path="Calendario" element={<Calendario />}/>
             <Route path="Formulario" element={<FormularioOT />} />
             <Route path="Usuarios" element={<UsuarioP/>} />
+            <Route path="UploadImage" element={<UploadImage />} />
           </Route>
           <Route path="*" element={<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>} />
         </Routes>
