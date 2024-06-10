@@ -12,8 +12,7 @@ h1 {
 
 .event-details {
   margin-top: 20px;
-  text-align: left;
-  display: inline-block;
+  padding: 10px;
 }
 
 .event-details h2 {
@@ -39,4 +38,10 @@ h1 {
 
 .completada {
   background-color: darkgreen;
+}
+
+.selected {
+  /* Mantener el mismo estilo al seleccionar */
+  background-color: inherit !important;
+  border-color: inherit !important;
 }
