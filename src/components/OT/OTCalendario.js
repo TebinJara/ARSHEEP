@@ -4,8 +4,19 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendario.css';
 import { obtenerOrdenesDeTrabajo } from '../../services/supa';
+import 'moment/locale/es';
 
 const localizer = momentLocalizer(moment);
+
+const messages = {
+  today: 'Hoy',
+  previous: 'Anterior',
+  next: 'Siguiente',
+  month: 'Mes',
+  week: 'Semana',
+  day: 'Día',
+  agenda: 'Agenda',
+};
 
 const OTCalendario = () => {
   const [events, setEvents] = useState([]);
@@ -61,6 +72,7 @@ const OTCalendario = () => {
         endAccessor="end"
         style={{ height: 500 }}
         onSelectEvent={handleSelectEvent}
+        messages={messages}
         eventPropGetter={(event, start, end, isSelected) => ({
           className: event.className
         })}
