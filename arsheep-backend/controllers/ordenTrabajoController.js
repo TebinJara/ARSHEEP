@@ -45,10 +45,18 @@ export const insertarOrdenTrabajo = async (req, res) => {
                 adicional,
                 numrun_cliente,
                 id_empleado
-            }]);
+            }])
+            .select('id_ot'); // Añadir select para obtener solo el id_ot
 
         if (error) throw error;
-        return res.json(data);
+
+        // Asegúrate de que data no esté vacío y contiene id_ot
+        const id_ot = data[0]?.id_ot;
+        if (!id_ot) {
+            throw new Error('No se pudo obtener el id_ot');
+        }
+
+        return res.json({ id_ot }); // Devolver solo id_ot
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }

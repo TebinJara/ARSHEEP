@@ -20,7 +20,7 @@ h1 {
 }
 
 .ingresada {
-  background-color: lightblue;
+  background-color: lightskyblue;
 }
 
 .en-proceso {
@@ -28,7 +28,7 @@ h1 {
 }
 
 .cancelada {
-  background-color: lightgray;
+  background-color: lightcoral;
 }
 
 .completada {
@@ -39,4 +39,13 @@ h1 {
   /* Mantener el mismo estilo al seleccionar */
   background-color: inherit !important;
   border-color: inherit !important;
+}
+
+.current-day {
+  background-color: rgb(92, 91, 91) !important;
+  color: white !important;
+}
+
+.rbc-show-more {
+  color: black !important;
 }

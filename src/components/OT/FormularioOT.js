@@ -56,20 +56,21 @@ const FormularioOT = () => {
         event.preventDefault();
 
         const formData = new FormData();
-        console.log(JSON.stringify(newForm));
         for (let key in newForm) {
             formData.append(key, newForm[key]);
-        }
-
-
-
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
         }
 
         try {
             const result = await insertarOrdenTrabajo(formData);
             console.log('Respuesta del servidor:', result);
+
+            if (result && result.id_ot) {
+                const id_ot = result.id_ot;
+                localStorage.setItem('id_ot', id_ot);
+                window.location.href = '/Layout/UploadImage';
+            } else {
+                console.error('El id_ot no está disponible en la respuesta del servidor:', result);
+            }
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }

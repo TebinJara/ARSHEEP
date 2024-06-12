@@ -18,6 +18,7 @@ const messages = {
   week: 'Semana',
   day: 'Día',
   agenda: 'Agenda',
+  showMore: total => `+${total} más`
 };
 
 const OTCalendario = () => {
@@ -93,6 +94,17 @@ const OTCalendario = () => {
     }
   };
 
+  const dayPropGetter = (date) => {
+    const today = moment().startOf('day');
+    const dateToCheck = moment(date).startOf('day');
+    if (today.isSame(dateToCheck, 'day')) {
+      return {
+        className: 'current-day'
+      };
+    }
+    return {};
+  };
+
   return (
     <div className="Calendario">
       <h1>Calendario de Órdenes de Trabajo</h1>
@@ -111,6 +123,7 @@ const OTCalendario = () => {
         views={['month', 'week', 'day', 'agenda']}
         step={60}
         showMultiDayTimes
+        dayPropGetter={dayPropGetter}
         components={{
           week: {
             header: ({ date, localizer }) => (
@@ -133,17 +146,15 @@ const OTCalendario = () => {
         </div>
       )}
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <h2>Alertas</h2>
+        <h2>Importante</h2>
         {alerts.map(alert => (
           <div key={alert.id} className="alert">
-            <p>La OT "{alert.title}" vencerá en {moment(alert.end).endOf('day').diff(moment().startOf('day'), 'days')} días.</p>
+            <p>La OT "{alert.title}" vencerá en {moment(alert.end).endOf('day').diff(moment().startOf('day'), 'days')} días. {moment(alert.end).format('DD/MM/YYYY')}</p>
           </div>
         ))}
-        {/* <button className="modal-close" onClick={() => setShowModal(false)}>Cerrar</button> */}
       </Modal>
     </div>
   );
 };
 
 export default OTCalendario;
-//cambio
