@@ -8,9 +8,9 @@ import otRoutes from './routes/ot.js';
 import empleadoRouter from './routes/empleadoroute.js';
 import regionComunaRoutes from './routes/regionComuna.js';
 import authRoutes from './routes/authRoutes.js';
-import authMiddleware from './middlewares/authMiddleware.js';
 import dotenv from 'dotenv';
 import imgRouter from './routes/img.js';
+import usersEmployeesRoutes from './routes/usersEmployeesRoutes.js';
 
 
 dotenv.config();
@@ -24,8 +24,6 @@ app.use(bodyParser.json());
 
 // Rutas públicas
 app.use('/api/auth', authRoutes);
-
-// Rutas protegidas
 app.use('/api/empleados', empleadoRouter);
 app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
@@ -34,6 +32,7 @@ app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRoutes);
 app.use('/api', regionComunaRoutes);
 app.use('/api/img', imgRouter);
+app.use('/api/usersEmployees', usersEmployeesRoutes);
 
 
 

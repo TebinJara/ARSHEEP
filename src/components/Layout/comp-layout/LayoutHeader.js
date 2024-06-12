@@ -1,5 +1,5 @@
 import React from "react";
-import "../comp-layout/LayoutHeader.css";
+
 
 export const LayoutHeader = () => {
 
