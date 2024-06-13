@@ -11,6 +11,10 @@ import authRoutes from './routes/authRoutes.js';
 import imgRouter from './routes/img.js';
 import emailRouter from './email/emailEndpoint.js'; // Importa el router de correo
 import dotenv from 'dotenv';
+import dotenv from 'dotenv';
+import imgRouter from './routes/img.js';
+import usersEmployeesRoutes from './routes/usersEmployeesRoutes.js';
+
 
 dotenv.config();
 
@@ -23,8 +27,6 @@ app.use(bodyParser.json());
 
 // Rutas públicas
 app.use('/api/auth', authRoutes);
-
-// Rutas protegidas
 app.use('/api/empleados', empleadoRouter);
 app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
@@ -33,6 +35,7 @@ app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRoutes);
 app.use('/api', regionComunaRoutes);
 app.use('/api/img', imgRouter);
+app.use('/api/usersEmployees', usersEmployeesRoutes);
 
 // Agrega el router de correo
 app.use(emailRouter);

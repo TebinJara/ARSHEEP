@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
-import "./MenuNav.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { UserInfo } from '../../login/UserInfo';
 
 export const MenuNav = () => {
     const [menuSelected, setMenuSelected] = useState(null);
+    const location = useLocation();
 
     const handleNavLinkClick = (url) => {
+        
         console.log('Navigating to:', url);
-        // Toggle the submenu: hide if already shown, show otherwise
         if (menuSelected === url) {
-            setMenuSelected(null);
+            setMenuSelected(null); // Colapsar el submenú si el navlink ya está activo
         } else {
             setMenuSelected(url);
         }
     }
 
+    const handleSubMenuLinkClick = (url) => {
+        console.log('Navigating to submenu:', url);
+        // No cambia el estado de menuSelected
+    }
+
     return (
         <div className='menu-nav'>
             <div>
-              <UserInfo/>
+                <UserInfo />
             </div>
             <nav>
                 <ul>
                     <li>
                         <NavLink
-                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                            className={({ isActive }) => isActive || menuSelected === "/Layout/Clientes" ? "navlink-activo" : "navlink"}
                             to="/Layout/Clientes"
                             onClick={() => handleNavLinkClick("/Layout/Clientes")}
                         >
@@ -37,7 +42,7 @@ export const MenuNav = () => {
                                     <NavLink
                                         className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
                                         to="/Layout/Clientes/Listado"
-                                        onClick={() => handleNavLinkClick("/Layout/Clientes/Listado")}
+                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Listado")}
                                     >
                                         Listado Clientes
                                     </NavLink>
@@ -45,19 +50,19 @@ export const MenuNav = () => {
                                 <li>
                                     <NavLink
                                         className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/Clientes/Listado"
-                                        onClick={() => handleNavLinkClick("/Layout/Clientes/Listado")}
+                                        to="/Layout/Clientes/Agregar"
+                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Agregar")}
                                     >
-                                        Listado Clientes
+                                        Agregar Cliente
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
                                         className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/Clientes/Listado"
-                                        onClick={() => handleNavLinkClick("/Layout/Clientes/Listado")}
+                                        to="/Layout/Clientes/Detalles"
+                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Detalles")}
                                     >
-                                        Listado Clientes
+                                        Detalles del Cliente
                                     </NavLink>
                                 </li>
                             </ul>
@@ -65,12 +70,11 @@ export const MenuNav = () => {
                     </li>
                     <li>
                         <NavLink
-                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                            className={({ isActive }) => isActive || menuSelected === "/Layout/OT" ? "navlink-activo" : "navlink"}
                             to="/Layout/OT"
                             onClick={() => handleNavLinkClick("/Layout/OT")}
                         >
                             Ordenes de Trabajo
-                            
                         </NavLink>
                         <div className={`sub-menu-nav ${menuSelected === "/Layout/OT" ? "visible" : ""}`}>
                             <ul>
@@ -78,19 +82,17 @@ export const MenuNav = () => {
                                     <NavLink
                                         className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
                                         to="/Layout/Calendario"
-                                        onClick={() => handleNavLinkClick("/Layout/Calendario")}
+                                        onClick={() => handleSubMenuLinkClick("/Layout/Calendario")}
                                     >
                                         Calendario
                                     </NavLink>
                                 </li>
                             </ul>
                         </div>
-
-
                     </li>
                     <li>
                         <NavLink
-                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                            className={({ isActive }) => isActive || menuSelected === "/Layout/Formulario" ? "navlink-activo" : "navlink"}
                             to="/Layout/Formulario"
                             onClick={() => handleNavLinkClick("/Layout/Formulario")}
                         >
@@ -99,12 +101,25 @@ export const MenuNav = () => {
                     </li>
                     <li>
                         <NavLink
-                            className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                            to="/Layout/usuarios"
-                            onClick={() => handleNavLinkClick("/Layout/usurios")}
+                            className={({ isActive }) => isActive || menuSelected === "/Layout/gestiones" ? "navlink-activo" : "navlink"}
+                            to="/Layout/gestiones"
+                            onClick={() => handleNavLinkClick("/Layout/gestiones")}
                         >
-                            Usuarios
+                            Gestiones
                         </NavLink>
+                        <div className={`sub-menu-nav ${menuSelected === "/Layout/gestiones" ? "visible" : ""}`}>
+                            <ul>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/gestiones/usuarios"
+                                        onClick={() => handleSubMenuLinkClick("/Layout/gestiones/usuarios")}
+                                    >
+                                        Usuarios
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </nav>
