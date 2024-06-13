@@ -5,6 +5,15 @@ export const getEmpleados = async (req, res) => {
         .from('EMPLEADO')
         .select('*');
 
-    if (error) return res.status(400).json({ error });
+    if (error) {
+        console.error('Error al obtener empleados:', error);
+        return res.status(400).json({ error });
+    }
+
+    // Verifica la estructura de los datos
+    if (data.length > 0) {
+        console.log('Estructura de un empleado:', data[0]);
+    }
+
     return res.json(data);
 };
