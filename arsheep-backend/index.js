@@ -11,8 +11,6 @@ import authRoutes from './routes/authRoutes.js';
 import imgRouter from './routes/img.js';
 import emailRouter from './email/emailEndpoint.js'; // Importa el router de correo
 import dotenv from 'dotenv';
-import dotenv from 'dotenv';
-import imgRouter from './routes/img.js';
 import usersEmployeesRoutes from './routes/usersEmployeesRoutes.js';
 
 

@@ -74,7 +74,7 @@ const FormularioOT = () => {
             if (result && result.id_ot) {
                 const id_ot = result.id_ot;
                 localStorage.setItem('id_ot', id_ot);
-                // window.location.href = '/Layout/UploadImage';
+                window.location.href = '/Layout/UploadImage';
     
                 const empleadoSeleccionado = empleados.find(empleado => empleado.id_empleado.toString() === newForm.id_empleado.toString());
                 if (empleadoSeleccionado && empleadoSeleccionado.correo) {
