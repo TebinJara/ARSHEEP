@@ -17,6 +17,13 @@ const FormularioOT = () => {
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
 
+    // Estados de las OT
+    const estados = {
+        1: 'Ingresada',
+        2: 'En Proceso',
+        3: 'Cancelada',
+        4: 'Completada',
+    };
 
     useEffect(() => {
         const cargarClientes = async () => {
@@ -32,6 +39,7 @@ const FormularioOT = () => {
         const cargarEmpleados = async () => {
             try {
                 const listaEmpleados = await obtenerEmpleados();
+                console.log('Empleados recibidos:', listaEmpleados);
                 setEmpleados(listaEmpleados);
             } catch (error) {
                 console.error('Error al cargar empleados:', error);
@@ -48,33 +56,59 @@ const FormularioOT = () => {
             ...prevState,
             [name]: value
         }));
-        console.log(JSON.stringify(newForm));
+        console.log('Formulario actualizado:', JSON.stringify(newForm));
     };
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         const formData = new FormData();
         for (let key in newForm) {
             formData.append(key, newForm[key]);
         }
-
+    
         try {
             const result = await insertarOrdenTrabajo(formData);
             console.log('Respuesta del servidor:', result);
-
+    
             if (result && result.id_ot) {
                 const id_ot = result.id_ot;
                 localStorage.setItem('id_ot', id_ot);
                 window.location.href = '/Layout/UploadImage';
+    
+                const empleadoSeleccionado = empleados.find(empleado => empleado.id_empleado.toString() === newForm.id_empleado.toString());
+                if (empleadoSeleccionado && empleadoSeleccionado.correo) {
+                    console.log('Empleado seleccionado:', empleadoSeleccionado);
+    
+                    const correoData = {
+                        destinatario: empleadoSeleccionado.correo,
+                        asunto: `Nueva OT Asignada - ${id_ot}`,
+                        texto: `Se ha creado una nueva OT con la siguiente información:\n\nDescripción: ${newForm.descripcion}\nEstado: ${estados[newForm.status]}\nFecha de Creación: ${newForm.fecha_creacion}\nFecha de Vencimiento: ${newForm.fecha_vencimiento}\nPrioridad: ${newForm.prioridad}\nInformación Adicional: ${newForm.adicional}\nRUT Cliente: ${newForm.numrun_cliente}\nEmpleado: ${empleadoSeleccionado.pnombre} ${empleadoSeleccionado.snombre ? empleadoSeleccionado.snombre + ' ' : ''}${empleadoSeleccionado.apaterno} ${empleadoSeleccionado.amaterno}\n\nHaz clic aquí para ver más detalles: http://localhost:3000/Layout/OT`
+                    };
+                    
+    
+                    console.log('Enviando datos al servidor de correo:', correoData);
+    
+                    const response = await fetch('http://localhost:3001/enviar-correo', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(correoData),
+                    });
+    
+                    const responseData = await response.text();
+                    console.log('Respuesta del servidor de correo:', responseData);
+                } else {
+                    console.error('No se encontró el correo del empleado seleccionado.');
+                }
             } else {
                 console.error('El id_ot no está disponible en la respuesta del servidor:', result);
             }
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
-    };
+    };    
 
     return (
         <div className='principal-container'>
@@ -107,10 +141,11 @@ const FormularioOT = () => {
                             required
                         >
                             <option value="">Seleccione Estado</option>
-                            <option value="1">Ingresada</option>
-                            <option value="2">En Proceso</option>
-                            <option value="3">Cancelada</option>
-                            <option value="4">Completada</option>
+                            {Object.keys(estados).map((key) => (
+                                <option key={key} value={key}>
+                                    {estados[key]}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div className="form-group">
@@ -194,7 +229,7 @@ const FormularioOT = () => {
                             <option value="">Seleccione un empleado</option>
                             {empleados.map(empleado => (
                                 <option key={empleado.id_empleado} value={empleado.id_empleado}>
-                                     {`${empleado.pnombre} ${empleado.snombre ? empleado.snombre + ' ' : ''}${empleado.apaterno} ${empleado.amaterno}`}
+                                    {`${empleado.pnombre} ${empleado.snombre ? empleado.snombre + ' ' : ''}${empleado.apaterno} ${empleado.amaterno}`}
                                 </option>
                             ))}
                         </select>

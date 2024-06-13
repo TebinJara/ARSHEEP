@@ -8,8 +8,9 @@ import otRoutes from './routes/ot.js';
 import empleadoRouter from './routes/empleadoroute.js';
 import regionComunaRoutes from './routes/regionComuna.js';
 import authRoutes from './routes/authRoutes.js';
-import dotenv from 'dotenv';
 import imgRouter from './routes/img.js';
+import emailRouter from './email/emailEndpoint.js'; // Importa el router de correo
+import dotenv from 'dotenv';
 import usersEmployeesRoutes from './routes/usersEmployeesRoutes.js';
 
 
@@ -34,7 +35,8 @@ app.use('/api', regionComunaRoutes);
 app.use('/api/img', imgRouter);
 app.use('/api/usersEmployees', usersEmployeesRoutes);
 
-
+// Agrega el router de correo
+app.use(emailRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -44,5 +46,3 @@ app.use((err, req, res, next) => {
 app.listen(puerto, () => {
     console.log(`Servidor corriendo en http://localhost:${puerto}`);
 });
-
-//pa que le aparezca a la eve
