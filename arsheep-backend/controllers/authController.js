@@ -33,8 +33,10 @@ export const login = async (req, res) => {
             .select('*')
             .eq('nombre_usuario', username)
             .single();
-
-        console.log('Usuario encontrado:', user); // Log para verificar usuario encontrado
+        if(user){
+            console.log('Usuario encontrado:', user);
+        }
+        console.log('No se ha podido obtener Usuario:'); 
 
         if (userError || !user) {
             return res.status(400).json({ message: 'Usuario o contraseña incorrectos' });
