@@ -16,6 +16,7 @@ const FormularioOT = () => {
 
     const [clientes, setClientes] = useState([]);
     const [empleados, setEmpleados] = useState([]);
+    const [idOTAsignada, setIdOTAsignada] = useState(null);
 
     // Estados de las OT
     const estados = {
@@ -73,7 +74,10 @@ const FormularioOT = () => {
     
             if (result && result.id_ot) {
                 const id_ot = result.id_ot;
+                setIdOTAsignada(id_ot);
                 localStorage.setItem('id_ot', id_ot);
+                const urlOT = `${window.location.origin}/Layout/OT/${id_ot}`;
+                console.log('URL de la Orden de Trabajo:', urlOT);
                 window.location.href = '/Layout/UploadImage';
     
                 const empleadoSeleccionado = empleados.find(empleado => empleado.id_empleado.toString() === newForm.id_empleado.toString());
@@ -83,7 +87,7 @@ const FormularioOT = () => {
                     const correoData = {
                         destinatario: empleadoSeleccionado.correo,
                         asunto: `Nueva OT Asignada - ${id_ot}`,
-                        texto: `Se ha creado una nueva OT con la siguiente información:\n\nDescripción: ${newForm.descripcion}\nEstado: ${estados[newForm.status]}\nFecha de Creación: ${newForm.fecha_creacion}\nFecha de Vencimiento: ${newForm.fecha_vencimiento}\nPrioridad: ${newForm.prioridad}\nInformación Adicional: ${newForm.adicional}\nRUT Cliente: ${newForm.numrun_cliente}\nEmpleado: ${empleadoSeleccionado.pnombre} ${empleadoSeleccionado.snombre ? empleadoSeleccionado.snombre + ' ' : ''}${empleadoSeleccionado.apaterno} ${empleadoSeleccionado.amaterno}\n\nHaz clic aquí para ver más detalles: http://localhost:3000/Layout/OT`
+                        texto: `Se ha creado una nueva OT con la siguiente información:\n\nDescripción: ${newForm.descripcion}\nEstado: ${estados[newForm.status]}\nFecha de Creación: ${newForm.fecha_creacion}\nFecha de Vencimiento: ${newForm.fecha_vencimiento}\nPrioridad: ${newForm.prioridad}\nInformación Adicional: ${newForm.adicional}\nRUT Cliente: ${newForm.numrun_cliente}\nEmpleado: ${empleadoSeleccionado.pnombre} ${empleadoSeleccionado.snombre ? empleadoSeleccionado.snombre + ' ' : ''}${empleadoSeleccionado.apaterno} ${empleadoSeleccionado.amaterno}\n\nHaz clic aquí para ver más detalles: Orden de trabajo ${urlOT}`
                     };
                     
     
