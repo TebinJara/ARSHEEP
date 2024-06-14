@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { obtenerOrdenesDeTrabajo, obtenerEmpleadoPorId, obtenerStatusPorId } from '../../services/supa';
 import "../OT/PageOT.css";
 
 export const PageOT = () => {
     const { id_ot } = useParams();
+    const navigate = useNavigate(); // Crear una instancia de useNavigate
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [otSeleccionada, setOtSeleccionada] = useState(null);
@@ -36,7 +37,7 @@ export const PageOT = () => {
                 setData(updatedOrdenes);
                 setFilteredData(updatedOrdenes); // Inicializamos filteredData con todos los datos al inicio
 
-                // Si hay un id_ot en la URL, seleccionamos automáticamente esa OT y filtramos los datos
+                // Si hay un id_ot en la URL, seleccionamos automáticamente esa OT
                 if (id_ot) {
                     const selectedOT = updatedOrdenes.find(ot => ot.id_ot.toString() === id_ot.toString());
                     if (selectedOT) {
@@ -47,11 +48,11 @@ export const PageOT = () => {
             }
         };
         fetchData();
-    }, [id_ot]);
+    }, [id_ot]); // Agregar id_ot como dependencia para que se ejecute cada vez que cambie
 
     useEffect(() => {
         aplicarFiltro();
-    }, [filtro, criterio, data]); // Agregamos 'data' como dependencia para aplicar el filtro cuando los datos cambian
+    }, [filtro, criterio]);
 
     const seleccionarOT = async (ot) => {
         setOtSeleccionada(ot);
@@ -98,6 +99,7 @@ export const PageOT = () => {
     const deshacerFiltro = () => {
         setFilteredData(data);
         setFiltro('');
+        navigate('/Layout/OT'); // Redirigir a /Layout/OT y borrar filtros
     };
 
     return (
@@ -230,7 +232,8 @@ export const PageOT = () => {
                                     value={formData.run_cliente}
                                     onChange={handleInputChange}
                                     disabled={!isEditing}
-                                    className={styleInput}
+                                    className={styleInput
+}
                                 />
                             </div>
                             <div className='data-item'>
