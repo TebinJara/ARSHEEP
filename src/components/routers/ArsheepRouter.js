@@ -28,6 +28,7 @@ export const ArsheepRouter = () => {
             <Route path="Clientes/crear" element={<ClienteCrear/>} />
             <Route path="Clientes/ficha" element={<ClienteFicha />} />
             <Route path="OT" element={<PageOT />} />
+            <Route path="OT/:id_ot" element={<PageOT />} /> {/* Ruta para manejar id_ot */}
             <Route path="Calendario" element={<Calendario />} />
             <Route path="Formulario" element={<FormularioOT />} />
             <Route path="gestiones" element={<Pconfiguracion />} />
