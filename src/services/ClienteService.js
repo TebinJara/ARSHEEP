@@ -1,27 +1,38 @@
 import axios from 'axios';
 
-const apiClient = axios.create({
-    baseURL: 'http://localhost:3001/api', // Asegúrate de que esta sea la URL correcta
+const api = axios.create({
+    baseURL: 'http://localhost:3001/api/clientes', // Base URL del backend
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
-// Obtener todos los clientes
-export const obtenerClientes = async () => {
+// Obtener todos los clientes con relaciones
+export const getClientes = async () => {
     try {
-        const response = await apiClient.get('/clientes');
-        return response.data; // Devuelve los datos recibidos del servidor
+        const response = await api.get('/clientes');
+        return response.data;
     } catch (error) {
         console.error('Error al obtener los clientes:', error.message);
-        return []; // Retorna un array vacío en caso de error
+        return [];
     }
 };
 
-// Obtener un cliente por ID
-export const obtenerClientePorId = async (id) => {
+// Obtener todos los tipos declientes con relaciones
+export const getTiposClientes = async () => {
     try {
-        const response = await apiClient.get(`/clientes/${id}`);
+        const response = await api.get('/tiposclientes');
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener los tipos de clientes:', error.message);
+        return [];
+    }
+};
+
+// Obtener un cliente por ID con relaciones
+export const getClienteById = async (id) => {
+    try {
+        const response = await api.get(`/clientes/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error al obtener el cliente por ID:', error.message);
@@ -29,21 +40,21 @@ export const obtenerClientePorId = async (id) => {
     }
 };
 
-export const crearCliente = async (formData) => {
+// Crear un nuevo cliente
+export const createCliente = async (clienteData) => {
     try {
-        const response = await apiClient.post('/clientes', formData);
+        const response = await api.post('/clientes', clienteData);
         return response.data;
     } catch (error) {
-        console.error('Error al crear un cliente:', error.message);
-        return { error: error.response.data }; // Devuelve el error de la respuesta
+        console.error('Error al crear el cliente:', error.message);
+        return null;
     }
 };
 
-
-// Actualizar un cliente
-export const actualizarCliente = async (id, cliente) => {
+// Actualizar un cliente por ID
+export const updateCliente = async (id, clienteData) => {
     try {
-        const response = await apiClient.put(`/clientes/${id}`, cliente);
+        const response = await api.put(`/clientes/${id}`, clienteData);
         return response.data;
     } catch (error) {
         console.error('Error al actualizar el cliente:', error.message);
@@ -51,19 +62,27 @@ export const actualizarCliente = async (id, cliente) => {
     }
 };
 
-// Eliminar un cliente
-export const eliminarCliente = async (id) => {
+// Eliminar un cliente por ID
+export const deleteCliente = async (id) => {
     try {
-        console.log(`Enviando solicitud para eliminar el cliente con ID: ${id}`);
-        const response = await apiClient.delete(`/clientes/${id}`);
-        console.log('Respuesta del servidor:', response.data); // Log para depuración
+        const response = await api.delete(`/clientes/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error al eliminar el cliente:', error.message);
-        if (error.response) {
-            console.error('Detalles del error:', error.response.data);
-            return { error: error.response.data };
-        }
         return null;
+    }
+};
+
+export const subirImgenCliente = async (formData) => {
+    try {
+        const response = await api.post('/uploadImage', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data; // Devuelve los datos recibidos del servidor
+    } catch (error) {
+        console.error('Error al subir la imagen del cliente:', error.message);
+        return null; // Retorna null en caso de error
     }
 };

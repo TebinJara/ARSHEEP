@@ -106,7 +106,7 @@ const OTCalendario = () => {
   };
 
   return (
-    <div className="Calendario">
+    <div className="calendario">
       <h1>Calendario de Órdenes de Trabajo</h1>
       <Calendar
         localizer={localizer}

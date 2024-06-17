@@ -1,0 +1,79 @@
+.tile-container {
+  box-sizing: border-box;
+  width: 140px;
+  height: 140px;
+  padding: 5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  p {
+    margin: 0px;
+    font-size: 10px;
+    text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+  
+  .tile-image-container {
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.tile:hover {
+  transform: translateY(-5px) scale(1.06, 1.06);
+  cursor: pointer;
+  p {
+    margin: 0px;
+    font-size: 10px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  }
+  .tile-image-container {
+    background-color: rgb(210, 120, 40);
+    border: 3px solid rgb(210, 120, 40);
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.tile:active {
+    transition: 0.05s;
+    transform: translateY(-5px) scale(1, 1);
+    p {
+      margin: 0px;
+      font-size: 10px;
+      text-shadow: none;
+    }
+    .tile-image-container {
+      background-color: rgb(210, 120, 40);
+      border: 3px solid rgb(210, 120, 40);
+      box-shadow: none;
+    }
+  }
+
+.tile-image-container {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 10%;
+  overflow: hidden; /* Asegura que el contenido que exceda el contenedor se oculte */
+  display: flex;
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  border: 3px solid white;
+}
+
+.tile .tile-image-container img {
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor, cortando el exceso */
+  object-position: center; /* Centra la imagen en el contenedor */
+}

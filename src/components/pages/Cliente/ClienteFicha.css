@@ -1,0 +1,92 @@
+.form-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.form-container form {
+  box-sizing: border-box;
+  min-width: 500px;
+  padding: 20px;
+  background:   rgb(0, 100, 140);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4),
+  inset 1px 1px 0.5px rgba(255, 255, 255, 0.7),
+  inset -1px -1px 0.5px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.form-container form .form-level {
+  box-sizing: border-box;
+  width: 100%;
+  display: block;
+}
+
+.form-container form .form-group {
+  box-sizing: border-box;
+  width: auto;
+  padding: 5px;
+  margin: 2px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+
+.form-container form .form-group label {
+  width: 30%;
+    text-align: right;
+}
+
+.form-container form .form-group input {
+  width: 70%;
+  height: 30px;
+}
+
+select {
+  width: auto;
+  height: auto;
+  margin: 2px 2px 2px 2px;
+  padding: 8px 5px 8px 5px;
+  border: none;
+  border-radius: 2px;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  font-weight: lighter;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.select-desenabled {
+  width: auto;
+  height: auto;
+  margin: 2px 2px 2px 2px;
+  padding: 8px 5px 8px 5px;
+  border: none;
+  border-radius: 2px;
+  background: var(--accent-color);
+  color: var(--text-color-dark);
+  font-size: 12px;
+  font-weight: lighter;
+  cursor: default;
+  transition: all 0.2s;
+  box-shadow: none;
+}
+
+option {
+  background: rgb(250, 250, 250);
+  color: rgb(0, 0, 0);
+}
+
+option:checked {
+  background: rgb(210, 120, 40);
+  color: rgb(250, 250, 250);
+}

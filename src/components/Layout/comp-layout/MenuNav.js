@@ -7,7 +7,7 @@ export const MenuNav = () => {
     const location = useLocation();
 
     const handleNavLinkClick = (url) => {
-        
+
         console.log('Navigating to:', url);
         if (menuSelected === url) {
             setMenuSelected(null); // Colapsar el submenú si el navlink ya está activo
@@ -36,37 +36,6 @@ export const MenuNav = () => {
                         >
                             Clientes
                         </NavLink>
-                        <div className={`sub-menu-nav ${menuSelected === "/Layout/Clientes" ? "visible" : ""}`}>
-                            <ul>
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/Clientes/Listado"
-                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Listado")}
-                                    >
-                                        Listado Clientes
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/Clientes/Agregar"
-                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Agregar")}
-                                    >
-                                        Agregar Cliente
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/Clientes/Detalles"
-                                        onClick={() => handleSubMenuLinkClick("/Layout/Clientes/Detalles")}
-                                    >
-                                        Detalles del Cliente
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li>
                         <NavLink
@@ -116,6 +85,15 @@ export const MenuNav = () => {
                                         onClick={() => handleSubMenuLinkClick("/Layout/gestiones/usuarios")}
                                     >
                                         Usuarios
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/gestiones/usuarios"
+                                        onClick={() => handleSubMenuLinkClick("/Layout/gestiones/usuarios")}
+                                    >
+                                        Repuestos
                                     </NavLink>
                                 </li>
                             </ul>

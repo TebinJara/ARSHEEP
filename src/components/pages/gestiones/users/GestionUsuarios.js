@@ -63,7 +63,7 @@ const GestionUsuarios = () => {
 
   const handleRowClick = (usuarioEmpleado) => {
     setSelectedUser(usuarioEmpleado);
-
+    console.log(usuarioEmpleado);
   };
 
   const handleCloseModal = () => {
@@ -135,7 +135,7 @@ const GestionUsuarios = () => {
           </table>
         </div>
       </div>
-      {selectedUser && <GestionUsuariosCard user={selectedUser} onClose={handleCloseModal} actualizarUsuarios={actualizarUsuarios} />}
+      {selectedUser && <GestionUsuariosCard user={selectedUser} onClose={handleCloseModal} actualizarUsuarios={actualizarUsuarios} /> }
     </div>
   );
 };

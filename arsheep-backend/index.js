@@ -31,7 +31,7 @@ app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRoutes);
-app.use('/api', regionComunaRoutes);
+app.use('/api/regionComuna', regionComunaRoutes);
 app.use('/api/img', imgRouter);
 app.use('/api/usersEmployees', usersEmployeesRoutes);
 

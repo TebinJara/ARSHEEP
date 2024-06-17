@@ -8,9 +8,6 @@ export const MenuButtons = ({ direction }) => {
       <button>Cambiar Contraseña</button>
       <button>Actualizar Datos</button>
       <button>Desactivar Cuenta</button>
-      <button>Desactivar Cuenta</button>
-      <button>Desactivar Cuenta</button>
-      <button>Desactivar Cuenta</button>
     </div>
   )
 }
