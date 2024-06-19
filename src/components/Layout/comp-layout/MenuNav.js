@@ -39,6 +39,28 @@ export const MenuNav = () => {
                     </li>
                     <li>
                         <NavLink
+                            className={({ isActive }) => isActive || menuSelected === "/Layout/VT" ? "navlink-activo" : "navlink"}
+                            to="/Layout/VT"
+                            onClick={() => handleNavLinkClick("/Layout/vt")}
+                        >
+                            Visita Técnica
+                        </NavLink>
+                        <div className={`sub-menu-nav ${menuSelected === "/Layout/vt" ? "visible" : ""}`}>
+                            <ul>
+                                <li>
+                                    <NavLink
+                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
+                                        to="/Layout/VT/crear-vt"
+                                        onClick={() => handleSubMenuLinkClick("/Layout/VT/crear-vt")}
+                                    >
+                                        Ingresar V.T.
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <NavLink
                             className={({ isActive }) => isActive || menuSelected === "/Layout/OT" ? "navlink-activo" : "navlink"}
                             to="/Layout/OT"
                             onClick={() => handleNavLinkClick("/Layout/OT")}

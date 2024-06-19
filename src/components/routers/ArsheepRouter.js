@@ -9,10 +9,12 @@ import { UserData } from '../pages/config_profile/UserData';
 import UploadImage from '../OT/UploadImage';
 import { Pconfiguracion } from '../pages/principal_pages/Pconfiguracion';
 import GestionUsuarios from '../pages/gestiones/users/GestionUsuarios';
-import './ArsheepRouter.css'
 import PageCliente from '../pages/Cliente/PageCliente';
 import { ClienteFicha } from '../pages/Cliente/ClienteFicha';
 import { ClienteCrear } from '../pages/Cliente/ClienteCrear';
+import { PageOrdenesTrabajo } from '../pages/OrdenesTrabajo/PageOrdenesTrabajo';
+import { PageVisitaTecnica } from '../pages/VisitaTecnica/PageVisitaTecnica';
+import { CrearVisitaTecnica } from '../pages/VisitaTecnica/CrearVisitaTecnica';
 
 
 
@@ -27,10 +29,12 @@ export const ArsheepRouter = () => {
             <Route path="Clientes" element={<PageCliente />} />
             <Route path="Clientes/crear" element={<ClienteCrear/>} />
             <Route path="Clientes/ficha" element={<ClienteFicha />} />
-            <Route path="OT" element={<PageOT />} />
+            <Route path="OT" element={<PageOrdenesTrabajo />} />
             <Route path="OT/:id_ot" element={<PageOT />} /> {/* Ruta para manejar id_ot */}
             <Route path="Calendario" element={<Calendario />} />
             <Route path="Formulario" element={<FormularioOT />} />
+            <Route path="vt" element={<PageVisitaTecnica />} />
+            <Route path="vt/crear-vt" element={<CrearVisitaTecnica/>} />
             <Route path="gestiones" element={<Pconfiguracion />} />
             <Route path="gestiones/usuarios" element={<GestionUsuarios />} />
             <Route path="UploadImage" element={<UploadImage />} />

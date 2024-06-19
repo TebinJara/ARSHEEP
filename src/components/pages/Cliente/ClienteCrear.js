@@ -240,28 +240,10 @@ export const ClienteCrear = () => {
                                     className="input-phone"
                                     type="text"
                                     value={numTelefono}
+                                    
                                     onChange={(e) => setNumTelefono(e.target.value)}
                                     required
                                 />
-                            </div>
-                        </div>
-                        <div className='form-level'>
-                            <div className='form-group'>
-                                <label htmlFor="tipocliente" className="label-tipocliente">TIPO DE CLIENTE</label>
-                                <select
-                                    id="tipocliente"
-                                    className="input-tipocliente"
-                                    value={tipoCliente}
-                                    onChange={(e) => setTipoCliente(e.target.value)}
-                                    required
-                                >
-                                    <option value="">Seleccione un tipo de cliente</option>
-                                    {tiposClienteList.map((tipocliente) => (
-                                        <option key={tipocliente.id_tipo_cliente} value={tipocliente.id_tipo_cliente}>
-                                            {tipocliente.desc_tipo_cliente}
-                                        </option>
-                                    ))}
-                                </select>
                             </div>
                         </div>
                         <div className='form-level'>

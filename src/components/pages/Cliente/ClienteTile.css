@@ -47,7 +47,7 @@
 
 .tile:active {
     transition: 0.05s;
-    transform: translateY(-5px) scale(1, 1);
+    transform: translateY(5px) scale(1, 1);
     p {
       margin: 0px;
       font-size: 10px;

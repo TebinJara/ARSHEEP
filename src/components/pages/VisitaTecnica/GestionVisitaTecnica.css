@@ -1,0 +1,147 @@
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
+  .visita-tecnica-gestion-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: auto ;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "header "
+      "content "
+      "footer ";
+  
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeIn 0.3s forwards;
+  }
+  
+
+  .visita-tecnica-gestion-header {
+    grid-area: header;
+    box-sizing: border-box;
+    padding: 3px;
+    margin: 0;
+    border-bottom: 0.1px solid rgb(0, 0, 0);
+    box-shadow: 0px 5px 0px   rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .visita-tecnica-gestion-header h2 {
+    padding: 2px;
+    margin: 0;
+  }
+  
+  .visita-tecnica-gestion-content {
+    grid-area: content;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+  }
+  
+  .visita-tecnica-gestion-footer {
+    grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 0.1px solid rgb(250,250,250);
+    
+  }
+  
+  .visita-tecnica-gestion-form-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    overflow-y: auto;
+  
+  }
+  
+  .visita-tecnica-gestion-form-container form {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+      "form-header form-header"
+      "form-level-1 form-level-1"
+      "form-level-2 form-level-3"
+      "form-level-2 form-level-3"
+      "form-level-4 form-level-4";
+  }
+
+  .visita-tecnica-gestion-form-container form textarea{
+    min-height: 300px;
+    max-height: 250px;
+    min-width: 100%;
+    max-width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-group {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-header {
+    height: auto;
+    grid-area: form-header;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-level-1 {
+    grid-area: form-level-1;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-level-2 {
+    grid-area: form-level-2;
+    width: 100%;
+    height: auto;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-level-3 {
+    grid-area: form-level-3;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .visita-tecnica-gestion-form-container form .form-level-4 {
+    grid-area: form-level-4;
+  }
+  
+  .visita-tecnica-gestion-item-container{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(255, 255, 255);
+  }

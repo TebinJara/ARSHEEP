@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { createCliente, getClientes, getClienteById, updateCliente, deleteCliente, getTiposClientes, uploadImage } from '../controllers/cliente.js';
+import { createCliente, getClientes, getClienteById, updateCliente, deleteCliente, getTiposClientes, uploadImage } from '../controllers/clienteController.js';
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });

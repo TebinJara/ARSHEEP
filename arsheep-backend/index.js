@@ -9,10 +9,13 @@ import empleadoRouter from './routes/empleadoroute.js';
 import regionComunaRoutes from './routes/regionComuna.js';
 import authRoutes from './routes/authRoutes.js';
 import imgRouter from './routes/img.js';
-import emailRouter from './email/emailEndpoint.js'; // Importa el router de correo
+import emailRouter from './email/emailEndpoint.js'; 
 import dotenv from 'dotenv';
 import usersEmployeesRoutes from './routes/usersEmployeesRoutes.js';
-
+import ordenTrabajo from './routes/ordenTrabajo.js';
+import visitaTecnicaRoutes from './routes/visitaTecnicaRoutes.js';
+import empresaRoutes from './routes/empresaRoutes.js'; 
+import establecimientoRoutes from './routes/establecimientoRoutes.js';
 
 dotenv.config();
 
@@ -26,14 +29,18 @@ app.use(bodyParser.json());
 // Rutas públicas
 app.use('/api/auth', authRoutes);
 app.use('/api/empleados', empleadoRouter);
-app.get('/api/empleados', empleadoRouter);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/tipoCliente', tipoClienteRoutes);
 app.use('/api/orden_trabajo', otRoutes);
+app.use('/api/ot', ordenTrabajo);
 app.use('/api/regionComuna', regionComunaRoutes);
 app.use('/api/img', imgRouter);
 app.use('/api/usersEmployees', usersEmployeesRoutes);
+app.use('/api/visitastecnicas', visitaTecnicaRoutes);
+app.use('/api/empresas', empresaRoutes);
+app.use('/api/establecimientos', establecimientoRoutes);
+
 
 // Agrega el router de correo
 app.use(emailRouter);

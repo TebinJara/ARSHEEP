@@ -26,7 +26,6 @@ export const ClienteTile = ({ cliente }) => {
                 </div>
                 <p> {cliente.nombre_cliente + ' ' + cliente.appaterno_cliente + ' ' + cliente.apmaterno_cliente} </p>
                 <p>{formatearRUT(cliente.numrun_cliente, cliente.dvrun_cliente)}</p>
-                <p>{cliente.TIPO_CLIENTE.desc_tipo_cliente}</p>
             </div>
         </div>
     )
