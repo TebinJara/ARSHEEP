@@ -3,8 +3,14 @@ import './PageVisitaTecnica.css';
 import { getVisitasTecnicas } from '../../../services/visitaTecnicaService';
 import { GestionVisitaTecnica } from './GestionVisitaTecnica';
 import { Filtros } from '../../Filtros';
+import VisitaTecnicaTile from './VisitaTecnicaTile';
+
 
 export const PageVisitaTecnica = () => {
+
+
+
+
   const [dataVisitasTecnicas, setDataVisitasTecnicas] = useState([]);
   const [dataFiltrada, setDataFiltrada] = useState([]);
   const [showPageOTCrear, setShowPageOTCrear] = useState(false);
@@ -21,6 +27,8 @@ export const PageVisitaTecnica = () => {
       console.error('Error fetching data:', error);
     }
   };
+
+
 
   useEffect(() => {
     fetchData();
@@ -66,27 +74,15 @@ export const PageVisitaTecnica = () => {
   return (
     <div className='page-visitas-tecnicas-container'>
       <Filtros campos={camposFiltro} onFiltrar={aplicarFiltro} />
-      
+
       <div className='filter'>
         <button onClick={() => setShowPageOTCrear(true) + setSelectedVisita("")}>Agregar</button>
       </div>
 
       <div className='visitas-tecnicas-container'>
         {dataFiltrada.map((visita, index) => (
-          <div key={index} className="visita-tecnica" onClick={() => handleOrdenClick(visita)}>
-            <div>
-              <p>CREADA: {visita.fec_creacion_vt}</p>
-              <p>TEC:{visita.id_empleado}</p>
-              <h4>VT {visita.id_vt}</h4>
-            </div>
-            <p>{visita.desc_vt}</p>
-            <div>
-              <p>{visita.ESTADO_VISITA_TECNICA.desc_estado_vt}: {visita.fec_programacion_vt}</p>
-              <p>{visita.ESTABLECIMIENTO.nombre_establecimiento}</p>
-            </div>
-            <div>
-              
-            </div>
+          <div key={index} onClick={() => handleOrdenClick(visita)}>
+            <VisitaTecnicaTile visita={visita} />
           </div>
         ))}
       </div>

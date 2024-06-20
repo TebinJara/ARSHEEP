@@ -2,6 +2,10 @@ import React from 'react';
 import './GestionOrdenTrabajo.css';
 
 export const GestionOrdenTrabajo = ({ orden }) => {
+
+
+
+    
     return (
 
         <div className='orden-trabajo-gestion-container'>

@@ -28,9 +28,9 @@ export const getVisitasTecnicas = async (req, res) => {
                 analisis_vt,
                 recomendacion_vt,
                 beneficio_vt,
-                proximospasos_vt,
                 fec_creacion_vt,
                 fec_programacion_vt,
+                fec_realizacion_vt,
                 ESTABLECIMIENTO(
                     id_establecimiento,
                     nombre_establecimiento
