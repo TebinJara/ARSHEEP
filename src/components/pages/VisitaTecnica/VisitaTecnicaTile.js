@@ -5,12 +5,14 @@ import'./VisitaTecnicaTile.css';
 const VisitaTecnicaTile = ({ visita }) => {
     return (
         <div className='visita-tecnica-tile'>
-            <div classname>
+            <div className='left'>
                 <p>AGENDADA: {visita.fec_creacion_vt}</p>
                 <h4>VT {visita.id_vt}</h4>
             </div>
-            <p>{visita.desc_vt}</p>
-            <div>
+            <div className='center'>
+                <p>{visita.desc_vt}</p>
+            </div>
+            <div className='right'>
                 <h4>TEC: {visita.id_empleado}</h4>
                 <p>{visita.ESTADO_VISITA_TECNICA.desc_estado_vt}: {visita.fec_programacion_vt}</p>
                 <p>{visita.ESTABLECIMIENTO.nombre_establecimiento}</p>

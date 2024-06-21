@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { obtenerEmpleados, obtenerClientes, insertarOrdenTrabajo } from '../../services/OtService';
+import { insertarOrdenTrabajo } from '../../services/OtService';
+import { getEmpleados } from '../../services/empleadoService';
+import { getClientes } from '../../services/clienteService';
 import './FormularioOT.css';
+import { sendMailOTasignation } from '../../services/emailService';
 
 const FormularioOT = () => {
     const [newForm, setNewForm] = useState({
-        descripcion: '',
+        desc_ot: '',
         status: '',
         fecha_creacion: '',
         fecha_vencimiento: '',
-        prioridad: '',
-        adicional: '',
         numrun_cliente: '',
-        id_empleado: '',
+        id_empleado: ''
     });
 
     const [clientes, setClientes] = useState([]);
@@ -29,7 +30,7 @@ const FormularioOT = () => {
     useEffect(() => {
         const cargarClientes = async () => {
             try {
-                const listaClientes = await obtenerClientes();
+                const listaClientes = await getClientes();
                 console.log('Clientes recibidos:', listaClientes);
                 setClientes(listaClientes);
             } catch (error) {
@@ -39,7 +40,7 @@ const FormularioOT = () => {
 
         const cargarEmpleados = async () => {
             try {
-                const listaEmpleados = await obtenerEmpleados();
+                const listaEmpleados = await getEmpleados();
                 console.log('Empleados recibidos:', listaEmpleados);
                 setEmpleados(listaEmpleados);
             } catch (error) {
@@ -57,29 +58,25 @@ const FormularioOT = () => {
             ...prevState,
             [name]: value
         }));
-        console.log('Formulario actualizado:', JSON.stringify(newForm));
+        console.log('Formulario actualizado:', JSON.stringify({ ...newForm, [name]: value }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        const formData = new FormData();
-        for (let key in newForm) {
-            formData.append(key, newForm[key]);
-        }
-    
         try {
-            const result = await insertarOrdenTrabajo(formData);
+            const result = await insertarOrdenTrabajo(newForm);
             console.log('Respuesta del servidor:', result);
     
             if (result && result.id_ot) {
                 const id_ot = result.id_ot;
                 setIdOTAsignada(id_ot);
                 localStorage.setItem('id_ot', id_ot);
-                const urlOT = `${window.location.origin}/Layout/OT/${id_ot}`;
+
+                const urlOT = `${window.location.origin}/Layout/OT/${id_ot}`; //Para que al hacer click en el enlace del correo te redirige a la pagina de la orden de trabajo
+
                 console.log('URL de la Orden de Trabajo:', urlOT);
-                window.location.href = '/Layout/UploadImage';
-    
+
                 const empleadoSeleccionado = empleados.find(empleado => empleado.id_empleado.toString() === newForm.id_empleado.toString());
                 if (empleadoSeleccionado && empleadoSeleccionado.correo) {
                     console.log('Empleado seleccionado:', empleadoSeleccionado);
@@ -87,32 +84,24 @@ const FormularioOT = () => {
                     const correoData = {
                         destinatario: empleadoSeleccionado.correo,
                         asunto: `Nueva OT Asignada - ${id_ot}`,
-                        texto: `Se ha creado una nueva OT con la siguiente información:\n\nDescripción: ${newForm.descripcion}\nEstado: ${estados[newForm.status]}\nFecha de Creación: ${newForm.fecha_creacion}\nFecha de Vencimiento: ${newForm.fecha_vencimiento}\nPrioridad: ${newForm.prioridad}\nInformación Adicional: ${newForm.adicional}\nRUT Cliente: ${newForm.numrun_cliente}\nEmpleado: ${empleadoSeleccionado.pnombre} ${empleadoSeleccionado.snombre ? empleadoSeleccionado.snombre + ' ' : ''}${empleadoSeleccionado.apaterno} ${empleadoSeleccionado.amaterno}\n\nHaz clic aquí para ver más detalles: Orden de trabajo ${urlOT}`
+                        texto: `Se ha creado una nueva OT con la siguiente información:\n\nDescripción: ${newForm.desc_ot}\nEstado: ${estados[newForm.status]}\nFecha de Creación: ${newForm.fecha_creacion}\nFecha de Vencimiento: ${newForm.fecha_vencimiento}\nPrioridad: ${"prioridad"}\nInformación Adicional: ${"adicional"}\nRUT Cliente: ${newForm.numrun_cliente}\nEmpleado: ${empleadoSeleccionado.pnombre} ${empleadoSeleccionado.snombre ? empleadoSeleccionado.snombre + ' ' : ''}${empleadoSeleccionado.apaterno} ${empleadoSeleccionado.amaterno}\n\nHaz clic aquí para ver más detalles: Orden de trabajo ${urlOT}`
                     };
-                    
     
                     console.log('Enviando datos al servidor de correo:', correoData);
-    
-                    const response = await fetch('http://localhost:3001/enviar-correo', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(correoData),
-                    });
-    
-                    const responseData = await response.text();
-                    console.log('Respuesta del servidor de correo:', responseData);
+                    const response = await sendMailOTasignation(correoData);
+                    console.log('Respuesta del servidor de correo:', response);
                 } else {
                     console.error('No se encontró el correo del empleado seleccionado.');
                 }
+
+                window.location.href = '/Layout/UploadImage';
             } else {
                 console.error('El id_ot no está disponible en la respuesta del servidor:', result);
             }
         } catch (error) {
             console.error('Error al enviar el formulario:', error);
         }
-    };    
+    };
 
     return (
         <div className='principal-container'>
@@ -122,14 +111,14 @@ const FormularioOT = () => {
                 </div>
                 <form className="form-container" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="descripcion">Descripción:</label>
+                        <label htmlFor="desc_ot">Descripción:</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="descripcion"
-                            name="descripcion"
+                            id="desc_ot"
+                            name="desc_ot"
                             placeholder="Ingrese la descripción de la OT"
-                            value={newForm.descripcion}
+                            value={newForm.desc_ot}
                             onChange={handleChange}
                             required
                         />
@@ -177,34 +166,6 @@ const FormularioOT = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="prioridad">Prioridad:</label>
-                        <select
-                            className="form-control"
-                            id="prioridad"
-                            name="prioridad"
-                            value={newForm.prioridad}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Seleccione la prioridad</option>
-                            <option value="Baja">Baja</option>
-                            <option value="Media">Media</option>
-                            <option value="Alta">Alta</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="adicional">Información Adicional:</label>
-                        <textarea
-                            className="form-control"
-                            id="adicional"
-                            name="adicional"
-                            rows="3"
-                            placeholder="Ingrese información adicional"
-                            value={newForm.adicional}
-                            onChange={handleChange}
-                        ></textarea>
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="numrun_cliente">RUT Cliente:</label>
                         <select
                             className="form-control"
@@ -229,7 +190,7 @@ const FormularioOT = () => {
                             name="id_empleado"
                             value={newForm.id_empleado}
                             onChange={handleChange}
-                        >
+                            >
                             <option value="">Seleccione un empleado</option>
                             {empleados.map(empleado => (
                                 <option key={empleado.id_empleado} value={empleado.id_empleado}>
@@ -238,7 +199,7 @@ const FormularioOT = () => {
                             ))}
                         </select>
                     </div>
-                  
+
                     <button type="submit" className="btn btn-primary">Enviar OT</button>
                 </form>
             </div>

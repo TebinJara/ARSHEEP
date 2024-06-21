@@ -81,6 +81,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
             setRefresh(prev => !prev);
             // Muestra el mensaje de éxito
             setSuccessMessage('¡Información actualizada con éxito!');
+            alert('¡Información actualizada con éxito!');
         })
         .catch((error) => {
             // Manejo del error en caso de que ocurra
