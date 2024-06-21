@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ClienteFicha.css';
 import { getComunasByRegion, getRegiones } from '../../../services/RegionComunaService';
-import { getTiposClientes, createCliente, subirImgenCliente } from '../../../services/clienteService';
+import { getTiposClientes, createCliente, subirImgenCliente } from '../../../services/ClienteService';
 import { formatInputText, formatRUT } from '../../../helpers/format';
 
 export const ClienteCrear = () => {

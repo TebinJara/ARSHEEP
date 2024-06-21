@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "name": "Visita Técnica 1",
+      "description": "Descripción de la visita técnica 1",
+      "date": "2024-06-20"
+    },
+    {
+      "id": 2,
+      "name": "Visita Técnica 2",
+      "description": "Descripción de la visita técnica 2",
+      "date": "2024-06-21"
+    }
+  ]
+  

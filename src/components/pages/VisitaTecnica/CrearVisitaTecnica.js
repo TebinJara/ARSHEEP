@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './CrearVisitaTecnica.css';
 import { createVisitaTecnica, getVisitasTecnicas } from '../../../services/visitaTecnicaService';
 import { getEmpleadoById, getEmpleados } from '../../../services/empleadoService';
-import { getClientes } from '../../../services/clienteService';
+import { getClientes } from '../../../services/ClienteService';
 import { getEmpresas } from '../../../services/empresaService';
 import { getEstablecimientos } from '../../../services/establecimientoService';
 import { getCurrentDate } from '../../../helpers/dateHelper';
