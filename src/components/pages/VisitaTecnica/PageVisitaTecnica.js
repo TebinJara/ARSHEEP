@@ -32,7 +32,7 @@ export const PageVisitaTecnica = () => {
 
   useEffect(() => {
     fetchData();
-
+    
   }, [refresh]);
 
   const aplicarFiltro = (filtro) => {

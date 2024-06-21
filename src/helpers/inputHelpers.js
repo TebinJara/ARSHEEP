@@ -13,10 +13,8 @@ const regexMap = {
     }
   };
   
-  export const handleChange = (event, setValue, charType) => {
-    let value = event.target.value;
-    if (charType === 'uppercase') {
-      value = value.toUpperCase();
-    }
-    setValue(value);
-  };
+  export function formatUpperCase(event, setValue) {
+  let value = event.target.value;
+  value = value.toUpperCase();
+  return(value);
+}

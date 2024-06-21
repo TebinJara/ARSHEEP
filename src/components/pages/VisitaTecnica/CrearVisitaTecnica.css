@@ -12,6 +12,10 @@
     grid-template-areas:
       "principal panel "
     ;
+    .visita-tecnica-tile:hover{
+      transform: scale(1,1);
+      cursor: default;
+    }
   }
 
   .visita-tecnica-crear-principal{
@@ -38,6 +42,8 @@
     height: 100%;
     margin: 0px;
     padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   
   .visita-tecnica-crear-header {
@@ -94,18 +100,12 @@
     grid-template-areas:
       "form-header form-header"
       "form-level-1 form-level-1"
-      "form-level-2 form-level-3"
-      "form-level-2 form-level-3"
+      "form-level-2 form-level-2"
+      "form-level-3 form-level-3"
       "form-level-4 form-level-4";
   }
   
-  .visita-tecnica-crear-form-container form .form-group {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
+
   
   .visita-tecnica-crear-form-container form .form-header {
     height: auto;
@@ -114,41 +114,76 @@
   
   .visita-tecnica-crear-form-container form .form-level-1 {
     grid-area: form-level-1;
+    box-sizing: border-box;
     width: 100%;
     height: auto;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    label{
+      width: auto;
+    }
+    input{
+      width: 40%;
+      height: 30px;
+    }
   }
   
   .visita-tecnica-crear-form-container form .form-level-2 {
     grid-area: form-level-2;
+    box-sizing: border-box;
     width: 100%;
     height: auto;
-  
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    label{
+      width: auto;
+    }
+    input{
+      width: 100%;
+      height: 30px;
+    }
   }
   
   .visita-tecnica-crear-form-container form .form-level-3 {
     grid-area: form-level-3;
+    box-sizing: border-box;
     width: 100%;
+    padding: 10px;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    label{
+      width: auto;
+    }
+    select{
+      width: 100%;
+      height: 30px;
+    }
   }
   
   .visita-tecnica-crear-form-container form .form-level-4 {
     grid-area: form-level-4;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    label{
+      width: auto;
+    }
+    select{
+      width: 100%;
+    }
   }
   
-  .visita-tecnica-crear-item-container{
-  width: 100%;
-  height: 100px;
-  background-color: rgb(255, 255, 255);
-  }

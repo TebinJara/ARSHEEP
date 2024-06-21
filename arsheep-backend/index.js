@@ -16,6 +16,7 @@ import ordenTrabajo from './routes/ordenTrabajo.js';
 import visitaTecnicaRoutes from './routes/visitaTecnicaRoutes.js';
 import empresaRoutes from './routes/empresaRoutes.js'; 
 import establecimientoRoutes from './routes/establecimientoRoutes.js';
+import tipoMantenimientoRoutes from './routes/tipoMantenimientoRoutes.js';
 
 dotenv.config();
 
@@ -40,10 +41,11 @@ app.use('/api/usersEmployees', usersEmployeesRoutes);
 app.use('/api/visitastecnicas', visitaTecnicaRoutes);
 app.use('/api/empresas', empresaRoutes);
 app.use('/api/establecimientos', establecimientoRoutes);
-
-
-// Agrega el router de correo
+app.use('/api/tipomantenimientos', tipoMantenimientoRoutes);
 app.use(emailRouter);
+
+
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

@@ -31,6 +31,7 @@ export const getVisitasTecnicas = async (req, res) => {
                 fec_creacion_vt,
                 fec_programacion_vt,
                 fec_realizacion_vt,
+                id_establecimiento,
                 ESTABLECIMIENTO(
                     id_establecimiento,
                     nombre_establecimiento
@@ -49,9 +50,16 @@ export const getVisitasTecnicas = async (req, res) => {
                 ESTADO_VISITA_TECNICA(
                     id_estado_vt,
                     desc_estado_vt
+                ),
+                id_tipo_mantenimiento,
+                TIPO_MANTENIMIENTO(
+                    id_tipo_mantenimiento,
+                    desc_tipo_mantenimiento
                 )
                 `)
-            .order('fec_creacion_vt', { ascending: false });
+            .order('id_tipo_mantenimiento',{ascending: true})
+            .order('fec_programacion_vt', { ascending: true })
+            .order('fec_creacion_vt', { ascending: false })
 
         if (error) return res.status(400).json({ error });
         return res.json(data);

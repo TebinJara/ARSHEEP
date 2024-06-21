@@ -7,15 +7,17 @@ const VisitaTecnicaTile = ({ visita }) => {
         <div className='visita-tecnica-tile'>
             <div className='left'>
                 <p>AGENDADA: {visita.fec_creacion_vt}</p>
-                <h4>VT {visita.id_vt}</h4>
+                <h4>V.T. {visita.id_vt}</h4>
             </div>
             <div className='center'>
+                <h4>MANT. {visita.TIPO_MANTENIMIENTO.desc_tipo_mantenimiento}</h4>
                 <p>{visita.desc_vt}</p>
             </div>
             <div className='right'>
                 <h4>TEC: {visita.id_empleado}</h4>
-                <p>{visita.ESTADO_VISITA_TECNICA.desc_estado_vt}: {visita.fec_programacion_vt}</p>
                 <p>{visita.ESTABLECIMIENTO.nombre_establecimiento}</p>
+                <p>PARA: {visita.fec_programacion_vt}</p>
+                
             </div>
         </div>
     );

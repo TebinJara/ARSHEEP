@@ -33,13 +33,21 @@
     margin: 0;
     border-bottom: 0.1px solid rgb(0, 0, 0);
     box-shadow: 0px 5px 0px   rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    h1{
+      font-size: 18px;
+      margin: 5px;
+      text-align: center;
+    }
+    p{
+      font-size: 11px;
+      margin: 5px;
+      text-align: left;
+    }
   }
   
-  
-  .visita-tecnica-gestion-header h2 {
-    padding: 2px;
-    margin: 0;
-  }
+ 
   
   .visita-tecnica-gestion-content {
     grid-area: content;
@@ -63,6 +71,7 @@
     height: auto;
     padding: 10px;
     overflow-y: auto;
+    overflow-x: hidden;
   
   }
   
@@ -81,8 +90,6 @@
       "form-level-3 form-level-3"
       "form-level-2 form-level-2"
       "form-level-4 form-level-4";
-    
-
   }
 
   .visita-tecnica-gestion-form-container form textarea{

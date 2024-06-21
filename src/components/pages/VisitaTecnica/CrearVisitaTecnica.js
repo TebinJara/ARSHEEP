@@ -6,6 +6,9 @@ import { getEmpleadoById, getEmpleados } from '../../../services/empleadoService
 import { getClientes } from '../../../services/clienteService';
 import { getEmpresas } from '../../../services/empresaService';
 import { getEstablecimientos } from '../../../services/establecimientoService';
+import { getCurrentDate } from '../../../helpers/dateHelper';
+import VisitaTecnicaTile from './VisitaTecnicaTile';
+import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 
 export const CrearVisitaTecnica = () => {
   const [visitas, setVisitas] = useState([]);
@@ -14,11 +17,13 @@ export const CrearVisitaTecnica = () => {
   const [empleado, setEmpleado] = useState({});
   const [empresas, setEmpresas] = useState([]);
   const [establecimientos, setEstablecimientos] = useState([]);
+  const [tipoMantenimiento, setTipoMantenimiento] = useState([]);
   const [formData, setFormData] = useState({
     desc_vt: '',
     id_empleado: '',
     fec_programacion_vt: '',
-    id_establecimiento: ''
+    id_establecimiento: '',
+    id_tipo_mantenimiento: ''
   });
 
   const navigate = useNavigate();
@@ -27,6 +32,7 @@ export const CrearVisitaTecnica = () => {
     try {
       const data = await getVisitasTecnicas();
       setVisitas(data);
+      console.log(data);
     } catch (error) {
       console.error('Error fetching visitas tecnicas:', error);
     }
@@ -68,6 +74,15 @@ export const CrearVisitaTecnica = () => {
     }
   };
 
+  const fetchTipoMantenimientos = async () => {
+    try {
+      const data = await getTiposMantenimiento();
+      setTipoMantenimiento(data);
+    } catch (error) {
+      console.error('Error fetching tipoMantenimientos:', error);
+    }
+  };
+
   const fetchEstablecimientos = async () => {
     try {
       const data = await getEstablecimientos();
@@ -85,14 +100,17 @@ export const CrearVisitaTecnica = () => {
     }
     await fetchClientes();
     await fetchEmpresas();
-    fetchEstablecimientos();
+    await fetchEstablecimientos();
+    await fetchTipoMantenimientos();
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: (name === 'id_empleado' || name === 'id_establecimiento' || name === 'id_tipo_mantenimiento')
+        ? Number(value)
+        : (typeof value === 'string' ? value.toUpperCase() : value),
     }));
   };
 
@@ -124,49 +142,102 @@ export const CrearVisitaTecnica = () => {
                 <label>ID Visita Técnica</label>
               </div>
               <div className='form-level-1'>
-                <div className='form-group'>
-                  <label>Descripción</label>
-                  <textarea name="desc_vt" value={formData.desc_vt} onChange={handleChange}></textarea>
-                </div>
+                <label>FECHA DE VISITA:</label>
+                <input
+                  type="date"
+                  name="fec_programacion_vt"
+                  value={formData.fec_programacion_vt}
+                  onChange={handleChange}
+                  min={getCurrentDate()}
+                  required
+                />
               </div>
               <div className='form-level-2'>
-                <div className='form-group'>
-                  <label>Fecha de Visita</label>
-                  <input type="date" name="fec_programacion_vt" value={formData.fec_programacion_vt} onChange={handleChange} />
-                </div>
-                <div className='form-group'>
-                  <label>Empleado</label>
-                  <select name="id_empleado" value={formData.id_empleado} onChange={handleChange}>
-                    <option value="">SELECCIONE UN EMPLEADO</option>
-                    {empleados.map((empleado) => (
-                      <option key={empleado.id_empleado} value={empleado.id_empleado}>
-                        {empleado.pnombre + " " + empleado.apaterno + " " + empleado.amaterno}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <label>DESCRIPCIÓN:</label>
+                <input
+                  type="text"
+                  name="desc_vt"
+                  value={formData.desc_vt}
+                  onChange={handleChange}
+                  title="No se permiten letras minúsculas"
+                  maxLength="60"
+                  required
+                />
               </div>
               <div className='form-level-3'>
-                <div className='form-group'>
-                  <label>ESTABLECIMIENTO</label>
-                  <select name="id_establecimiento" value={formData.id_establecimiento} onChange={handleChange}>
-                    <option value="">SELECCIONE UN ESTABLECIMIENTO</option>
-                    {establecimientos.map((establecimiento) => (
-                      <option key={establecimiento.id} value={establecimiento.id_establecimiento}>
-                        {establecimiento.nombre_establecimiento}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <label>MANTENIMIENTO:</label>
+                <select
+                  name="id_tipo_mantenimiento"
+                  value={formData.id_tipo_mantenimiento}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">SELECCIONE EL TIPO DE MANTENIMIENTO</option>
+                  {tipoMantenimiento.map((tipoMantenimiento) => (
+                    <option
+                      key={tipoMantenimiento.id_tipo_mantenimiento}
+                      value={tipoMantenimiento.id_tipo_mantenimiento}
+                    >
+                      {tipoMantenimiento.desc_tipo_mantenimiento}
+                      {console.log(formData)}
+                    </option>
+                  ))}
+                </select>
+                <label>EMPLEADO:</label>
+                <select
+                  name="id_empleado"
+                  value={formData.id_empleado}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">SELECCIONE UN EMPLEADO</option>
+                  {empleados.map((empleado) => (
+                    <option
+                      key={empleado.id_empleado}
+                      value={empleado.id_empleado}
+                    >
+                      {empleado.pnombre + " " + empleado.apaterno + " " + empleado.amaterno}
+                      {console.log(formData)}
+                    </option>
+                  ))}
+                </select>
+                <label>ESTABLECIMIENTO:</label>
+                <select
+                  name="id_establecimiento"
+                  value={formData.id_establecimiento}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">SELECCIONE UN ESTABLECIMIENTO</option>
+                  {establecimientos.map((establecimiento) => (
+                    <option
+                      key={establecimiento.id_establecimiento}
+                      value={establecimiento.id_establecimiento}
+                    >
+                      {establecimiento.nombre_establecimiento}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div className='visita-tecnica-crear-footer'>
+              <div className='form-level-4'>
                 <button type="submit">Crear Visita Técnica</button>
               </div>
+              <div className='visita-tecnica-crear-footer'></div>
             </form>
           </div>
         </div>
-        <div className='visita-tecnica-crear-panel'>
-        </div>
+      </div>
+      <div className='visita-tecnica-crear-panel'>
+        {visitas
+          .filter((visita) => {
+            return (
+              (!formData.id_empleado || visita.id_empleado === formData.id_empleado) &&
+              (!formData.fec_programacion_vt || visita.fec_programacion_vt === formData.fec_programacion_vt)
+            );
+          })
+          .map((visita, index) => (
+            <VisitaTecnicaTile key={index} visita={visita} />
+          ))}
       </div>
     </div>
   );
