@@ -78,8 +78,8 @@
     grid-template-areas:
       "form-header form-header"
       "form-level-1 form-level-1"
-      "form-level-2 form-level-3"
-      "form-level-2 form-level-3"
+      "form-level-3 form-level-3"
+      "form-level-2 form-level-2"
       "form-level-4 form-level-4";
     
 
@@ -120,11 +120,11 @@
     grid-area: form-level-2;
     width: 100%;
     height: auto;
-  
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+  
   }
   
   .visita-tecnica-gestion-form-container form .form-level-3 {
@@ -145,4 +145,9 @@
   width: 100%;
   height: 100px;
   background-color: rgb(255, 255, 255);
+  }
+
+  .switch_container{
+    width: 100%;
+ 
   }

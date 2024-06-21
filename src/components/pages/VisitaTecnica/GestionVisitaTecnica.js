@@ -3,10 +3,12 @@ import './GestionVisitaTecnica.css';
 import { updateVisitaTecnica } from '../../../services/visitaTecnicaService';
 import { createOrdenTrabajo } from '../../../services/ordenTrabajoService';
 import { handleKeyDown, handleChange } from '../../../helpers/inputHelpers';
+import Switch from '@mui/material/Switch';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
+    const [estadoSwitch, setEstadoWitch] = useState(false);
 
     // Definición de estados locales para los diferentes campos de la visita técnica
     const [desc_vt, setDescVt] = useState('');
@@ -32,7 +34,19 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         setNumrunCliente(visita.numrun_cliente || '');
         setIdEmpleado(visita.id_empleado || '');
         setIdEstadoVt(visita.id_estado_vt || '');
+        setEstadoWitch(false);
+
     }, [visita]);
+
+
+    useEffect(() => {
+        if(id_estado_vt !== 6){
+            setIdEstadoVt(6);
+        }else if(id_estado_vt === 6){
+            setIdEstadoVt(visita.id_estado_vt);
+        }
+        console.log(id_estado_vt)
+    }, [estadoSwitch]);
 
     // Función para actualizar una visita técnica llamando al servicio correspondiente
     const actualizarVisitaTecnica = async (id, data) => {
@@ -43,51 +57,45 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         }
     };
 
-    // Datos de ejemplo para crear una orden de trabajo
-    const descOt = {
-        desc_ot: "hola"
-    }
 
-    // Función para crear una orden de trabajo llamando al servicio correspondiente
-    const crearOT = async (data) => {
-        try {
-            await createOrdenTrabajo(data);
-        } catch (error) {
-            console.error('Error create OT:', error);
-        }
-    };
 
     // Función para manejar el evento de guardar el formulario
-    const handleSave = (e) => {
-        e.preventDefault(); 
+    const handleSave = async (e) => {
+        e.preventDefault();
     
         const userConfirmed = window.confirm('¿Estás seguro de que deseas guardar los cambios?');
-
+    
         if (!userConfirmed) {
             return;
         }
-
+    
         const updatedVisita = {
             desc_vt,
             desc_problema_vt,
             analisis_vt,
             recomendacion_vt,
             beneficio_vt,
+            id_estado_vt
         };
-
-        actualizarVisitaTecnica(visita.id_vt, updatedVisita)
-        .then(() => {
+    
+        try {
+            await actualizarVisitaTecnica(visita.id_vt, updatedVisita);
             // Actualiza el estado de refresh
             setRefresh(prev => !prev);
             // Muestra el mensaje de éxito
             setSuccessMessage('¡Información actualizada con éxito!');
             alert('¡Información actualizada con éxito!');
-        })
-        .catch((error) => {
+            console.log(updatedVisita)
+        } catch (error) {
             // Manejo del error en caso de que ocurra
             console.error('Error al actualizar la visita técnica:', error);
-        });
+        }
     };
+
+    const handleEstadoChangeSwitch = (event) => {
+        const nuevoEstado = event.target.checked;
+        setEstadoWitch(nuevoEstado);
+    }
 
     return (
         <div className='visita-tecnica-gestion-container'>
@@ -99,7 +107,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                     <form onSubmit={handleSave}>
                         <div className='form-level-1'>
                             <div className='form-group'>
-                            {successMessage && <p>{successMessage}</p>}
+                                {successMessage && <p>{successMessage}</p>}
                                 <label>DESCRIPCIÓN</label>
                                 <input
                                     type='text'
@@ -134,11 +142,24 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             </div>
                         </div>
                         <div className='form-level-2'>
-                            {/* Otros campos del formulario */}
+                            {visita.id_estado_vt !== 6 &&
+                                <div className='switch_container'>
+                                    <Switch
+                                        checked={estadoSwitch}
+                                        onChange={handleEstadoChangeSwitch}
+                                        className="custom-switch"
+                                    />
+                                    <label>
+                                        {estadoSwitch ? 'NO GENERAR O.T.' : 'GENERAR O.T.'}
+                                    </label>
+                                </div>
+                            }
                         </div>
                         <div className='form-level-4'>
                             <button type='submit'>ACTUALIZAR</button>
-                            <button onClick={() => crearOT(descOt)}>GENERAR O.T.</button>
+                            {estadoSwitch &&
+                               ""
+                            }
                         </div>
                     </form>
                 </div>
