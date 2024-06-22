@@ -44,13 +44,9 @@ export const UserData = () => {
 
     return (
         <div className='user-config'>
-            <div className='menu-button'>
-                <MenuButtons direction='column'/>
-            </div>
             <div className='data-usuario'>
                 <InfoCard title="Información del Usuario" data={usuario} image={image} />
             </div>
-
         </div>
     );
 };

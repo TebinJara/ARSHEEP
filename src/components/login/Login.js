@@ -57,10 +57,8 @@ export const Login = () => {
                         onChange={e => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit">Iniciar sesión</button>
                 <div className='login-footer'>
-                    <p>Recupera tu Contraseña</p>
-                    <p>Políticas y condiciones</p>
+                    <button type="submit">Iniciar sesión</button>
                 </div>
             </form>
             <div className='login-info'>

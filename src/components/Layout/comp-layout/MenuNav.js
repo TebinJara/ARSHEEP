@@ -83,15 +83,6 @@ export const MenuNav = () => {
                     </li>
                     <li>
                         <NavLink
-                            className={({ isActive }) => isActive || menuSelected === "/Layout/Formulario" ? "navlink-activo" : "navlink"}
-                            to="/Layout/Formulario"
-                            onClick={() => handleNavLinkClick("/Layout/Formulario")}
-                        >
-                            Formulario O.T.
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
                             className={({ isActive }) => isActive || menuSelected === "/Layout/gestiones" ? "navlink-activo" : "navlink"}
                             to="/Layout/gestiones"
                             onClick={() => handleNavLinkClick("/Layout/gestiones")}
@@ -107,15 +98,6 @@ export const MenuNav = () => {
                                         onClick={() => handleSubMenuLinkClick("/Layout/gestiones/usuarios")}
                                     >
                                         Usuarios
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        className={({ isActive }) => isActive ? "navlink-activo" : "navlink"}
-                                        to="/Layout/gestiones/usuarios"
-                                        onClick={() => handleSubMenuLinkClick("/Layout/gestiones/usuarios")}
-                                    >
-                                        Repuestos
                                     </NavLink>
                                 </li>
                             </ul>

@@ -47,9 +47,6 @@ export const PageOrdenesTrabajo = () => {
   return (
     <div className='page-ordenes-trabajo-container'>
 
-      <div className='filter'>
-
-      </div>
 
       <div className='ordenes-trabajo-container'>
         {dataOrdenesTrabajo.map((orden, index) => (

@@ -16,9 +16,9 @@
     padding: 5px;
     display: grid;
     grid-template-columns: 1.1fr 0.9fr; 
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas: 
-      'filter panel'
+      'content panel'
       'content panel';
       opacity: 0; /* Inicialmente invisible */
       animation: fadeIn 2s forwards;
