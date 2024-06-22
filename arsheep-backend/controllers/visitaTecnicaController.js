@@ -105,7 +105,14 @@ export const updateVisitaTecnica = async (req, res) => {
             .from('VISITA_TECNICA')
             .update(req.body)
             .eq('id_vt', id)
-            .select('*');
+            .select(`
+                id_vt,
+                id_empleado,
+                EMPLEADO(
+                    correo,
+                    pnombre
+                )
+            `);
 
         if (error) {
             console.error('Error en la consulta a la base de datos:', error);

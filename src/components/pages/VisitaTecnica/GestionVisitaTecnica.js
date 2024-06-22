@@ -6,6 +6,7 @@ import { getCurrentDate } from '../../../helpers/dateHelper';
 import { getEstablecimientos } from '../../../services/establecimientoService';
 import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 import { getEmpleados } from '../../../services/empleadoService';
+import { sendMailOTasignation } from '../../../services/emailService';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     // Estado para mostrar un mensaje de éxito
@@ -132,10 +133,24 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         formData.id_estado_vt = id_estado_vt;
 
         try {
-            await actualizarVisitaTecnica(visita.id_vt, formData);
+            const updatedVisita = await actualizarVisitaTecnica(visita.id_vt, formData);
             setRefresh(prev => !prev);
             setSuccessMessage('¡Información actualizada con éxito!');
             alert('¡Información actualizada con éxito!');
+    
+            if (id_estado_vt === 6) {
+                const correo = {
+                    destinatario: visita.EMPLEADO.correo,
+                    asunto: 'Asignación de Orden de Trabajo',
+                    texto: `Hola ${visita.EMPLEADO.pnombre}, se te ha asignado una nueva Orden de Trabajo, Numero .`
+                };
+                try {
+                    await sendMailOTasignation(correo);
+                    console.log('Correo enviado con éxito');
+                } catch (error) {
+                    console.error('Error al enviar el correo:', error);
+                }
+            }
         } catch (error) {
             console.error('Error al actualizar la visita técnica:', error);
         }
@@ -265,15 +280,17 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             </div>
                         </div>
                         <div className='form-level-2'>
+                        <label>GENERAR O.T.</label>
                             {visita.id_estado_vt !== 6 &&
+                            
                                 <div className='switch_container'>
                                     <Switch
                                         checked={estadoSwitch}
                                         onChange={handleEstadoChangeSwitch}
                                         className="custom-switch"
                                     />
-                                    <label>
-                                        {estadoSwitch ? 'NO GENERAR O.T.' : 'GENERAR O.T.'}
+                                    <label> 
+                                        {estadoSwitch ? 'Si ' : 'No '}
                                     </label>
                                 </div>
                             }
