@@ -21,7 +21,7 @@
     "content panel";
   opacity: 0; /* Inicialmente invisible */
   animation: fadeIn 2s forwards;
-
+ 
 }
 
 .visitas-tecnicas-container {

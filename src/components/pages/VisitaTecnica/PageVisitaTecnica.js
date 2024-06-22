@@ -71,7 +71,7 @@ export const PageVisitaTecnica = () => {
     fetchEmpleados();
     fetchEstablecimientos();
     fetchTipoMantenimientos();
-    window.scrollTo(0, 0);
+   
   }, [refresh]);
 
   const handleFilterChange = (e) => {
