@@ -18,7 +18,7 @@ const messages = {
   week: 'Semana',
   day: 'Día',
   agenda: 'Agenda',
-  showMore: total => `+${total} más`
+  showMore: total => `+${total} más` 
 };
 
 const OTCalendario = () => {
@@ -106,7 +106,7 @@ const OTCalendario = () => {
   };
 
   return (
-    <div className="calendario">
+    <div className="Calendario">
       <h1>Calendario de Órdenes de Trabajo</h1>
       <Calendar
         localizer={localizer}

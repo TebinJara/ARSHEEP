@@ -7,11 +7,17 @@ import { getEstablecimientos } from '../../../services/establecimientoService';
 import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 import { getEmpleados } from '../../../services/empleadoService';
 import { getPresupuestoVtById, getPresupuestoVtByIdVt, getPresupuestosVt } from '../../../services/presupuestoVtService';
+import { sendMailOTasignation } from '../../../services/emailService';
+import { getOrdenTrabajoByIdvt , createOrdenTrabajo} from '../../../services/ordenTrabajoService';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const [successMessage, setSuccessMessage] = useState('');
     const [estadoSwitch, setEstadoSwitch] = useState(false);
     const [id_estado_vt, setIdEstadoVt] = useState('');
+    const [orden_trabajo, setOrdenTrabajo] = useState({ });
+
+
+    //Definición Objeto a enviar
     const [formData, setFormData] = useState({
         fec_programacion_vt: '',
         id_tipo_mantenimiento: '',
@@ -29,6 +35,8 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const [establecimientos, setEstablecimientos] = useState([]);
     const [tipoMantenimiento, setTipoMantenimiento] = useState([]);
     const [presupuestos, setPresupuestos] = useState([]);
+    
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -108,7 +116,18 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         } catch (error) {
             console.error('Error fetching presupuestos:', error);
         }
+
+    }
+    const fetchOrdenTrabajo = async () => {
+        try {
+            const data = await getOrdenTrabajoByIdvt(visita.id_vt);
+            setOrdenTrabajo(data);
+            console.log('id orden trabajo' , data);
+        } catch (error) {
+            console.error('Error fetching OT_VT:', error);
+        }
     };
+
 
     const actualizarVisitaTecnica = async (id, data) => {
         try {
@@ -126,10 +145,37 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         }
         formData.id_estado_vt = id_estado_vt;
         try {
-            await actualizarVisitaTecnica(visita.id_vt, formData);
+            const updatedVisita = await actualizarVisitaTecnica(visita.id_vt, formData);
             setRefresh(prev => !prev);
             setSuccessMessage('¡Información actualizada con éxito!');
             alert('¡Información actualizada con éxito!');
+    
+            if (id_estado_vt === 6) {
+                const dataot = {
+                    id_vt: visita.id_vt,
+                    desc_ot: `ORDEN DE TRABAJO PARA V.T. ${visita.id_vt}`,
+                    id_empleado: visita.id_empleado,                 
+
+                }
+                
+                await createOrdenTrabajo(dataot)
+                
+                const ot = getOrdenTrabajoByIdvt(dataot.id_vt);
+                setOrdenTrabajo(ot);
+                console.log('que wea trae', ot);
+
+                const correo = {
+                    destinatario: visita.EMPLEADO.correo,
+                    asunto: 'Asignación de Orden de Trabajo',
+                    texto: `Hola ${visita.EMPLEADO.pnombre}, se te ha asignado una nueva Orden de Trabajo, por la visita tecnica ${visita.id_vt}.`
+                };
+                try {
+                    await sendMailOTasignation(correo);
+                    console.log('Correo enviado con éxito');
+                } catch (error) {
+                    console.error('Error al enviar el correo:', error);
+                }
+            }
         } catch (error) {
             console.error('Error al actualizar la visita técnica:', error);
         }
@@ -288,15 +334,17 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             </div>
                         </div>
                         <div className='form-level-2'>
+                        <label>GENERAR O.T.</label>
                             {visita.id_estado_vt !== 6 &&
+                            
                                 <div className='switch_container'>
                                     <Switch
                                         checked={estadoSwitch}
                                         onChange={handleEstadoChangeSwitch}
                                         className="custom-switch"
                                     />
-                                    <label>
-                                        {estadoSwitch ? 'NO GENERAR O.T.' : 'GENERAR O.T.'}
+                                    <label> 
+                                        {estadoSwitch ? 'Si ' : 'No '}
                                     </label>
                                 </div>
                             }

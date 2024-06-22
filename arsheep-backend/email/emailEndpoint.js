@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const router = express.Router();
 
-router.use(cors());
+router.use(cors()); 
 router.use(express.json());
 
 router.post('/enviar-correo', (req, res) => {
