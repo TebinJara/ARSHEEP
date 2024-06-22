@@ -248,16 +248,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                     max={getMaxDate()}
                                     required
                                 />
-                                <label>FECHA DE VENCIMIENTO:</label>
-                                <input
-                                    type="date"
-                                    name="fec_programacion_vt"
-                                    value={formData.fec_programacion_vt}
-                                    onChange={handleChange}
-                                    min={getCurrentDate()}
-                                    max={getMaxDate()}
-                                    required
-                                />
+                                
                                 <label>MANTENIMIENTO:</label>
                                 <select
                                     name="id_tipo_mantenimiento"
