@@ -48,7 +48,7 @@ export const PageOrdenesTrabajo = () => {
     <div className='page-ordenes-trabajo-container'>
 
       <div className='filter'>
-        <button onClick={() => setShowPageOTCrear(true) + setSelectedOrden("")}>Agregar</button>
+
       </div>
 
       <div className='ordenes-trabajo-container'>
@@ -58,21 +58,18 @@ export const PageOrdenesTrabajo = () => {
             <p>{orden.desc_ot.toUpperCase()}</p>
 
             <div>
-              <p>CREADA: {orden.fcreacion_ot}</p>
-              <p>VENCE: {orden.fvencimiento_ot}</p>
+              <p>CREADA: {orden.fecha_creacion}</p>
+              <p>VENCE: {orden.fecha_vencimiento}</p>
             </div>
             <div>
-            <p style={{ color: getColorPrioridad(orden.prioridad) }}>PRIO: {orden.prioridad}</p>
-              <p>{orden.status}</p>
+            <p style={{ color: getColorPrioridad(orden.prioridad) }}>PRIO: {orden.PRIORIDAD.desc_prioridad}</p>
+              <p>{orden.TIPO_STATUS.nombre_status}</p>
             </div>
-
-
             
           </div>
         ))}
       </div>
       <div className='ordenes-trabajo-panel'>
-        {showPageOTCrear && <OrdenTrabajoCrear />}
         {selectedOrden && <GestionOrdenTrabajo orden={selectedOrden} />} {/* Renderiza el nuevo componente */}
       </div>
     </div>

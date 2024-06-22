@@ -37,7 +37,6 @@ export const createOrdenTrabajo = [
         .insert([req.body]);
 
       if (error) throw error;
-
       return res.status(201).json(data);
     } catch (error) {
       console.error('Error al crear la orden de trabajo:', error.message);
@@ -52,7 +51,45 @@ export const getOrdenesTrabajo = async (req, res) => {
     const { data, error } = await supabase
       .from('ORDEN_TRABAJO')
       .select(`
-       *
+        id_ot,
+        desc_ot,
+        descripcion,
+        acciones,
+        observaciones,
+        status,
+        fecha_creacion,
+        fecha_vencimiento,
+        fecha_realizacion,
+        fecha_agendada,
+        prioridad,
+        TIPO_STATUS (
+          status,
+          nombre_status
+        ),
+        PRIORIDAD (
+          id_prioridad,
+          desc_prioridad
+        ),
+        id_empleado,
+        EMPLEADO (
+          id_empleado,
+          pnombre,
+          apaterno,
+          amaterno
+        ),
+        VISITA_TECNICA (
+          id_vt,
+          desc_vt,
+          desc_problema_vt,
+          analisis_vt,
+          recomendacion_vt,
+          beneficio_vt,
+          fec_creacion_vt,
+          id_empleado,
+          id_estado_vt,
+          fec_programacion_vt,
+          id_establecimiento
+        )
       `)
       .order('fecha_creacion', { ascending: false });
 
@@ -73,68 +110,44 @@ export const getOrdenTrabajoById = async (req, res) => {
     const { data, error } = await supabase
       .from('ORDEN_TRABAJO')
       .select(`
-        ORDEN_TRABAJO:id_ot,
+         id_ot,
+        desc_ot,
         descripcion,
+        acciones,
+        observaciones,
         status,
         fecha_creacion,
         fecha_vencimiento,
+        fecha_realizacion,
+        fecha_agendada,
         prioridad,
-        adicional,
+        TIPO_STATUS (
+          status,
+          nombre_status
+        ),
+        PRIORIDAD (
+          id_prioridad,
+          desc_prioridad
+        ),
         id_empleado,
-        repuestos,
-        diagnostico,
-        reparacion_realizada,
-        numrun_cliente,
-        VISITA_TECNICA(
+        EMPLEADO (
+          id_empleado,
+          pnombre,
+          apaterno,
+          amaterno
+        ),
+        VISITA_TECNICA (
           id_vt,
           desc_vt,
           desc_problema_vt,
           analisis_vt,
           recomendacion_vt,
           beneficio_vt,
-          proximospasos_vt,
           fec_creacion_vt,
           id_empleado,
           id_estado_vt,
           fec_programacion_vt,
           id_establecimiento
-        ),
-        ESTABLECIMIENTO(
-          id_establecimiento,
-          dirección_establecimiento,
-          numrun_empresa,
-          numtel_establecimiento,
-          email_establecimiento,
-          id_comuna,
-          id_region,
-          nombre_establecimiento
-        ),
-        EMPRESA(
-          numrun_empresa,
-          dvrun_empresa,
-          numtelefono_empresa,
-          dirección_empresa,
-          email_empresa,
-          sitioweb_empresa,
-          numrun_cliente,
-          nombre_empresa
-        ),
-        CLIENTE(
-          numrun_cliente,
-          dvrun_cliente,
-          nombre_cliente,
-          appaterno_cliente,
-          apmaterno_cliente,
-          direccion_cliente,
-          email_cliente,
-          numtelefono_cliente,
-          id_comuna,
-          fecnac_cliente,
-          imagen_cliente,
-          fec_inicio_contrato_cliente,
-          fec_termino_contrato_cliente,
-          fec_creacion_cliente,
-          id_region
         )
       `)
       .eq('id_ot', id)

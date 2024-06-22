@@ -60,8 +60,7 @@ code {
   grid-template-rows: auto 1fr auto; /* Altura fija para el encabezado, flexible para el contenido, fija para el pie de página */
   grid-template-areas:
     "header header"
-    "menuNav content"
-    "footer footer";
+    "menuNav content";
   height: 100vh; /* Asegura que el layout ocupe toda la altura de la ventana */
   margin: 0;
   padding: 0; /* Eliminamos cualquier padding externo */

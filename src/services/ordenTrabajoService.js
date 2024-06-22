@@ -43,7 +43,7 @@ export const createOrdenTrabajo = async (ordenTrabajoData) => {
 // Actualizar una orden de trabajo por ID
 export const updateOrdenTrabajo = async (id, ordenTrabajoData) => {
     try {
-        const response = await api.put(`/${id}`, ordenTrabajoData);
+        const response = await api.put(`/ordenestrabajo/${id}`, ordenTrabajoData);
         return response.data;
     } catch (error) {
         console.error('Error al actualizar la orden de trabajo:', error.message);

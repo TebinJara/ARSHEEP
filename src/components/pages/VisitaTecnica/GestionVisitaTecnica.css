@@ -7,6 +7,28 @@
   }
 }
 
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.15);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.15);
+  }
+  40% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 .visita-tecnica-gestion-container {
   box-sizing: border-box;
   width: 100%;
@@ -65,8 +87,6 @@
   width: 100%;
   height: auto;
   padding: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .visita-tecnica-gestion-form-container input,
@@ -159,6 +179,40 @@ select {
   width: 100%;
 }
 
+.input-file-container {
+
+
+
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    max-width: 80px;
+    transition: 0.3s;
+    margin:20px 2px;
+    animation: heartbeat 3s infinite;
+  }
+  img:hover {
+    animation: none;
+    transform: translateY(-2px) scale(1.2, 1.2);
+    cursor: pointer;
+  }
+
+  img:active {
+    animation: none;
+    transition: 0.05s;
+    transform: translateY(2px) scale(1, 1);
+  }
+  button.disabled {
+    display: none;
+  }
+  
+  button.enabled {
+    background-color: rgb(43, 0, 255);
+  }
+}
+
 .file-container {
   display: flex;
   flex-flow: row wrap;
@@ -179,7 +233,7 @@ select {
     white-space: normal;
     overflow-wrap: break-word;
     margin: 0;
-    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
   }
 
   img {
@@ -195,6 +249,5 @@ select {
   img:active {
     transition: 0.05s;
     transform: translateY(2px) scale(1, 1);
-    
   }
 }

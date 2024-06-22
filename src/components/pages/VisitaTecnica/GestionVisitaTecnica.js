@@ -8,14 +8,19 @@ import { getTiposMantenimiento } from '../../../services/tipoMantenimientoServic
 import { getEmpleados } from '../../../services/empleadoService';
 import { getPresupuestoVtById, getPresupuestoVtByIdVt, getPresupuestosVt } from '../../../services/presupuestoVtService';
 import { sendMailOTasignation } from '../../../services/emailService';
-import { getOrdenTrabajoByIdvt , createOrdenTrabajo} from '../../../services/ordenTrabajoService';
+import { getOrdenTrabajoByIdvt, createOrdenTrabajo } from '../../../services/ordenTrabajoService';
+import { useNavigate } from 'react-router-dom';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const [successMessage, setSuccessMessage] = useState('');
     const [estadoSwitch, setEstadoSwitch] = useState(false);
     const [id_estado_vt, setIdEstadoVt] = useState('');
-    const [orden_trabajo, setOrdenTrabajo] = useState({ });
+    const [orden_trabajo, setOrdenTrabajo] = useState({});
+    const [refresh2, setRefresh2] = useState(false);
 
+
+
+    const navigate = useNavigate();
 
     //Definición Objeto a enviar
     const [formData, setFormData] = useState({
@@ -35,8 +40,6 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const [establecimientos, setEstablecimientos] = useState([]);
     const [tipoMantenimiento, setTipoMantenimiento] = useState([]);
     const [presupuestos, setPresupuestos] = useState([]);
-    
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,7 +63,9 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
             id_estado_vt: visita.id_estado_vt || '',
         });
         fetchData();
-    }, [visita]);
+        setFile("");
+
+    }, [visita, refresh2]);
 
     useEffect(() => {
         if (estadoSwitch) {
@@ -68,7 +73,9 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         } else {
             setIdEstadoVt(visita.id_estado_vt);
         }
+
     }, [estadoSwitch, visita.id_estado_vt]);
+
 
     const fetchData = async () => {
         await fetchEmpleados();
@@ -89,7 +96,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const fetchTipoMantenimientos = async () => {
         try {
             const data = await getTiposMantenimiento();
-            setTipoMantenimiento([data]);
+            setTipoMantenimiento(data);
         } catch (error) {
             console.error('Error fetching tipoMantenimientos:', error);
         }
@@ -98,7 +105,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const fetchEstablecimientos = async () => {
         try {
             const data = await getEstablecimientos();
-            setEstablecimientos([data]);
+            setEstablecimientos(data);
         } catch (error) {
             console.error('Error fetching establecimientos:', error);
         }
@@ -122,7 +129,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         try {
             const data = await getOrdenTrabajoByIdvt(visita.id_vt);
             setOrdenTrabajo(data);
-            console.log('id orden trabajo' , data);
+            console.log('id orden trabajo', data);
         } catch (error) {
             console.error('Error fetching OT_VT:', error);
         }
@@ -149,17 +156,17 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
             setRefresh(prev => !prev);
             setSuccessMessage('¡Información actualizada con éxito!');
             alert('¡Información actualizada con éxito!');
-    
+
             if (id_estado_vt === 6) {
                 const dataot = {
                     id_vt: visita.id_vt,
                     desc_ot: `ORDEN DE TRABAJO PARA V.T. ${visita.id_vt}`,
-                    id_empleado: visita.id_empleado,                 
+                    id_empleado: visita.id_empleado,
 
                 }
-                
+
                 await createOrdenTrabajo(dataot)
-                
+
                 const ot = getOrdenTrabajoByIdvt(dataot.id_vt);
                 setOrdenTrabajo(ot);
                 console.log('que wea trae', ot);
@@ -172,6 +179,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                 try {
                     await sendMailOTasignation(correo);
                     console.log('Correo enviado con éxito');
+                    navigate('/Layout/OT'); 
                 } catch (error) {
                     console.error('Error al enviar el correo:', error);
                 }
@@ -205,11 +213,12 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         formData.append('pdf', file);
 
         const response = await uploadPdf(file, visita.id_vt);
-
+        setFile('');
         if (response) {
-            setMessage('Archivo subido exitosamente.');
+            alert('El documento se ha agregado exitosamente.')
+            setRefresh2(!refresh2);
         } else {
-            setMessage('Error al subir el archivo.');
+            alert('Hubo un error al intentar agregar el documento. Por favor, inténtalo nuevamente.')
         }
     };
 
@@ -229,8 +238,17 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                     <form onSubmit={handleSave}>
                         <div className='form-level-1'>
                             <div className='form-group'>
-                                {successMessage && <p>{successMessage}</p>}
-                                <label>FECHA DE VISITA:</label>
+                                <label>FECHA DE TRABAJO:</label>
+                                <input
+                                    type="date"
+                                    name="fec_programacion_vt"
+                                    value={formData.fec_programacion_vt}
+                                    onChange={handleChange}
+                                    min={getCurrentDate()}
+                                    max={getMaxDate()}
+                                    required
+                                />
+                                <label>FECHA DE VENCIMIENTO:</label>
                                 <input
                                     type="date"
                                     name="fec_programacion_vt"
@@ -334,18 +352,20 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             </div>
                         </div>
                         <div className='form-level-2'>
-                        <label>GENERAR O.T.</label>
+
                             {visita.id_estado_vt !== 6 &&
-                            
-                                <div className='switch_container'>
-                                    <Switch
-                                        checked={estadoSwitch}
-                                        onChange={handleEstadoChangeSwitch}
-                                        className="custom-switch"
-                                    />
-                                    <label> 
-                                        {estadoSwitch ? 'Si ' : 'No '}
-                                    </label>
+                                <div>
+                                    <label>GENERAR O.T.</label>
+                                    <div className='switch_container'>
+                                        <Switch
+                                            checked={estadoSwitch}
+                                            onChange={handleEstadoChangeSwitch}
+                                            className="custom-switch"
+                                        />
+                                        <label>
+                                            {estadoSwitch ? 'Si ' : 'No '}
+                                        </label>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -353,32 +373,49 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             <button type='submit'>ACTUALIZAR</button>
                         </div>
                     </form>
-                    <form>
-                        <input
-                            name="presupuesto_vt"
-                            type="file"
-                            accept=".pdf"
-                            onChange={handleFileChange}
-                        />
-                        <button onClick={handleUpload}>Subir</button>
-                        {message && <p>{message}</p>}
-                    </form>
-                    <div className='file-container'>
-                        {presupuestos.length > 0 ? (
-                            presupuestos.map((presupuesto) => (
-                                <div key={presupuesto.id_presupuesto_vt}>
-                                    <a href={presupuesto.url_presupuesto_vt} download>
-                                        <img
-                                            src={'../../img/pdf.png'}
-                                            alt='Imagen de'
-                                        />
-                                    </a>
-                                    <p>{presupuesto.desc_presupuesto_vt}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No hay presupuestos disponibles</p>
-                        )}
+                    <div className>
+
+                        <div className='input-file-container' >
+                            <img
+                                src="../../img/upload-file.png"
+                                alt="Seleccionar archivo"
+                                onClick={() => document.getElementById('fileUpload').click()}
+                                className="image-input"
+                            />
+                            <input
+                                type="file"
+                                id="fileUpload"
+                                style={{ display: 'none' }}
+                                accept=".pdf"
+                                onChange={handleFileChange}
+                            />
+
+                            <button
+                                className={file ? 'enabled' : 'disabled'}
+                                disabled={!file}
+                                onClick={handleUpload}
+                            >
+                                Subir</button>
+                            {(presupuestos.length === 0 && !file) && <p>No has subido documentos</p>}
+                        </div>
+                        <div className='file-container'>
+                            {presupuestos.length > 0 ? (
+                                presupuestos.map((presupuesto) => (
+                                    <div key={presupuesto.id_presupuesto_vt}>
+                                        <a href={presupuesto.url_presupuesto_vt} download>
+                                            <img
+                                                src={'../../img/pdf.png'}
+                                                alt='Imagen de'
+                                            />
+                                        </a>
+                                        <p>{presupuesto.desc_presupuesto_vt}</p>
+                                    </div>
+                                ))
+                            ) : (""
+                            )}
+
+                        </div>
+
                     </div>
                 </div>
             </div>
