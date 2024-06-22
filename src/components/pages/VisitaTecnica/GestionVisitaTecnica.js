@@ -29,6 +29,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         analisis_vt: '',
         recomendacion_vt: '',
         beneficio_vt:'',
+        id_estado_vt: '',
     });
 
     //Arreglo de objetos
@@ -41,9 +42,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
             ...prevState,
-            [name]: (name === 'id_empleado' || name === 'id_establecimiento' || name === 'id_tipo_mantenimiento')
-                ? Number(value)
-                : (typeof value === 'string' ? value.toUpperCase() : value),
+            [name]: value
         }));
     };
 
@@ -54,6 +53,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
 
     // useEffect para inicializar los estados locales cuando cambia el prop visita
     useEffect(() => {
+        formData.id_estado_vt = visita.id_estado_vt;
         formData.fec_programacion_vt = visita.fec_programacion_vt ;
         formData.id_tipo_mantenimiento = visita.id_tipo_mantenimiento ;
         formData.id_empleado = visita.id_empleado ;
@@ -129,6 +129,8 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
             return;
         }
 
+        formData.id_estado_vt = id_estado_vt;
+
         try {
             await actualizarVisitaTecnica(visita.id_vt, formData);
             setRefresh(prev => !prev);
@@ -143,6 +145,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const handleEstadoChangeSwitch = (event) => {
         const nuevoEstado = event.target.checked;
         setEstadoSwitch(nuevoEstado);
+        console.log(formData)
     };
 
     return (
@@ -229,6 +232,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                     value={formData.desc_vt.toUpperCase()}
                                     onChange={handleChange}
                                     maxLength="60"
+                                    required
                                 />
                                 <label>PROBLEMA</label>
                                 <textarea
@@ -265,7 +269,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                 <div className='switch_container'>
                                     <Switch
                                         checked={estadoSwitch}
-                                        onChange={handleChange}
+                                        onChange={handleEstadoChangeSwitch}
                                         className="custom-switch"
                                     />
                                     <label>
