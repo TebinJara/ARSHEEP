@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './ClienteFicha.css';
 import { getComunasByRegion, getRegiones } from '../../../services/RegionComunaService';
-import { getTiposClientes, updateCliente ,subirImgenCliente} from '../../../services/clienteService';
+import { getTiposClientes, updateCliente ,subirImgenCliente} from '../../../services/ClienteService';
 
 export const ClienteFicha = () => {
 

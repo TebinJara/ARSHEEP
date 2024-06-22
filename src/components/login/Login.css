@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: rgb(100,105,100);
+  background: rgb(0,100,140);
   background-size: cover; /* Esto asegura que la imagen cubra todo el contenedor */
   background-position: center; /* Centra la imagen en el contenedor */
   text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.5);
@@ -18,9 +18,9 @@
   height: 80vh;
   margin: 20px;
   box-shadow: 
-  inset 1px 1px 1px rgba(255, 255, 255, 0.4),
+  inset 1px 1px 1px rgba(0, 0, 0, 0.4),
   inset -1px -1px 1px rgba(0, 0, 0, 0.4);
-    background: rgb(110,115,110);
+    background: rgb(0, 0, 0.4);
   p{
     font-size: 18px;
   }
@@ -47,7 +47,7 @@
 }
 
 .login-container .form-container button:hover {
-  background: rgb(250,250,250);
+  background: rgb(210, 120, 40);
   color: rgb(0,0,0);
   cursor: pointer;
   transform: scale(0.98,0.98);
@@ -74,8 +74,8 @@
   box-shadow: none;
   input{
     min-width: 200px;
-    background: rgb(0,0,0);
-    color: rgb(250,250,250);
+    background: rgb(255, 255, 255);
+    color: rgb(87, 87, 87);
     font-size: 18px;
   }
   input:hover{
@@ -132,7 +132,7 @@
   padding: 2px 5px;
   margin: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  background: rgb(125,130,125);
+  background: rgb(0, 0, 0.4);
   border-radius: 10px;
   h3{
     color: rgb(250,250,250);
