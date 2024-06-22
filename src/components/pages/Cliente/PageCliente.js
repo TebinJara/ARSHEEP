@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./PageCliente.css";
-import { getClientes } from "../../../services/clienteService";
+import { getClientes } from "../../../services/ClienteService";
 import { useNavigate } from "react-router-dom";
 import { ClienteTile } from "./ClienteTile";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { insertarOrdenTrabajo } from '../../services/OtService';
 import { getEmpleados } from '../../services/empleadoService';
-import { getClientes } from '../../services/clienteService';
+import { getClientes } from '../../services/ClienteService';
 import './FormularioOT.css';
 import { sendMailOTasignation } from '../../services/emailService';
 
