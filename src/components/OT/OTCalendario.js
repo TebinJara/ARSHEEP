@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './Calendario.css';
-import { obtenerOrdenesDeTrabajo } from '../../services/supa';
+import { getOrdenesTrabajo } from '../../services/ordenTrabajoService';
 import 'moment/locale/es';
 import Modal from '../modal/Modal';
 
@@ -18,7 +18,7 @@ const messages = {
   week: 'Semana',
   day: 'Día',
   agenda: 'Agenda',
-  showMore: total => `+${total} más` 
+  showMore: total => `+${total} más`
 };
 
 const OTCalendario = () => {
@@ -30,17 +30,17 @@ const OTCalendario = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const ordenes = await obtenerOrdenesDeTrabajo();
+        const ordenes = await getOrdenesTrabajo();
         const eventsData = ordenes.map((ot) => {
-          const startDate = moment(ot.fecha_creacion).startOf('day').toDate();
-          const endDate = moment(ot.fecha_vencimiento).endOf('day').toDate();
+          const startDate = moment(ot.fecha_creacion).toDate();
+          const endDate = moment(ot.fecha_vencimiento).toDate();
 
           return {
             id: ot.id_ot,
-            title: ot.descripcion,
+            title: ot.desc_ot,  // Usa desc_ot en lugar de descripcion
             start: startDate,
             end: endDate,
-            description: ot.diagnostico,
+            description: ot.descripcion,
             status: ot.status,
             className: obtenerClasePorEstado(ot.status)
           };

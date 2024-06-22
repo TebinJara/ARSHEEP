@@ -128,7 +128,7 @@ export const GestionOrdenTrabajo = ({ orden }) => {
 
                         </div>
                         <div className='form-level-4'>
-                            <button type='submit'>INICIAR</button>
+                            <button type='submit'>ACTUALIZAR</button>
                         </div>
                     </form>
                 </div>
