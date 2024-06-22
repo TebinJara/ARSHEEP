@@ -6,7 +6,7 @@ import { getEmpleadoById, getEmpleados } from '../../../services/empleadoService
 import { getClientes } from '../../../services/clienteService';
 import { getEmpresas } from '../../../services/empresaService';
 import { getEstablecimientos } from '../../../services/establecimientoService';
-import { getCurrentDate } from '../../../helpers/dateHelper';
+import { getCurrentDate, getMaxDate } from '../../../helpers/dateHelper';
 import VisitaTecnicaTile from './VisitaTecnicaTile';
 import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 
@@ -149,6 +149,7 @@ export const CrearVisitaTecnica = () => {
                   value={formData.fec_programacion_vt}
                   onChange={handleChange}
                   min={getCurrentDate()}
+                  max={getMaxDate()}
                   required
                 />
               </div>

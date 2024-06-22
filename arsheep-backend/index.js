@@ -17,6 +17,7 @@ import visitaTecnicaRoutes from './routes/visitaTecnicaRoutes.js';
 import empresaRoutes from './routes/empresaRoutes.js'; 
 import establecimientoRoutes from './routes/establecimientoRoutes.js';
 import tipoMantenimientoRoutes from './routes/tipoMantenimientoRoutes.js';
+import presupuestoVtRoutes from './routes/presupuestoVtRoutes.js';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/api/visitastecnicas', visitaTecnicaRoutes);
 app.use('/api/empresas', empresaRoutes);
 app.use('/api/establecimientos', establecimientoRoutes);
 app.use('/api/tipomantenimientos', tipoMantenimientoRoutes);
+app.use('/api/presupuestosvt', presupuestoVtRoutes);
 app.use(emailRouter);
 
 

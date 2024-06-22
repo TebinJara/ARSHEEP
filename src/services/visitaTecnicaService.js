@@ -61,3 +61,23 @@ export const deleteVisitaTecnica = async (id) => {
         return null;
     }
 };
+
+export const uploadPdf = async (file, idVt) => {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('id_vt', idVt);
+
+        const response = await api.post('/uploadPdf', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log(file);
+        return response.data;
+    } catch (error) {
+        console.error('Error al subir el archivo PDF:', error.message);
+        console.log(file);
+        return null;
+    }
+};

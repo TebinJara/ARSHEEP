@@ -15,6 +15,8 @@ import { ClienteCrear } from '../pages/Cliente/ClienteCrear';
 import { PageOrdenesTrabajo } from '../pages/OrdenesTrabajo/PageOrdenesTrabajo';
 import { PageVisitaTecnica } from '../pages/VisitaTecnica/PageVisitaTecnica';
 import { CrearVisitaTecnica } from '../pages/VisitaTecnica/CrearVisitaTecnica';
+import { PruebaPdf } from '../pages/VisitaTecnica/PruebaPdf';
+
 
 
 
@@ -24,6 +26,7 @@ export const ArsheepRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/pdf" element={<PruebaPdf/>} />
           <Route path="/Layout" element={<Layout />}>
             <Route path="PerfilUsuario" element={<UserData />} />
             <Route path="Clientes" element={<PageCliente />} />
@@ -41,8 +44,11 @@ export const ArsheepRouter = () => {
           </Route>
           <Route path="*" element={<><h1>Error 404</h1><strong>Esta Pagina no existe</strong></>} />
         </Routes>
+        
 
       </BrowserRouter>
     </div>
+
+
   );
 };

@@ -1,42 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './GestionVisitaTecnica.css';
-import { updateVisitaTecnica } from '../../../services/visitaTecnicaService';
+import { updateVisitaTecnica, uploadPdf } from '../../../services/visitaTecnicaService';
 import Switch from '@mui/material/Switch';
-import { getCurrentDate } from '../../../helpers/dateHelper';
+import { getCurrentDate, getMaxDate } from '../../../helpers/dateHelper';
 import { getEstablecimientos } from '../../../services/establecimientoService';
 import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 import { getEmpleados } from '../../../services/empleadoService';
+import { getPresupuestoVtById, getPresupuestoVtByIdVt, getPresupuestosVt } from '../../../services/presupuestoVtService';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
-    // Estado para mostrar un mensaje de éxito
     const [successMessage, setSuccessMessage] = useState('');
-    // Estado para controlar el switch
     const [estadoSwitch, setEstadoSwitch] = useState(false);
-
-    // Definición de estados locales para los diferentes campos de la visita técnica
-
     const [id_estado_vt, setIdEstadoVt] = useState('');
-
-
-    //Definición Objeto a enviar
     const [formData, setFormData] = useState({
         fec_programacion_vt: '',
         id_tipo_mantenimiento: '',
         id_empleado: '',
         id_establecimiento: '',
         desc_vt: '',
-        desc_problema_vt:'',
+        desc_problema_vt: '',
         analisis_vt: '',
         recomendacion_vt: '',
-        beneficio_vt:'',
+        beneficio_vt: '',
         id_estado_vt: '',
     });
 
-    //Arreglo de objetos
     const [empleados, setEmpleados] = useState([]);
     const [establecimientos, setEstablecimientos] = useState([]);
     const [tipoMantenimiento, setTipoMantenimiento] = useState([]);
-
+    const [presupuestos, setPresupuestos] = useState([]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,27 +39,36 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     };
 
     useEffect(() => {
-        console.log(formData)
-    }, [formData]);
-
-
-    // useEffect para inicializar los estados locales cuando cambia el prop visita
-    useEffect(() => {
-        formData.id_estado_vt = visita.id_estado_vt;
-        formData.fec_programacion_vt = visita.fec_programacion_vt ;
-        formData.id_tipo_mantenimiento = visita.id_tipo_mantenimiento ;
-        formData.id_empleado = visita.id_empleado ;
-        formData.id_establecimiento = visita.id_establecimiento ;
-        formData.desc_vt = visita.desc_vt ;
-        formData.desc_problema_vt = (visita.desc_problema_vt||'') ;
-        formData.analisis_vt = (visita.analisis_vt||'') ;
-        formData.recomendacion_vt = (visita.recomendacion_vt||'') ;
-        formData.beneficio_vt = (visita.beneficio_vt||'') ;
-        console.log(visita)
+        setFormData({
+            fec_programacion_vt: visita.fec_programacion_vt || '',
+            id_tipo_mantenimiento: visita.id_tipo_mantenimiento || '',
+            id_empleado: visita.id_empleado || '',
+            id_establecimiento: visita.id_establecimiento || '',
+            desc_vt: visita.desc_vt || '',
+            desc_problema_vt: visita.desc_problema_vt || '',
+            analisis_vt: visita.analisis_vt || '',
+            recomendacion_vt: visita.recomendacion_vt || '',
+            beneficio_vt: visita.beneficio_vt || '',
+            id_estado_vt: visita.id_estado_vt || '',
+        });
         fetchData();
     }, [visita]);
 
-    //Funciones de FETCH
+    useEffect(() => {
+        if (estadoSwitch) {
+            setIdEstadoVt(6);
+        } else {
+            setIdEstadoVt(visita.id_estado_vt);
+        }
+    }, [estadoSwitch, visita.id_estado_vt]);
+
+    const fetchData = async () => {
+        await fetchEmpleados();
+        await fetchEstablecimientos();
+        await fetchTipoMantenimientos();
+        await fetchPresupuestos();
+    };
+
     const fetchEmpleados = async () => {
         try {
             const data = await getEmpleados();
@@ -80,7 +81,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const fetchTipoMantenimientos = async () => {
         try {
             const data = await getTiposMantenimiento();
-            setTipoMantenimiento(data);
+            setTipoMantenimiento([data]);
         } catch (error) {
             console.error('Error fetching tipoMantenimientos:', error);
         }
@@ -89,28 +90,26 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const fetchEstablecimientos = async () => {
         try {
             const data = await getEstablecimientos();
-            setEstablecimientos(data);
+            setEstablecimientos([data]);
         } catch (error) {
             console.error('Error fetching establecimientos:', error);
         }
     };
 
-    const fetchData = async () => {
-        await fetchEmpleados();
-        await fetchEstablecimientos();
-        await fetchTipoMantenimientos();
+    const fetchPresupuestos = async () => {
+        try {
+            const data = await getPresupuestoVtByIdVt(visita.id_vt);
+            if (data) {
+                setPresupuestos(data);
+                return
+            }
+            setPresupuestos([]);
+            console.log("presupuestos", data)
+        } catch (error) {
+            console.error('Error fetching presupuestos:', error);
+        }
     };
 
-    // useEffect para actualizar el estado `id_estado_vt` basado en `estadoSwitch`
-    useEffect(() => {
-        if (estadoSwitch) {
-            setIdEstadoVt(6);
-        } else {
-            setIdEstadoVt(visita.id_estado_vt); 
-        }
-    }, [estadoSwitch, visita.id_estado_vt]);
-
-    // Función para actualizar una visita técnica llamando al servicio correspondiente
     const actualizarVisitaTecnica = async (id, data) => {
         try {
             await updateVisitaTecnica(id, data);
@@ -119,18 +118,13 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         }
     };
 
-    // Función para manejar el evento de guardar el formulario
     const handleSave = async (e) => {
         e.preventDefault();
-
         const userConfirmed = window.confirm('¿Estás seguro de que deseas guardar los cambios?');
-
         if (!userConfirmed) {
             return;
         }
-
         formData.id_estado_vt = id_estado_vt;
-
         try {
             await actualizarVisitaTecnica(visita.id_vt, formData);
             setRefresh(prev => !prev);
@@ -141,11 +135,36 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         }
     };
 
-    // Función para manejar el cambio del estado del switch
     const handleEstadoChangeSwitch = (event) => {
         const nuevoEstado = event.target.checked;
         setEstadoSwitch(nuevoEstado);
-        console.log(formData)
+    };
+
+
+    const [file, setFile] = useState(null);
+    const [message, setMessage] = useState('');
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleUpload = async (e) => {
+        e.preventDefault();
+        if (!file) {
+            setMessage('Por favor, selecciona un archivo.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('pdf', file);
+
+        const response = await uploadPdf(file, visita.id_vt);
+
+        if (response) {
+            setMessage('Archivo subido exitosamente.');
+        } else {
+            setMessage('Error al subir el archivo.');
+        }
     };
 
     return (
@@ -172,6 +191,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                     value={formData.fec_programacion_vt}
                                     onChange={handleChange}
                                     min={getCurrentDate()}
+                                    max={getMaxDate()}
                                     required
                                 />
                                 <label>MANTENIMIENTO:</label>
@@ -193,10 +213,10 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                 </select>
                                 <label>EMPLEADO:</label>
                                 <select
-                                     name="id_empleado"
-                                     value={formData.id_empleado}
-                                     onChange={handleChange}
-                                     required
+                                    name="id_empleado"
+                                    value={formData.id_empleado}
+                                    onChange={handleChange}
+                                    required
                                 >
                                     <option value="">SELECCIONE UN EMPLEADO</option>
                                     {empleados.map((empleado) => (
@@ -210,10 +230,10 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                 </select>
                                 <label>ESTABLECIMIENTO:</label>
                                 <select
-                                     name="id_establecimiento"
-                                     value={formData.id_establecimiento}
-                                     onChange={handleChange}
-                                     required
+                                    name="id_establecimiento"
+                                    value={formData.id_establecimiento}
+                                    onChange={handleChange}
+                                    required
                                 >
                                     <option value="">SELECCIONE UN ESTABLECIMIENTO</option>
                                     {establecimientos.map((establecimiento) => (
@@ -229,39 +249,42 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                                 <input
                                     name="desc_vt"
                                     type='text'
-                                    value={formData.desc_vt.toUpperCase()}
+                                    value={formData.desc_vt}
                                     onChange={handleChange}
                                     maxLength="60"
                                     required
                                 />
                                 <label>PROBLEMA</label>
                                 <textarea
-                                    name = 'desc_problema_vt'
+                                    name='desc_problema_vt'
                                     value={formData.desc_problema_vt}
                                     onChange={handleChange}
                                     maxLength="1000"
                                 ></textarea>
                                 <label>ANALISIS</label>
                                 <textarea
-                                    name = 'analisis_vt'
+                                    name='analisis_vt'
                                     value={formData.analisis_vt}
                                     onChange={handleChange}
                                     maxLength="1000"
                                 ></textarea>
                                 <label>RECOMENDACIONES</label>
                                 <textarea
-                                    name = 'recomendacion_vt'
+                                    name='recomendacion_vt'
                                     value={formData.recomendacion_vt}
                                     onChange={handleChange}
                                     maxLength="1000"
                                 ></textarea>
                                 <label>BENEFICIOS</label>
                                 <textarea
-                                    name = 'beneficio_vt'
+                                    name='beneficio_vt'
                                     value={formData.beneficio_vt}
-                                    onChange={(handleChange)}
+                                    onChange={handleChange}
                                     maxLength="1000"
                                 ></textarea>
+                                <label>PRESUPESTOS</label>
+
+
                             </div>
                         </div>
                         <div className='form-level-2'>
@@ -282,6 +305,33 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
                             <button type='submit'>ACTUALIZAR</button>
                         </div>
                     </form>
+                    <form>
+                        <input
+                            name="presupuesto_vt"
+                            type="file"
+                            accept=".pdf"
+                            onChange={handleFileChange}
+                        />
+                        <button onClick={handleUpload}>Subir</button>
+                        {message && <p>{message}</p>}
+                    </form>
+                    <div className='file-container'>
+                        {presupuestos.length > 0 ? (
+                            presupuestos.map((presupuesto) => (
+                                <div key={presupuesto.id_presupuesto_vt}>
+                                    <a href={presupuesto.url_presupuesto_vt} download>
+                                        <img
+                                            src={'../../img/pdf.png'}
+                                            alt='Imagen de'
+                                        />
+                                    </a>
+                                    <p>{presupuesto.desc_presupuesto_vt}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay presupuestos disponibles</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

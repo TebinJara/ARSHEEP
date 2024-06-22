@@ -57,7 +57,7 @@ export const getVisitasTecnicas = async (req, res) => {
                     desc_tipo_mantenimiento
                 )
                 `)
-            .order('id_tipo_mantenimiento',{ascending: true})
+            .order('id_tipo_mantenimiento', { ascending: true })
             .order('fec_programacion_vt', { ascending: true })
             .order('fec_creacion_vt', { ascending: false })
 
@@ -142,3 +142,43 @@ export const deleteVisitaTecnica = async (req, res) => {
         return res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
+
+export const uploadPdf = async (req, res) => {
+    const { id_vt } = req.body;
+
+    if (!req.file) {
+        return res.status(400).json({ error: 'No se ha proporcionado ningún archivo PDF' });
+    }
+    const file = req.file;
+
+    const fileName = `${id_vt}_presupuesto_visita_tecnica_${Date.now()}.pdf`;
+    const newPdfUrl = `https://niqxbeaxtqofvrboxnzb.supabase.co/storage/v1/object/public/presupuesto_vt/${fileName}`;
+
+    try {
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('presupuesto_vt')
+            .upload(fileName, file.buffer, {
+                contentType: 'application/pdf'
+            });
+
+        if (uploadError) {
+            console.error('Error al subir el archivo PDF a Supabase', uploadError);
+            return res.status(500).json({ error: 'Error al subir el archivo PDF a Supabase' });
+        }
+
+        const { error: insertError } = await supabase
+            .from('PRESUPUESTO_VISITA_TECNICA')
+            .insert({ url_presupuesto_vt: newPdfUrl, id_vt: id_vt ,desc_presupuesto_vt:fileName });
+
+        if (insertError) {
+            console.error('Error al insertar la URL del PDF en la base de datos', insertError);
+            throw new Error('Error al insertar la URL del PDF en la base de datos');
+        }
+
+        return res.json({ message: 'Archivo PDF subido y URL actualizada correctamente', newPdfUrl });
+    } catch (error) {
+        console.error('Error en el proceso de subida de archivo PDF', error);
+        return res.status(500).json({ error: error.message });
+    }
+};
+

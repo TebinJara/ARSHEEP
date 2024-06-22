@@ -17,7 +17,7 @@ export const createTipoMantenimiento = async (req, res) => {
     }
 };
 
-// Obtener todos los tipos de mantenimiento
+// Obtener todos los tipos de mantenimiento                 
 export const getTiposMantenimiento = async (req, res) => {
     try {
         const { data, error } = await supabase
