@@ -61,3 +61,13 @@ export const deleteOrdenTrabajo = async (id) => {
         return null;
     }
 };
+
+export const getOrdenTrabajoByIdvt = async (id) => {
+    try {
+        const response = await api.get(`/ordenestrabajo/vt/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener la orden de trabajo por ID_VT:', error.message);
+        return null;
+    }
+};

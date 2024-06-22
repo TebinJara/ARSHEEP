@@ -7,6 +7,7 @@ import { getEstablecimientos } from '../../../services/establecimientoService';
 import { getTiposMantenimiento } from '../../../services/tipoMantenimientoService';
 import { getEmpleados } from '../../../services/empleadoService';
 import { sendMailOTasignation } from '../../../services/emailService';
+import { getOrdenTrabajoByIdvt , createOrdenTrabajo} from '../../../services/ordenTrabajoService';
 
 export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     // Estado para mostrar un mensaje de éxito
@@ -17,6 +18,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     // Definición de estados locales para los diferentes campos de la visita técnica
 
     const [id_estado_vt, setIdEstadoVt] = useState('');
+    const [orden_trabajo, setOrdenTrabajo] = useState({ });
 
 
     //Definición Objeto a enviar
@@ -37,6 +39,7 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
     const [empleados, setEmpleados] = useState([]);
     const [establecimientos, setEstablecimientos] = useState([]);
     const [tipoMantenimiento, setTipoMantenimiento] = useState([]);
+    
 
 
     const handleChange = (e) => {
@@ -96,6 +99,16 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
         }
     };
 
+    const fetchOrdenTrabajo = async () => {
+        try {
+            const data = await getOrdenTrabajoByIdvt(visita.id_vt);
+            setOrdenTrabajo(data);
+            console.log('id orden trabajo' , data);
+        } catch (error) {
+            console.error('Error fetching OT_VT:', error);
+        }
+    };
+
     const fetchData = async () => {
         await fetchEmpleados();
         await fetchEstablecimientos();
@@ -139,10 +152,23 @@ export const GestionVisitaTecnica = ({ visita, setRefresh }) => {
             alert('¡Información actualizada con éxito!');
     
             if (id_estado_vt === 6) {
+                const dataot = {
+                    id_vt: visita.id_vt,
+                    desc_ot: `ORDEN DE TRABAJO PARA V.T. ${visita.id_vt}`,
+                    id_empleado: visita.id_empleado,                 
+
+                }
+                
+                await createOrdenTrabajo(dataot)
+                
+                const ot = getOrdenTrabajoByIdvt(dataot.id_vt);
+                setOrdenTrabajo(ot);
+                console.log('que wea trae', ot);
+
                 const correo = {
                     destinatario: visita.EMPLEADO.correo,
                     asunto: 'Asignación de Orden de Trabajo',
-                    texto: `Hola ${visita.EMPLEADO.pnombre}, se te ha asignado una nueva Orden de Trabajo, Numero .`
+                    texto: `Hola ${visita.EMPLEADO.pnombre}, se te ha asignado una nueva Orden de Trabajo, por la visita tecnica ${visita.id_vt}.`
                 };
                 try {
                     await sendMailOTasignation(correo);

@@ -207,3 +207,25 @@ export const deleteOrdenTrabajo = async (req, res) => {
     return res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+
+export const getOrdenTrabajoByIdvt = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json({ error: 'ID de orden de trabajo es requerido' });
+
+    const { data, error } = await supabase
+      .from('ORDEN_TRABAJO')
+      .select('*')
+      .eq('id_vt', id)
+      .single();
+
+    if (error) return res.status(400).json({ error });
+    if (!data) return res.status(404).json({ error: 'Orden de trabajo no encontrada' });
+
+    return res.json(data);
+  } catch (error) {
+    console.error('Error al obtener la orden de trabajo por ID:', error.message);
+    return res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
